@@ -1,0 +1,18 @@
+Entidades:
+		- Choferes
+		- Vehiculos
+		- Interfaz
+		- Usuario(Cliente/Administrador)
+		- Pedido/Solicitud de viaje
+Clases:
+	Abstractas:
+			- Vehiculo
+			- Persona
+			- Usuario
+			- Chofer
+			
+	Interfaz:	
+			- 
+
+	Concreta:
+			- 	
