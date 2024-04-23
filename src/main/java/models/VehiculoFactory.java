@@ -2,7 +2,7 @@ package models;
 
 public class VehiculoFactory {
 
-    public Vehiculo getVehiculo(String s, String patente) {
+    public IVehiculo getVehiculo(String s, String patente) {
         if (s == null) return null;
         if (s.equalsIgnoreCase("MOTO")) return new Moto(patente);
         if (s.equalsIgnoreCase("COMBI")) return new Combi(patente);
