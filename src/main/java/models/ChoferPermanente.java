@@ -16,7 +16,10 @@ public class ChoferPermanente extends Chofer {
 
     @Override
     public double getSueldo() {
-        // TODO Implement this method
-        return 0.0;
+        double salario = this.sueldo_basico;
+        salario += sueldo_basico * this.plus_x_antiguedad; // antiguedad va por año o total?
+        salario += sueldo_basico * (plus_x_hijo * cant_hijos); // hijos
+        salario *= (1-aportes);
+        return salario;
     }
 }

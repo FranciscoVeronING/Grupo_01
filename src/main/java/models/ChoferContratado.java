@@ -1,5 +1,7 @@
 package models;
 
+import java.util.ArrayList;
+
 public class ChoferContratado extends Empleado {
     private double ganancia_viaje;
     
@@ -10,7 +12,12 @@ public class ChoferContratado extends Empleado {
 
     @Override
     public double getSueldo() {
-        // TODO Implement this method
-        return 0.0;
+        double salario = 0;
+        Empresa e = Empresa.getInstancia();
+        ArrayList<Viaje> viajes = e.getViajesChofer(this);
+        for (Viaje viaje : viajes) {
+            salario += viaje.getCosto_viaje() * ganancia_viaje;
+        }
+        return salario;
     }
 }

@@ -7,7 +7,6 @@ protected double aportes;
 
 
     public Chofer(String dni, String nombre, double sueldo_basico, double aportes) {
-        // TODO Implement this method
         super(dni, nombre);
         this.aportes = aportes;
         this.sueldo_basico = sueldo_basico;

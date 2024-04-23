@@ -1,6 +1,7 @@
 package models;
 
 public interface  IVehiculo {
-  public int getPrioridad(Pedido pedido);
+  public Integer getPrioridad(Pedido pedido);
+  public boolean validarVehiculo(Pedido pedido);
   
 }

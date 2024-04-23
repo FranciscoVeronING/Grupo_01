@@ -1,13 +1,16 @@
 package models;
 
 public class Moto extends Vehiculo {
-    public Moto() {
-        super();
+    public Moto(String patente) {
+        super(patente, 1, false, false);
     }
 
     @Override
-    public int getPrioridad(Pedido pedido) {
-        // TODO Implement this method
-        return 0;
+    public Integer getPrioridad(Pedido pedido) {
+        int puntaje = 0;
+        if (!(validarVehiculo(pedido))) return null;
+        if (pedido.getCant_pasajeros() == 1 && !pedido.isEquipaje() && !pedido.isMascota()) puntaje = 1000;
+        else puntaje = 30;
+        return Integer.valueOf(puntaje);
     }
 }

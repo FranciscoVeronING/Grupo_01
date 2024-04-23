@@ -10,4 +10,16 @@ public abstract class Empleado {
         this.nombre = nombre;
     }
     public abstract double getSueldo();
+
+    public String getDni() {
+        return dni;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public int getCant_viajes() {
+        return cant_viajes;
+    }
 }
