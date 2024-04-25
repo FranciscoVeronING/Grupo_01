@@ -14,13 +14,27 @@ public abstract class Vehiculo implements IVehiculo{
         this.baul = baul;
     }
 
+    public boolean validarBaul(Pedido pedido) {
+        if (this.baul) return true;
+        if (!this.baul && pedido.isEquipaje()) return false;
+        else return true;
+    }
+
+    public boolean validarPF(Pedido pedido) {
+        if (this.petfriendly) return true;
+        if (!this.petfriendly && pedido.isMascota()) return false;
+        else return true;
+    }
+
+    public boolean validarPax(Pedido pedido) {
+        return this.cant_max_pasajeros >= pedido.getCant_pasajeros();
+    }
+
     public boolean validarVehiculo(Pedido pedido) {
-        /* validar con patron template
-        Verifica cantidad Pasajeros
-        Verifica Uso de Baul
-        Verifica Transporte de Mascota
-        */
-        return true;
+        boolean petFriendly = validarPF(pedido);
+        boolean baul = validarBaul(pedido);
+        boolean pax = validarPax(pedido);
+        return petFriendly && baul && pax;
     }
 
     public String getPatente() {

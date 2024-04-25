@@ -5,10 +5,11 @@ private double costo_viaje;
 private double distancia;
 private String estado_de_viaje;
 private Pedido pedido;
-private Chofer chofer;
+private Empleado chofer;
+private Vehiculo vehiculo;
 
 
-    public Viaje( Pedido pedido) {
+    public Viaje(Pedido pedido) {
         this.estado_de_viaje = "Solicitado";
         this.pedido = pedido;
     }
@@ -38,14 +39,27 @@ private Chofer chofer;
     }
 
     public void setEstado_de_viaje(String estado_de_viaje) {
-        this.estado_de_viaje = estado_de_viaje;
+        if (estado_de_viaje.equalsIgnoreCase("Solicitado") || estado_de_viaje.equalsIgnoreCase("iniciado") || estado_de_viaje.equalsIgnoreCase("pagado") || estado_de_viaje.equalsIgnoreCase("finalizado"))
+            this.estado_de_viaje = estado_de_viaje;
     }
 
     public String getEstado_de_viaje() {
         return estado_de_viaje;
     }
   
-  public Chofer getChofer() {
+    public Empleado getChofer() {
         return chofer;
   }
+
+    public void setChofer(Empleado chofer) {
+        this.chofer = chofer;
+    }
+
+    public Vehiculo getVehiculo() {
+        return vehiculo;
+    }
+
+    public void setVehiculo(Vehiculo vehiculo) {
+        this.vehiculo = vehiculo;
+    }
 }
