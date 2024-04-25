@@ -5,8 +5,9 @@ public abstract class Vehiculo implements IVehiculo{
     protected int cant_max_pasajeros;
     protected boolean petfriendly;
     protected boolean baul;
-    
-    public Vehiculo() {
-        super();
+
+
+    public Vehiculo(String patente) {
+        this.patente = patente;
     }
 }
