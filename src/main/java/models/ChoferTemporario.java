@@ -10,7 +10,9 @@ public class ChoferTemporario extends Chofer {
 
     @Override
     public double getSueldo() {
-        // TODO Implement this method
-        return 0.0;
+        double salario = sueldo_basico;
+        salario *= (1 + plus_x_cant_viajes * getCant_viajes());
+        salario *= (1 - aportes);
+        return salario;
     }
 }

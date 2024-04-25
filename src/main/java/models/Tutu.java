@@ -1,49 +1,16 @@
 package models;
 
 public class Tutu extends Vehiculo {
-
     public Tutu(String patente) {
-        super(patente);
-        this.setBaul();
-        this.setPetfriendly();
-        this.setCant_max_pasajeros();
-    }
-
-    public String getPatente() {
-        return patente;
-    }
-
-    public void setPatente(String patente) {
-        this.patente = patente;
-    }
-
-    public int getCant_max_pasajeros() {
-        return cant_max_pasajeros;
-    }
-
-    public void setCant_max_pasajeros() {
-        this.cant_max_pasajeros = 4;
-    }
-
-    public boolean isPetfriendly() {
-        return petfriendly;
-    }
-
-    public void setPetfriendly() {
-        this.petfriendly = true;
-    }
-
-    public boolean isBaul() {
-        return baul;
-    }
-
-    public void setBaul() {
-        this.baul = true;
+        super(patente, 4, true, true);
     }
 
     @Override
-    public int getPrioridad(Pedido pedido) {
-        // TODO Implement this method
-        return 0;
+    public Integer getPrioridad(Pedido pedido) {
+        int puntaje = 0;
+        if (!(validarVehiculo(pedido))) return null;
+        if (pedido.isEquipaje()) puntaje = 40 * pedido.getCant_pasajeros();
+        else puntaje = 30;
+        return Integer.valueOf(puntaje);
     }
 }

@@ -5,6 +5,8 @@ private double costo_viaje;
 private double distancia;
 private String estado_de_viaje;
 private Pedido pedido;
+private Chofer chofer;
+
 
     public Viaje( Pedido pedido) {
         this.estado_de_viaje = "Solicitado";
@@ -42,4 +44,8 @@ private Pedido pedido;
     public String getEstado_de_viaje() {
         return estado_de_viaje;
     }
+  
+  public Chofer getChofer() {
+        return chofer;
+  }
 }

@@ -1,48 +1,16 @@
 package models;
 
 public class Moto extends Vehiculo {
-
     public Moto(String patente) {
-        super(patente);
-        this.setBaul();
-        this.setPetfriendly();
-        this.setCant_max_pasajeros();
+        super(patente, 1, false, false);
     }
 
-    public String getPatente() {
-        return patente;
-    }
-
-    public void setPatente(String patente) {
-        this.patente = patente;
-    }
-
-    public int getCant_max_pasajeros() {
-        return cant_max_pasajeros;
-    }
-
-    public void setCant_max_pasajeros() {
-        this.cant_max_pasajeros = 1;
-    }
-
-    public boolean isPetfriendly() {
-        return petfriendly;
-    }
-
-    public void setPetfriendly() {
-        this.petfriendly = false;
-    }
-
-    public boolean isBaul() {
-        return baul;
-    }
-
-    public void setBaul() {
-        this.baul = false;
-    }
     @Override
-    public int getPrioridad(Pedido pedido) {
-        // TODO Implement this method
-        return 0;
+    public Integer getPrioridad(Pedido pedido) {
+        int puntaje = 0;
+        if (!(validarVehiculo(pedido))) return null;
+        if (pedido.getCant_pasajeros() == 1 && !pedido.isEquipaje() && !pedido.isMascota()) puntaje = 1000;
+        else puntaje = 30;
+        return Integer.valueOf(puntaje);
     }
 }
