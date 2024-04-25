@@ -4,6 +4,7 @@ public abstract class Empleado {
     protected String dni;
     protected String nombre;
     private int cant_viajes;
+    protected boolean ocupado;
   
     public Empleado(String dni,String nombre) {
         this.dni = dni;
@@ -21,5 +22,13 @@ public abstract class Empleado {
 
     public int getCant_viajes() {
         return cant_viajes;
+    }
+
+    public boolean isOcupado() {
+        return ocupado;
+    }
+
+    public void setOcupado(boolean ocupado) {
+        this.ocupado = ocupado;
     }
 }
