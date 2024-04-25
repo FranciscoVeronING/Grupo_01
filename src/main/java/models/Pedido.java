@@ -10,6 +10,15 @@ public class Pedido {
     private boolean equipaje;
     private Cliente cilente;
 
+    public Pedido(Date fecha, Zona zona, boolean mascota, int cant_pasajeros, boolean equipaje, Cliente cilente) {
+        this.fecha = fecha;
+        this.zona = zona;
+        this.mascota = mascota;
+        this.cant_pasajeros = cant_pasajeros;
+        this.equipaje = equipaje;
+        this.cilente = cilente;
+    }
+
     public Date getFecha() {
         return fecha;
     }

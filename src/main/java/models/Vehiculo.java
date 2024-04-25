@@ -37,5 +37,6 @@ public abstract class Vehiculo implements IVehiculo{
 
     public boolean isBaul() {
         return baul;
+
     }
 }
