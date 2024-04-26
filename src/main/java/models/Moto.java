@@ -10,7 +10,6 @@ public class Moto extends Vehiculo {
         int puntaje = 0;
         if (!(validarVehiculo(pedido))) return null;
         if (pedido.getCant_pasajeros() == 1 && !pedido.isEquipaje() && !pedido.isMascota()) puntaje = 1000;
-        else puntaje = 30;
         return Integer.valueOf(puntaje);
     }
 }
