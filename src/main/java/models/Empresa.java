@@ -10,15 +10,15 @@ public class Empresa {
     private static Empresa _instancia = null;
 
     private ArrayList<Empleado> choferes;
-    private ArrayList<Vehiculo> vehiculos;
+    private ArrayList<IVehiculo> vehiculos;
     private ArrayList<Cliente> clientes;
-    private ArrayList<Viaje> viajes;
+    private ArrayList<IViaje> viajes;
 
     private Empresa() {
-        this.choferes = new ArrayList<Chofer>();
-        this.vehiculos = new ArrayList<Vehiculo>();
+        this.choferes = new ArrayList<Empleado>();
+        this.vehiculos = new ArrayList<IVehiculo>();
         this.clientes = new ArrayList<Cliente>();
-        this.viajes = new ArrayList<Viaje>();
+        this.viajes = new ArrayList<IViaje>();
     }
 
     public static Empresa getInstancia() {
@@ -27,19 +27,19 @@ public class Empresa {
         return _instancia;
     }
 
-    public ArrayList<Viaje> getViajesChofer(Empleado chofer) {
-        ArrayList<Viaje> viajesChofer = new ArrayList<Viaje>();
-        for (Viaje viaje : viajes) if (chofer == viaje.getChofer()) viajesChofer.add(viaje);
+    public ArrayList<IViaje> getViajesChofer(Empleado chofer) {
+        ArrayList<IViaje> viajesChofer = new ArrayList<IViaje>();
+        for (IViaje viaje : viajes) if (chofer == viaje.getChofer()) viajesChofer.add(viaje);
         return viajesChofer;
     }
 
     private Viaje asignarPedidoVehiculo(Pedido pedido) throws VehiculoNoDisponibleException {
         Viaje viaje = new Viaje(pedido);
-        Iterator<Vehiculo> it = this.vehiculos.iterator();
+        Iterator<IVehiculo> it = this.vehiculos.iterator();
 
         int maxP = 0;
         while (it.hasNext()) {
-            Vehiculo v = it.next();
+            IVehiculo v = it.next();
             if (v.getPrioridad(pedido) > maxP) {
                 maxP = v.getPrioridad(pedido);
                 viaje.setVehiculo(v);
@@ -49,7 +49,7 @@ public class Empresa {
         return viaje;
     }
 
-    private Viaje asignarViajeChofer(Viaje viaje) throws ChoferNoDisponibleException {
+    private IViaje asignarViajeChofer(IViaje viaje) throws ChoferNoDisponibleException {
         Iterator<Empleado> it = this.choferes.iterator();
         while (it.hasNext() && viaje.getChofer() == null) {
             Empleado c = it.next();
