@@ -4,14 +4,17 @@ public abstract class Chofer extends Empleado {
 
 protected double sueldo_basico;
 protected double aportes;
+protected static int cant_calif = 0;
+protected static int acum_calif = 0;
+protected int calificacion_clientes;
 
 
     public Chofer(String dni, String nombre, double sueldo_basico, double aportes) {
         super(dni, nombre);
-        this.aportes = aportes;
         this.sueldo_basico = sueldo_basico;
+        this.aportes = aportes;
+        this.calificacion_clientes = 0;
     }
-
 
     protected void setSueldo_basico(double sueldo_basico) {
         this.sueldo_basico = sueldo_basico;
@@ -29,4 +32,13 @@ protected double aportes;
         return aportes;
     }
 
+    public int getCalificacion_clientes() {
+        return calificacion_clientes;
+    }
+
+    public void setCalificacion_clientes(int calificacion_clientes) {
+        cant_calif++;
+        acum_calif += calificacion_clientes;
+        this.calificacion_clientes = acum_calif/cant_calif;
+    }
 }
