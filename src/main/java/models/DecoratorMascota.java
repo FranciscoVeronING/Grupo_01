@@ -3,6 +3,10 @@ package models;
 public class DecoratorMascota implements IViaje {
     IViaje encapsulado;
 
+    public DecoratorMascota(IViaje encapsulado) {
+        this.encapsulado = encapsulado;
+    }
+
     @Override
     public double getCosto_viaje() {
         return encapsulado.getCosto_viaje();

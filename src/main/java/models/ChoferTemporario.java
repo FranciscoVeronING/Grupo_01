@@ -3,8 +3,9 @@ package models;
 public class ChoferTemporario extends Chofer {
  private double plus_x_cant_viajes;
 
-    public ChoferTemporario(String dni, String nombre, double sueldo_basico, double aportes) {
-        super(dni, nombre, sueldo_basico, aportes);
+    public ChoferTemporario(String dni, String nombre, double aportes, double plusCantViajes) {
+        super(dni, nombre, aportes);
+        this.plus_x_cant_viajes = plusCantViajes;
     }
 
 
@@ -14,5 +15,12 @@ public class ChoferTemporario extends Chofer {
         salario *= (1 + plus_x_cant_viajes * getCant_viajes());
         salario *= (1 - aportes);
         return salario;
+    }
+
+    @Override
+    public String toString() {
+        return "ChoferTemporario{" +
+                "plus_x_cant_viajes=" + plus_x_cant_viajes +
+                super.toString();
     }
 }

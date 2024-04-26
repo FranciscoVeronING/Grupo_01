@@ -42,4 +42,15 @@ public class Pedido {
     public Cliente getCilente() {
         return cilente;
     }
+
+    @Override
+    public String toString() {
+        return "Pedido{" +
+                ", zona='" + zona + '\'' +
+                ", mascota=" + mascota +
+                ", cant_pasajeros=" + cant_pasajeros +
+                ", equipaje=" + equipaje +
+                ", cilente=" + cilente +
+                '}';
+    }
 }

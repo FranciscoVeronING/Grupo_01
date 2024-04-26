@@ -9,9 +9,9 @@ protected static int acum_calif = 0;
 protected int calificacion_clientes;
 
 
-    public Chofer(String dni, String nombre, double sueldo_basico, double aportes) {
+    public Chofer(String dni, String nombre, double aportes) {
         super(dni, nombre);
-        this.sueldo_basico = sueldo_basico;
+        this.sueldo_basico = 1000;
         this.aportes = aportes;
         this.calificacion_clientes = 0;
     }
@@ -40,5 +40,13 @@ protected int calificacion_clientes;
         cant_calif++;
         acum_calif += calificacion_clientes;
         this.calificacion_clientes = acum_calif/cant_calif;
+    }
+
+    @Override
+    public String toString() {
+        return "sueldo_basico=" + sueldo_basico +
+                ", aportes=" + aportes +
+                ", calificacion_clientes=" + calificacion_clientes +
+                super.toString();
     }
 }

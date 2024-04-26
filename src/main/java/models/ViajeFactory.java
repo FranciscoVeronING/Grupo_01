@@ -2,7 +2,7 @@ package models;
 
 public class ViajeFactory {
 
-    public static Viaje getViaje(Pedido pedido) {
+    public static IViaje getViaje(Pedido pedido) {
         IViaje respuesta = new Viaje(pedido);
 
         // Genero viaje segun su zona
@@ -16,5 +16,7 @@ public class ViajeFactory {
         if (pedido.isMascota()) respuesta = new DecoratorMascota(respuesta);
 
         if (pedido.isEquipaje()) respuesta = new DecoratorMascota(respuesta);
+
+        return respuesta;
     }
 }

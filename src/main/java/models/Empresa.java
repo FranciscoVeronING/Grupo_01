@@ -63,4 +63,35 @@ public class Empresa {
         return viaje;
     }
 
+    public void agregarChofer(Empleado c) {
+        this.choferes.add(c);
+    }
+
+    public void agregarVehiculo(IVehiculo v) {
+        this.vehiculos.add(v);
+    }
+
+    public void agregarViaje(IViaje v) {
+        this.viajes.add(v);
+    }
+
+    public void agregarCliente(Cliente c) {
+        this.clientes.add(c);
+    }
+
+    public ArrayList<Empleado> getChoferes() {
+        return choferes;
+    }
+
+    public ArrayList<IVehiculo> getVehiculos() {
+        return vehiculos;
+    }
+
+    public ArrayList<Cliente> getClientes() {
+        return clientes;
+    }
+
+    public ArrayList<IViaje> getViajes() {
+        return viajes;
+    }
 }

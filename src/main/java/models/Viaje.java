@@ -76,4 +76,17 @@ public class Viaje implements IViaje {
     public void setCosto_base(double costo_base) {
         this.costo_base = costo_base;
     }
+
+    @Override
+    public String toString() {
+        return "Viaje{" +
+                "costo_base=" + costo_base +
+                ", costo_viaje=" + costo_viaje +
+                ", distancia=" + distancia +
+                ", estado_de_viaje='" + estado_de_viaje + '\'' +
+                ", pedido=" + pedido +
+                ", chofer=" + chofer +
+                ", vehiculo=" + vehiculo +
+                '}';
+    }
 }

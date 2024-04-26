@@ -6,8 +6,9 @@ public class ChoferContratado extends Empleado {
     private double ganancia_viaje;
     
     
-    public ChoferContratado(String string, String string1) {
+    public ChoferContratado(String string, String string1, double ganancia) {
         super(string, string1);
+        this.ganancia_viaje = ganancia;
     }
 
     @Override
@@ -19,5 +20,12 @@ public class ChoferContratado extends Empleado {
             salario += viaje.getCosto_viaje() * ganancia_viaje;
         }
         return salario;
+    }
+
+    @Override
+    public String toString() {
+        return "ChoferContratado{" +
+                "ganancia_viaje=" + ganancia_viaje +
+                super.toString();
     }
 }

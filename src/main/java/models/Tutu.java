@@ -13,4 +13,9 @@ public class Tutu extends Vehiculo {
         else puntaje = 30;
         return Integer.valueOf(puntaje);
     }
+
+    @Override
+    public String toString() {
+        return "Tutu " + super.toString();
+    }
 }

@@ -9,8 +9,11 @@ public class ChoferPermanente extends Chofer {
     private double plus_x_antiguedad; 
     private double plus_x_hijo;
 
-    public ChoferPermanente(String dni, String nombre, double sueldo_basico, double aportes) {
-        super(dni, nombre, sueldo_basico, aportes);
+    public ChoferPermanente(String dni, String nombre, double aportes, double plusA, double plusH) {
+        super(dni, nombre, aportes);
+        this.plus_x_antiguedad = plusA;
+        this.plus_x_hijo = plusH;
+        this.cant_hijos = 0; // CAMBIAR
     }
 
 
@@ -21,5 +24,15 @@ public class ChoferPermanente extends Chofer {
         salario += sueldo_basico * (plus_x_hijo * cant_hijos); // hijos
         salario *= (1-aportes);
         return salario;
+    }
+
+    @Override
+    public String toString() {
+        return "ChoferPermanente{" +
+                "cant_hijos=" + cant_hijos +
+                ", fecha_ingreso=" + fecha_ingreso +
+                ", plus_x_antiguedad=" + plus_x_antiguedad +
+                ", plus_x_hijo=" + plus_x_hijo +
+                super.toString();
     }
 }

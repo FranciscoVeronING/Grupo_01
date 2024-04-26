@@ -37,6 +37,10 @@ public class Cliente {
         this.viajes = new ArrayList<Viaje>();
     }
 
+    public Cliente(String nombre) {
+        this.nombre = nombre;
+    }
+
     public String getNombre() {
         return nombre;
     }
