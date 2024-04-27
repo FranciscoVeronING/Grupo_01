@@ -42,6 +42,7 @@ public class Cliente {
     }
 
     public void setNombre(String nombre) {
+
         this.nombre = nombre;
     }
 
@@ -66,6 +67,7 @@ public class Cliente {
     }
 
     public void setNombre_usuario(String nombre_usuario) {
+
         this.nombre_usuario = nombre_usuario;
     }
 
