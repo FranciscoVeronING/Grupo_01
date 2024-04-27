@@ -33,23 +33,25 @@ public class Empresa {
         return viajesChofer;
     }
 
-    private Viaje asignarPedidoVehiculo(Pedido pedido) throws VehiculoNoDisponibleException {
-        Viaje viaje = new Viaje(pedido);
+    public IViaje asignarPedidoVehiculo(Pedido pedido) throws VehiculoNoDisponibleException {
+        IViaje viaje = ViajeFactory.getViaje(pedido);
         Iterator<IVehiculo> it = this.vehiculos.iterator();
 
         int maxP = 0;
         while (it.hasNext()) {
             IVehiculo v = it.next();
-            if (v.getPrioridad(pedido) > maxP) {
+            Integer prioridad = v.getPrioridad(pedido);
+            if (prioridad != null && prioridad > maxP) {
                 maxP = v.getPrioridad(pedido);
                 viaje.setVehiculo(v);
             }
         }
         if (viaje.getVehiculo() == null) throw new VehiculoNoDisponibleException();
+        else agregarViaje(viaje);
         return viaje;
     }
 
-    private IViaje asignarViajeChofer(IViaje viaje) throws ChoferNoDisponibleException {
+    public IViaje asignarViajeChofer(IViaje viaje) throws ChoferNoDisponibleException {
         Iterator<Empleado> it = this.choferes.iterator();
         while (it.hasNext() && viaje.getChofer() == null) {
             Empleado c = it.next();

@@ -13,8 +13,8 @@ public class DecoratorEquipaje implements IViaje {
     }
 
     @Override
-    public void setCosto_viaje(double costo_viaje) {
-        encapsulado.setCosto_viaje(costo_viaje);
+    public void setCosto_viaje(double val) {
+        encapsulado.setCosto_viaje(val);
     }
 
     @Override
@@ -78,10 +78,16 @@ public class DecoratorEquipaje implements IViaje {
     }
 
     @Override
-    public double calcularCostoViaje() {
-        double base = getCosto_base();
+    public void calcularCostoViaje() {
+        encapsulado.calcularCostoViaje();
+        double base = encapsulado.getCosto_viaje();
         double aumentoPax = getCosto_base() * getPedido().getCant_pasajeros() * 0.1;
         double aumentoKm = getCosto_viaje() * getDistancia() * 0.05;
-        return base + aumentoKm + aumentoPax;
+        setCosto_viaje(base + aumentoKm + aumentoPax);
+    }
+
+    @Override
+    public String toString() {
+        return encapsulado.toString() + " con equipaje ";
     }
 }

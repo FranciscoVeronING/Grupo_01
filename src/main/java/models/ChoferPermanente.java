@@ -28,8 +28,8 @@ public class ChoferPermanente extends Chofer {
 
     @Override
     public String toString() {
-        return "ChoferPermanente{" +
-                "cant_hijos=" + cant_hijos +
+        return "ChoferPermanente {" +
+                " cant_hijos=" + cant_hijos +
                 ", fecha_ingreso=" + fecha_ingreso +
                 ", plus_x_antiguedad=" + plus_x_antiguedad +
                 ", plus_x_hijo=" + plus_x_hijo +

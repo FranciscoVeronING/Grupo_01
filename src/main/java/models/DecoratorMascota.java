@@ -13,9 +13,10 @@ public class DecoratorMascota implements IViaje {
     }
 
     @Override
-    public void setCosto_viaje(double costo_viaje) {
-        encapsulado.setCosto_viaje(costo_viaje);
+    public void setCosto_viaje(double val) {
+        encapsulado.setCosto_viaje(val);
     }
+
 
     @Override
     public double getDistancia() {
@@ -78,10 +79,16 @@ public class DecoratorMascota implements IViaje {
     }
 
     @Override
-    public double calcularCostoViaje() {
-        double base = getCosto_base();
+    public void calcularCostoViaje() {
+        encapsulado.calcularCostoViaje();
+        double base = encapsulado.getCosto_viaje();
         double aumentoPax = getCosto_base() * getPedido().getCant_pasajeros() * 0.1;
-        double aumentoKm = getCosto_viaje() * getDistancia() * 0.2;
-        return 0;
+        double aumentoKm = getCosto_base() * getDistancia() * 0.2;
+        encapsulado.setCosto_viaje(base + aumentoKm + aumentoPax);
+    }
+
+    @Override
+    public String toString() {
+        return encapsulado.toString() + " con mascota ";
     }
 }

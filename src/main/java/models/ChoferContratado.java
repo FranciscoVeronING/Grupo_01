@@ -24,8 +24,8 @@ public class ChoferContratado extends Empleado {
 
     @Override
     public String toString() {
-        return "ChoferContratado{" +
-                "ganancia_viaje=" + ganancia_viaje +
+        return "ChoferContratado {" +
+                " ganancia_viaje=" + ganancia_viaje +
                 super.toString();
     }
 }

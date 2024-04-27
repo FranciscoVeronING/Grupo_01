@@ -2,7 +2,7 @@ package models;
 
 public interface IViaje {
     public double getCosto_viaje();
-    public void setCosto_viaje(double costo_viaje);
+    public void setCosto_viaje(double valor);
     public double getDistancia();
     public void setDistancia(double distancia);
     public Pedido getPedido();
@@ -15,6 +15,6 @@ public interface IViaje {
     public void setVehiculo(IVehiculo vehiculo);
     public void setCosto_base(double costo_base);
     public double getCosto_base();
-    public double calcularCostoViaje();
+    public void calcularCostoViaje();
 
 }

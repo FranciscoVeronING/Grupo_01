@@ -44,7 +44,7 @@ protected int calificacion_clientes;
 
     @Override
     public String toString() {
-        return "sueldo_basico=" + sueldo_basico +
+        return " sueldo_basico=" + sueldo_basico +
                 ", aportes=" + aportes +
                 ", calificacion_clientes=" + calificacion_clientes +
                 super.toString();

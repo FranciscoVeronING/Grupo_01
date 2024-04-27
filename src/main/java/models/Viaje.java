@@ -20,8 +20,9 @@ public class Viaje implements IViaje {
         return costo_viaje;
     }
 
+    @Override
     public void setCosto_viaje(double costo_viaje) {
-        this.costo_viaje = calcularCostoViaje();
+        this.costo_viaje = costo_viaje;
     }
 
     public double getDistancia() {
@@ -65,8 +66,8 @@ public class Viaje implements IViaje {
         this.vehiculo = vehiculo;
     }
 
-    public double calcularCostoViaje() {
-        return costo_base;
+    public void calcularCostoViaje() {
+        this.costo_viaje = costo_base;
     }
 
     public double getCosto_base() {
@@ -79,14 +80,6 @@ public class Viaje implements IViaje {
 
     @Override
     public String toString() {
-        return "Viaje{" +
-                "costo_base=" + costo_base +
-                ", costo_viaje=" + costo_viaje +
-                ", distancia=" + distancia +
-                ", estado_de_viaje='" + estado_de_viaje + '\'' +
-                ", pedido=" + pedido +
-                ", chofer=" + chofer +
-                ", vehiculo=" + vehiculo +
-                '}';
+        return "Viaje ($ " + costo_viaje + ")";
     }
 }

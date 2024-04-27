@@ -15,7 +15,7 @@ public class ViajeFactory {
 
         if (pedido.isMascota()) respuesta = new DecoratorMascota(respuesta);
 
-        if (pedido.isEquipaje()) respuesta = new DecoratorMascota(respuesta);
+        if (pedido.isEquipaje()) respuesta = new DecoratorEquipaje(respuesta);
 
         return respuesta;
     }

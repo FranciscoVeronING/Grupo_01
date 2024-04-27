@@ -13,8 +13,8 @@ public abstract class DecoratorZonas implements IViaje {
     }
 
     @Override
-    public void setCosto_viaje(double costo_viaje) {
-        encapsulado.setCosto_viaje(costo_viaje);
+    public void setCosto_viaje(double val) {
+        encapsulado.setCosto_viaje(val);
     }
 
     @Override
@@ -75,5 +75,10 @@ public abstract class DecoratorZonas implements IViaje {
     @Override
     public double getCosto_base() {
         return encapsulado.getCosto_base();
+    }
+
+    @Override
+    public void calcularCostoViaje() {
+        encapsulado.calcularCostoViaje();
     }
 }

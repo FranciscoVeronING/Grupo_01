@@ -39,9 +39,9 @@ public class Prueba {
         e.agregarCliente(c1);
         e.agregarCliente(c2);
 
-        Empleado choferTemporario = new ChoferTemporario("12345678", "Maria", 0.1, 0.1);
-        Empleado choferPermanente = new ChoferPermanente("98746532", "Juan", 0.1, 0.1, 0.1);
-        Empleado choferContratado = new ChoferContratado("77446688", "Pepe", 0.0);
+        Empleado choferTemporario = new ChoferTemporario("12345678", "Maria", 0, 0);
+        Empleado choferPermanente = new ChoferPermanente("98746532", "Juan", 0, 0, 0);
+        Empleado choferContratado = new ChoferContratado("77446688", "Pepe", 0);
 
         e.agregarChofer(choferContratado);
         e.agregarChofer(choferTemporario);
@@ -55,6 +55,23 @@ public class Prueba {
         Pedido p2 = new Pedido(new Date(), "PELIGROSA", false, 1, false, c2);
         Pedido p3 = new Pedido(new Date(), "ESTANDAR", false, 1, false, c1);
 
+        try {
+            IViaje v1 = e.asignarPedidoVehiculo(p1);
+            IViaje v2 = e.asignarPedidoVehiculo(p2);
+            IViaje v3 = e.asignarPedidoVehiculo(p3);
 
+            e.asignarViajeChofer(v1);
+            e.asignarViajeChofer(v2);
+            e.asignarViajeChofer(v3);
+        }
+        catch (VehiculoNoDisponibleException | ChoferNoDisponibleException ex ) {
+            System.out.println(ex.getMessage());
+        }
+
+        System.out.println("\nVIAJES\n");
+        for (IViaje v : e.getViajes()) {
+            v.calcularCostoViaje();
+            System.out.println(v);
+        }
     }
 }

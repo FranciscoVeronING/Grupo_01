@@ -19,8 +19,8 @@ public class ChoferTemporario extends Chofer {
 
     @Override
     public String toString() {
-        return "ChoferTemporario{" +
-                "plus_x_cant_viajes=" + plus_x_cant_viajes +
+        return "ChoferTemporario {" +
+                " plus_x_cant_viajes=" + plus_x_cant_viajes +
                 super.toString();
     }
 }
