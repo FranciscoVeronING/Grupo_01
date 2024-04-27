@@ -31,4 +31,13 @@ public abstract class Empleado {
     public void setOcupado(boolean ocupado) {
         this.ocupado = ocupado;
     }
+
+    @Override
+    public String toString() {
+        return  "dni='" + dni + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", cant_viajes=" + cant_viajes +
+                ", ocupado=" + ocupado +
+                '}';
+    }
 }

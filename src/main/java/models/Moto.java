@@ -12,4 +12,9 @@ public class Moto extends Vehiculo {
         if (pedido.getCant_pasajeros() == 1 && !pedido.isEquipaje() && !pedido.isMascota()) puntaje = 1000;
         return Integer.valueOf(puntaje);
     }
+
+    @Override
+    public String toString() {
+        return "Moto " + super.toString();
+    }
 }
