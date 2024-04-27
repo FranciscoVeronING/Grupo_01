@@ -65,6 +65,18 @@ public class Empresa {
         return viaje;
     }
 
+    //GETSUELDOMENSUAL Y GETSUELDOSTOTALES DEBE IR EN ADMINISTRADOR
+    public double getSueldoMensual(int i){
+        return this.choferes.get(i).getSueldo();
+    }
+    public double getSueldosTotales(){
+        double sueldo = 0;
+        for (Empleado c : this.choferes) {
+            sueldo += c.getSueldo();
+        }
+        return sueldo;
+    }
+
     public void agregarChofer(Empleado c) {
         this.choferes.add(c);
     }
@@ -83,6 +95,10 @@ public class Empresa {
 
     public ArrayList<Empleado> getChoferes() {
         return choferes;
+    }
+
+    public Chofer getChofer(int i){
+        return (Chofer) this.choferes.get(i);
     }
 
     public ArrayList<IVehiculo> getVehiculos() {

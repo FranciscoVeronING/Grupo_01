@@ -73,5 +73,14 @@ public class Prueba {
             v.calcularCostoViaje();
             System.out.println(v);
         }
+
+
+        int sueldo = 0;
+        for(int i = 0; i < e.getChoferes().size(); i++){
+            System.out.println("El sueldo de " + e.getChofer(i) + " es " + e.getSueldoMensual(i));
+        }
+
+        System.out.println("El sueldo total de los choferes es: " + e.getSueldosTotales());
+
     }
 }
