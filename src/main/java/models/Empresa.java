@@ -1,5 +1,8 @@
 package models;
 
+import Exception.FaltaDeChoferException;
+import Exception.FaltaDeVehiculoException;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -33,7 +36,7 @@ public class Empresa {
         return viajesChofer;
     }
 
-    private Viaje asignarPedidoVehiculo(Pedido pedido) throws VehiculoNoDisponibleException {
+    private Viaje asignarPedidoVehiculo(Pedido pedido) throws FaltaDeVehiculoException {
         Viaje viaje = new Viaje(pedido);
         Iterator<Vehiculo> it = this.vehiculos.iterator();
 
@@ -45,11 +48,11 @@ public class Empresa {
                 viaje.setVehiculo(v);
             }
         }
-        if (viaje.getVehiculo() == null) throw new VehiculoNoDisponibleException();
+        if (viaje.getVehiculo() == null) throw new FaltaDeVehiculoException("Falta de vehiculos disponibles");
         return viaje;
     }
 
-    private Viaje asignarViajeChofer(Viaje viaje) throws ChoferNoDisponibleException {
+    private Viaje asignarViajeChofer(Viaje viaje) throws FaltaDeChoferException {
         Iterator<Empleado> it = this.choferes.iterator();
         while (it.hasNext() && viaje.getChofer() == null) {
             Empleado c = it.next();
@@ -59,7 +62,7 @@ public class Empresa {
                 viaje.setEstado_de_viaje("iniciado");
             }
         }
-        if (viaje.getChofer() == null) throw new ChoferNoDisponibleException();
+        if (viaje.getChofer() == null) throw new FaltaDeChoferException("Falta de choferes disponibles");
         return viaje;
     }
 
