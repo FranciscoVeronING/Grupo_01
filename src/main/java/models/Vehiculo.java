@@ -1,7 +1,9 @@
 package models;
 
 
-public abstract class Vehiculo implements IVehiculo{   
+import Exception.PedidoIncoherenteException;
+
+public abstract class Vehiculo implements IVehiculo{
     protected String patente;
     protected int cant_max_pasajeros;
     protected boolean petfriendly;
@@ -34,7 +36,9 @@ public abstract class Vehiculo implements IVehiculo{
         boolean petFriendly = validarPF(pedido);
         boolean baul = validarBaul(pedido);
         boolean pax = validarPax(pedido);
-        return petFriendly && baul && pax;
+        if (petFriendly && baul && pax) {
+            return petFriendly && baul && pax;
+        }else return throw new PedidoIncoherenteException("El pedido es incoherente");
     }
 
     public String getPatente() {
