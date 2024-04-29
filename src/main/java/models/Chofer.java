@@ -36,6 +36,10 @@ protected int calificacion_clientes;
         return calificacion_clientes;
     }
 
+    public void finalizaViaje(Viaje viaje){
+        viaje.setEstado_de_viaje("finalizado");
+    }
+
     public void setCalificacion_clientes(int calificacion_clientes) {
         cant_calif++;
         acum_calif += calificacion_clientes;
