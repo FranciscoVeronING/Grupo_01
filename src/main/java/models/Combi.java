@@ -13,4 +13,9 @@ public class Combi extends Vehiculo {
         if (pedido.isEquipaje()) puntaje += 100;
         return Integer.valueOf(puntaje);
     }
+
+    @Override
+    public String toString() {
+        return "Combi " + super.toString();
+    }
 }
