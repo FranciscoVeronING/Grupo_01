@@ -121,6 +121,10 @@ public class Cliente {
        }
    }
 
+    public void pagar_viaje(Viaje viaje) {
+        viaje.setEstado_de_viaje("pagado");
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Cliente{");
