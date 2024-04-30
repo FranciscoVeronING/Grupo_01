@@ -37,6 +37,10 @@ public class Cliente {
         this.viajes = new ArrayList<Viaje>();
     }
 
+    public Cliente(String nombre) {
+        this.nombre = nombre;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -116,6 +120,10 @@ public class Cliente {
            this.viajes.get(i).toString();
        }
    }
+
+    public void pagar_viaje(Viaje viaje) {
+        viaje.setEstado_de_viaje("pagado");
+    }
 
     @Override
     public String toString() {

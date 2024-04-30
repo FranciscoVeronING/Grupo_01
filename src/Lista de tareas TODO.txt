@@ -1,0 +1,37 @@
+-Diagrama UML. no
+-Documentacion. no
+-Administrador. no (consultar si hay que hacer la clase en esta primera etapa)
+	.Gestion de clientes, choferes y vehiculos
+	.Solicitud de listados. Hecho en prueba.
+	.Calculo salarios mensuales chofer y sueldo a pagar en total. hecho en prueba y empresa.
+-Cliente. hecho
+	.Excepcion en caso de usuario repetido. hacer excepcion 
+	.Completar un formulario de solicitud de viaje. hecho
+	.Excepciones en caso de rechazo de pedido (falta de vehiculo, falta de chofer, solicitud incoherente). falta hacer
+	.Aceptacion del pedido. 
+	.set pagado. Hecho
+	.Calificar chofer. hecho
+	.Visualizacion de propios viajes de cliente. hecho
+-Usuarios: sin hacer, (Hay que hacerla en la parte 2?)
+-Vehiculos
+	.Factory vehiculos. hecho
+	.indice de prioridad. hecho
+	.Preguntar patron template. (getprioridad)
+-Chofer: hecho todo. (preguntar getsueldo chofer permanente)
+
+-Viaje: .Formulario viaje (hardcodear en prueba?)
+	.Seleccion de mejor vehiculo disponible que cumpla con el pedido y respete el getprioridad. hecho
+	.Asignar primero vehiculo y luego chofer en viaje. (es lo mismo?)
+	.si no existe chofer, excepcion. hecho?
+	.metodo pagado. hecho
+	.viaje finalizado? Hecho en chofer?
+	.Consultar como hacer con el arraylist y el chofer, lo sacamos de la arraylist cuando esta en viaje? o lo dejamos y lo marcamos como no disponible?
+	
+Puntaje de la empresa sobre choferes. no
+
+Generacion de reportes: no hay nada hecho
+	.detalle de cada cliente. 
+	.Detalle de cada cliente. Incluye puntaje (consultar que onda)
+	.Detalle salarios pagados por la empresa a a cada chover. no
+
+	
