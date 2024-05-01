@@ -25,16 +25,19 @@ public class Cliente {
     private ArrayList<Viaje> viajes;
 
     //Lanzar excepcion si nombre de usuario ya existe
-    public Cliente(String nombre, String apellido, String contrasenia, String nombre_usuario, String telefono, String mail, Direccion direccion, GregorianCalendar fecha_nacimiento) {
+    public Cliente(String nombre, String apellido, String contrasenia, String nombre_usuario, String telefono, String mail, Direccion direccion, GregorianCalendar fecha_nacimiento) throws UsuarioRepetidoException{
+        if (Sistema.getInstancia().validarUsuario(nombre_usuario))
+            this.nombre_usuario = nombre_usuario;
+        else throw new UsuarioRepetidoException();
         this.nombre = nombre;
         this.apellido = apellido;
         this.contrasenia = contrasenia;
-        this.nombre_usuario = nombre_usuario;
         this.telefono = telefono;
         this.mail = mail;
         this.direccion = direccion;
         this.fecha_nacimiento = fecha_nacimiento;
         this.viajes = new ArrayList<Viaje>();
+
     }
 
     public Cliente(String nombre) {

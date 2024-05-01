@@ -14,7 +14,7 @@ public class ChoferContratado extends Empleado {
     @Override
     public double getSueldo() {
         double salario = 0;
-        Empresa e = Empresa.getInstancia();
+        Sistema e = Sistema.getInstancia();
         ArrayList<IViaje> viajes = e.getViajesChofer(this);
         for (IViaje viaje : viajes) {
             salario += viaje.getCosto_viaje() * ganancia_viaje;

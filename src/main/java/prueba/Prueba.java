@@ -13,7 +13,7 @@ public class Prueba {
 
         Prueba prueba = new Prueba();
 
-        Empresa e = Empresa.getInstancia();
+        Sistema e = Sistema.getInstancia();
 
         IVehiculo moto1 = VehiculoFactory.getVehiculo("MOTO", "AAA111");
         IVehiculo moto2 = VehiculoFactory.getVehiculo("MOTO", "BBB222");
