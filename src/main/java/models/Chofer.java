@@ -48,9 +48,11 @@ protected int calificacion_clientes;
 
     @Override
     public String toString() {
-        return " sueldo_basico=" + sueldo_basico +
-                ", aportes=" + aportes +
-                ", calificacion_clientes=" + calificacion_clientes +
-                super.toString();
+        final StringBuilder sb = new StringBuilder("Chofer{");
+        sb.append("sueldo_basico=").append(sueldo_basico);
+        sb.append(", aportes=").append(aportes);
+        sb.append(", calificacion_clientes=").append(calificacion_clientes);
+        sb.append('}');
+        return sb.toString();
     }
 }

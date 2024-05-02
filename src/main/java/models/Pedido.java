@@ -1,25 +1,26 @@
 package models;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class Pedido {
-    private Date fecha; //contempla hora
+    private GregorianCalendar fecha; //contempla hora
     private String zona;
     private boolean mascota;
     private int cant_pasajeros;
     private boolean equipaje;
-    private Cliente cilente;
+    private Cliente cliente;
 
-    public Pedido(Date fecha, String zona, boolean mascota, int cant_pasajeros, boolean equipaje, Cliente cilente) {
+    public Pedido(GregorianCalendar fecha, String zona, boolean mascota, int cant_pasajeros, boolean equipaje, Cliente cliente) {
         this.fecha = fecha;
         this.zona = zona;
         this.mascota = mascota;
         this.cant_pasajeros = cant_pasajeros;
         this.equipaje = equipaje;
-        this.cilente = cilente;
+        this.cliente = cliente;
     }
 
-    public Date getFecha() {
+    public GregorianCalendar getFecha() {
         return fecha;
     }
 
@@ -39,18 +40,21 @@ public class Pedido {
         return equipaje;
     }
 
-    public Cliente getCilente() {
-        return cilente;
+    public Cliente getCliente() {
+        return cliente;
     }
+
 
     @Override
     public String toString() {
-        return "Pedido{" +
-                ", zona='" + zona + '\'' +
-                ", mascota=" + mascota +
-                ", cant_pasajeros=" + cant_pasajeros +
-                ", equipaje=" + equipaje +
-                ", cilente=" + cilente +
-                '}';
+        final StringBuilder sb = new StringBuilder("Pedido{");
+        sb.append("fecha=").append(fecha);
+        sb.append(", zona='").append(zona).append('\'');
+        sb.append(", mascota=").append(mascota);
+        sb.append(", cant_pasajeros=").append(cant_pasajeros);
+        sb.append(", equipaje=").append(equipaje);
+        sb.append(", cliente=").append(cliente);
+        sb.append('}');
+        return sb.toString();
     }
 }

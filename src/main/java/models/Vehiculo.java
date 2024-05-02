@@ -32,13 +32,14 @@ public abstract class Vehiculo implements IVehiculo{
         return this.cant_max_pasajeros >= pedido.getCant_pasajeros();
     }
 
-    public boolean validarVehiculo(Pedido pedido) {
+    public boolean validarVehiculo(Pedido pedido) throws PedidoIncoherenteException{
         boolean petFriendly = validarPF(pedido);
         boolean baul = validarBaul(pedido);
         boolean pax = validarPax(pedido);
-        if (petFriendly && baul && pax) {
+        if (petFriendly && baul && pax)
             return petFriendly && baul && pax;
-        }else return throw new PedidoIncoherenteException("El pedido es incoherente");
+        else
+            throw new PedidoIncoherenteException("El pedido es incoherente");
     }
 
     public String getPatente() {

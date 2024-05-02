@@ -2,7 +2,7 @@ package prueba;
 
 import models.*;
 
-import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class Prueba {
     public Prueba() {
@@ -40,7 +40,7 @@ public class Prueba {
         e.agregarCliente(c2);
 
         Empleado choferTemporario = new ChoferTemporario("12345678", "Maria", 0, 0);
-        Empleado choferPermanente = new ChoferPermanente("98746532", "Juan", 0, 0, 0);
+        Empleado choferPermanente = new ChoferPermanente("98746532", "Juan", 0, new GregorianCalendar(1995,2,16), 20,2);
         Empleado choferContratado = new ChoferContratado("77446688", "Pepe", 0);
 
         e.agregarChofer(choferContratado);
@@ -51,9 +51,9 @@ public class Prueba {
         for (Empleado v : e.getChoferes())
             System.out.println(v);
 
-        Pedido p1 = new Pedido(new Date(),"ESTANDAR", true, 4, true, c1);
-        Pedido p2 = new Pedido(new Date(), "PELIGROSA", false, 1, false, c2);
-        Pedido p3 = new Pedido(new Date(), "ESTANDAR", false, 1, false, c1);
+        Pedido p1 = new Pedido(new GregorianCalendar(1999,5,10),"ESTANDAR", true, 4, true, c1);
+        Pedido p2 = new Pedido(new GregorianCalendar(2000,4,12), "PELIGROSA", false, 1, false, c2);
+        Pedido p3 = new Pedido(new GregorianCalendar(2000,8,25), "ESTANDAR", false, 1, false, c1);
 
         try {
             IViaje v1 = e.asignarPedidoVehiculo(p1);
@@ -64,8 +64,11 @@ public class Prueba {
             e.asignarViajeChofer(v2);
             e.asignarViajeChofer(v3);
         }
-        catch (VehiculoNoDisponibleException | ChoferNoDisponibleException ex ) {
-            System.out.println(ex.getMessage());
+        catch (VehiculoNoDisponibleException ex ) { //arreglar
+            System.out.println(ex);
+        }
+        catch(ChoferNoDisponibleException ex){
+            System.out.println(ex);
         }
 
         System.out.println("\nVIAJES\n");

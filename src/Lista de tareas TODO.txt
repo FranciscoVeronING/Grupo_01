@@ -17,8 +17,7 @@
 	.Factory vehiculos. hecho
 	.indice de prioridad. hecho
 	.Preguntar patron template. (getprioridad)
--Chofer: hecho todo. (preguntar getsueldo chofer permanente) //listo
- //Cambiar los plus en choferes, van por parametro antiguedad y cant de hijos, dps un static con el % del plus
+-Chofer: hecho to DO  //Cambiar los plus en choferes, van por parametro antiguedad y cant de hijos, dps un static con el % del plus //LISTO
 
 -Viaje: .Formulario viaje (hardcodear en prueba?)
 	.Seleccion de mejor vehiculo disponible que cumpla con el pedido y respete el getprioridad. hecho

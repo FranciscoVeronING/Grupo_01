@@ -16,8 +16,6 @@ import java.util.GregorianCalendar;
 public class Cliente extends Usuario{
     private String nombre;
     private String apellido;
-    private String contrasenia;
-    private String nombre_usuario;
     private String telefono;
     private String mail;
     private Direccion direccion;
@@ -25,13 +23,10 @@ public class Cliente extends Usuario{
     private ArrayList<Viaje> viajes;
 
     //Lanzar excepcion si nombre de usuario ya existe
-    public Cliente(String nombre, String apellido, String contrasenia, String nombre_usuario, String telefono, String mail, Direccion direccion, GregorianCalendar fecha_nacimiento) throws UsuarioRepetidoException{
-        if (Sistema.getInstancia().validarUsuario(nombre_usuario))
-            this.nombre_usuario = nombre_usuario;
-        else throw new UsuarioRepetidoException();
+    public Cliente(String nombre_usuario, String contrasenia,String nombre, String apellido, String telefono, String mail, Direccion direccion, GregorianCalendar fecha_nacimiento) throws UsuarioRepetidoException{
+        super(nombre_usuario,contrasenia);
         this.nombre = nombre;
         this.apellido = apellido;
-        this.contrasenia = contrasenia;
         this.telefono = telefono;
         this.mail = mail;
         this.direccion = direccion;
@@ -59,24 +54,6 @@ public class Cliente extends Usuario{
 
     public void setApellido(String apellido) {
         this.apellido = apellido;
-    }
-
-    public String getContrasenia() {
-        return contrasenia;
-    }
-
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
-    }
-
-    public String getNombre_usuario() {
-
-        return nombre_usuario;
-    }
-
-    public void setNombre_usuario(String nombre_usuario) {    //Verificar si ya esta usado,sino tirar excepcion
-
-        this.nombre_usuario = nombre_usuario;
     }
 
     public String getTelefono() {
