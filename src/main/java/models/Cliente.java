@@ -49,6 +49,7 @@ public class Cliente extends Usuario{
     }
 
     public void setNombre(String nombre) {
+
         this.nombre = nombre;
     }
 
@@ -69,10 +70,12 @@ public class Cliente extends Usuario{
     }
 
     public String getNombre_usuario() {
+
         return nombre_usuario;
     }
 
-    public void setNombre_usuario(String nombre_usuario) {
+    public void setNombre_usuario(String nombre_usuario) {    //Verificar si ya esta usado,sino tirar excepcion
+
         this.nombre_usuario = nombre_usuario;
     }
 

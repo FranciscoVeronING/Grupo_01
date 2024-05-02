@@ -76,7 +76,7 @@ public class Sistema {
                 viaje.setEstado_de_viaje("iniciado");
             }
         }
-        if (viaje.getChofer() == null) throw new ChoferNoDisponibleException();
+        if (viaje.getChofer() == null) throw new FaltaDeChoferException("Falta de choferes disponibles");
         return viaje;
     }
 
