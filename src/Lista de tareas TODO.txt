@@ -1,6 +1,6 @@
 -Diagrama UML. no
 -Documentacion. no
--Administrador. no (consultar si hay que hacer la clase en esta primera etapa)
+-Administrador. no (consultar si hay que hacer la clase en esta primera etapa) //la dejamos vacia
 	.Gestion de clientes, choferes y vehiculos
 	.Solicitud de listados. Hecho en prueba.
 	.Calculo salarios mensuales chofer y sueldo a pagar en total. hecho en prueba y empresa.
@@ -12,26 +12,27 @@
 	.set pagado. Hecho
 	.Calificar chofer. hecho
 	.Visualizacion de propios viajes de cliente. hecho
--Usuarios: sin hacer, (Hay que hacerla en la parte 2?)
+-Usuarios: sin hacer, (Hay que hacerla en la parte 2?)  //la hacemos ahora y extendemos cliente y admin de aca.
 -Vehiculos
 	.Factory vehiculos. hecho
 	.indice de prioridad. hecho
 	.Preguntar patron template. (getprioridad)
--Chofer: hecho todo. (preguntar getsueldo chofer permanente)
+-Chofer: hecho todo. (preguntar getsueldo chofer permanente) //listo
+ //Cambiar los plus en choferes, van por parametro antiguedad y cant de hijos, dps un static con el % del plus
 
 -Viaje: .Formulario viaje (hardcodear en prueba?)
 	.Seleccion de mejor vehiculo disponible que cumpla con el pedido y respete el getprioridad. hecho
-	.Asignar primero vehiculo y luego chofer en viaje. (es lo mismo?)
+	.Asignar primero vehiculo y luego chofer en viaje. (es lo mismo?)  //asignamos primero vehiculo y luego chofer.
 	.si no existe chofer, excepcion. hecho?
 	.metodo pagado. hecho
 	.viaje finalizado? Hecho en chofer?
 	.Consultar como hacer con el arraylist y el chofer, lo sacamos de la arraylist cuando esta en viaje? o lo dejamos y lo marcamos como no disponible?
-	
+	//lo marcamos como ocupado, cuando termina el viaje lo mandamos al final del arraylist.
 Puntaje de la empresa sobre choferes. no
 
 Generacion de reportes: no hay nada hecho
 	.detalle de cada cliente. 
-	.Detalle de cada cliente. Incluye puntaje (consultar que onda)
+	.Detalle de cada cliente. Incluye puntaje (consultar que onda)   //quedo viejo, no se hace
 	.Detalle salarios pagados por la empresa a a cada chover. no
 
 	
