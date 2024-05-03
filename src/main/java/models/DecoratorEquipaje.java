@@ -17,14 +17,8 @@ public class DecoratorEquipaje implements IViaje {
         encapsulado.setCosto_viaje(val);
     }
 
-    @Override
     public double getDistancia() {
-        return encapsulado.getDistancia();
-    }
-
-    @Override
-    public void setDistancia(double distancia) {
-        encapsulado.setDistancia(distancia);
+        return getPedido().getDistancia();
     }
 
     @Override

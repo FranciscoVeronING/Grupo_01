@@ -205,7 +205,7 @@ public class Sistema {
             while (empleadoIterator.hasNext() && viajeIterator.hasNext() && viajeIterator.next().getPedido().getFecha().compareTo(pricipio_mes) >= 0) {
                 IViaje viaje = viajeIterator.next();
                 if (empleado.getDni().equalsIgnoreCase(viaje.getChofer().dni)){
-                    km_realizados += viaje.getDistancia();
+                    km_realizados += viaje.getPedido().getDistancia();
                     cantidad++;
                 }
             }
