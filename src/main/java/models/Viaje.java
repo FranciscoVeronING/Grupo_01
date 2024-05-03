@@ -3,7 +3,6 @@ package models;
 public class Viaje implements IViaje {
     private double costo_base;
     private double costo_viaje;
-    private double distancia;
     private String estado_de_viaje;
     private Pedido pedido;
     private Empleado chofer;
@@ -23,14 +22,6 @@ public class Viaje implements IViaje {
     @Override
     public void setCosto_viaje(double costo_viaje) {
         this.costo_viaje = costo_viaje;
-    }
-
-    public double getDistancia() {
-        return distancia;
-    }
-
-    public void setDistancia(double distancia) {
-        this.distancia = distancia;
     }
 
     public Pedido getPedido() {
@@ -78,8 +69,21 @@ public class Viaje implements IViaje {
         this.costo_base = costo_base;
     }
 
+
+
     @Override
     public String toString() {
         return "Viaje ($ " + costo_viaje + ")";
+    }
+
+    public void finalizarse() {
+        Empleado chofer = getChofer();
+        setEstado_de_viaje("finalizado");
+        chofer.setOcupado(false);
+        chofer.setCant_viajes(chofer.getCant_viajes() + 1);
+    }
+
+    public void pagarse() {
+        setEstado_de_viaje("pagado");
     }
 }

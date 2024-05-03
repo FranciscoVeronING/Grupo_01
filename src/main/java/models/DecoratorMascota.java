@@ -18,14 +18,8 @@ public class DecoratorMascota implements IViaje {
     }
 
 
-    @Override
     public double getDistancia() {
-        return encapsulado.getDistancia();
-    }
-
-    @Override
-    public void setDistancia(double distancia) {
-        encapsulado.setDistancia(distancia);
+        return getPedido().getDistancia();
     }
 
     @Override

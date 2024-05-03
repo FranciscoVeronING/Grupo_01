@@ -6,6 +6,7 @@ public abstract class Empleado {
     private int cant_viajes;
     protected boolean ocupado;
     private int puntaje;
+
     public Empleado(String dni,String nombre) {
         this.dni = dni;
         this.nombre = nombre;
@@ -47,12 +48,25 @@ public abstract class Empleado {
         this.puntaje += puntaje;
     }
 
+    public void aumentarPuntaje(int cant) {
+        this.puntaje += cant;
+    }
+
+    public void finalizarViaje() {
+        Viaje viajeActivo = Sistema.getInstancia().getViajeActivoChofer(this);
+        Sistema.getInstancia().finalizarViaje(viajeActivo);
+    }
+
+    public void setCant_viajes(int cant_viajes) {
+        this.cant_viajes = cant_viajes;
+    }
+
     @Override
     public String toString() {
-        return  "dni='" + dni + '\'' +
+        return  " dni='" + dni + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", cant_viajes=" + cant_viajes +
                 ", ocupado=" + ocupado +
-                '}';
+                ", puntaje=" + puntaje;
     }
 }

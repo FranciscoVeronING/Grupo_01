@@ -28,16 +28,8 @@ public class ChoferPermanente extends Chofer {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("ChoferPermanente{");
-        sb.append("fecha_ingreso=").append(fecha_ingreso);
-        sb.append(", antiguedad=").append(antiguedad);
-        sb.append(", cant_Hijos=").append(cant_Hijos);
-        sb.append(", sueldo_basico=").append(sueldo_basico);
-        sb.append(", aportes=").append(aportes);
-        sb.append(", calificacion_clientes=").append(calificacion_clientes);
-        sb.append(", dni='").append(dni).append('\'');
-        sb.append(", nombre='").append(nombre).append('\'');
-        sb.append(", ocupado=").append(ocupado);
+        final StringBuilder sb = new StringBuilder("ChoferPermanente { ");
+        sb.append(super.toString());
         sb.append('}');
         return sb.toString();
     }

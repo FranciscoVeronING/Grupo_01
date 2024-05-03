@@ -3,7 +3,7 @@ package models;
 
 import Exception.PedidoIncoherenteException;
 
-public abstract class Vehiculo implements IVehiculo{
+public abstract class Vehiculo implements IVehiculo {
     protected String patente;
     protected int cant_max_pasajeros;
     protected boolean petfriendly;
@@ -16,40 +16,27 @@ public abstract class Vehiculo implements IVehiculo{
         this.baul = baul;
     }
 
-    public boolean validarBaul(Pedido pedido)throws PedidoIncoherenteException {
+    public boolean validarBaul(Pedido pedido) {
         if (this.baul) return true;
-        if (!this.baul && pedido.isEquipaje())
-            throw new PedidoIncoherenteException("El pedido fue rechazado por baul");
-        else
-            return true;
+        if (!this.baul && pedido.isEquipaje()) return false;
+        else return true;
     }
 
-    public boolean validarPF(Pedido pedido) throws PedidoIncoherenteException{
+    public boolean validarPF(Pedido pedido) {
         if (this.petfriendly) return true;
-        if (!this.petfriendly && pedido.isMascota())
-            throw new PedidoIncoherenteException("El pedido fue rechazado por petfriendly");
-        else
-            return true;
+        if (!this.petfriendly && pedido.isMascota()) return false;
+        else return true;
     }
 
-    public boolean validarPax(Pedido pedido) throws PedidoIncoherenteException{
-        if(this.cant_max_pasajeros < pedido.getCant_pasajeros())
-            throw new PedidoIncoherenteException("El pedido fue rechazado por cantidad de pasajeros");
-        else
-            return true;
+    public boolean validarPax(Pedido pedido) {
+        return this.cant_max_pasajeros >= pedido.getCant_pasajeros();
     }
 
     public boolean validarVehiculo(Pedido pedido) {
-        try {
-            boolean petFriendly = validarPF(pedido);
-            boolean baul = validarBaul(pedido);
-            boolean pax = validarPax(pedido);
-            return petFriendly && baul && pax;
-        }
-        catch (PedidoIncoherenteException e) {
-            System.out.println(e.getMessage());
-            return false;
-        }
+        boolean petFriendly = validarPF(pedido);
+        boolean baul = validarBaul(pedido);
+        boolean pax = validarPax(pedido);
+        return petFriendly && baul && pax;
     }
 
     public String getPatente() {

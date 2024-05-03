@@ -10,14 +10,16 @@ public class Pedido {
     private int cant_pasajeros;
     private boolean equipaje;
     private Cliente cliente;
+    private double distancia;
 
-    public Pedido(GregorianCalendar fecha, String zona, boolean mascota, int cant_pasajeros, boolean equipaje, Cliente cliente) {
+    public Pedido(GregorianCalendar fecha, String zona, boolean mascota, int cant_pasajeros, boolean equipaje, Cliente cliente, double d) {
         this.fecha = fecha;
         this.zona = zona;
         this.mascota = mascota;
         this.cant_pasajeros = cant_pasajeros;
         this.equipaje = equipaje;
         this.cliente = cliente;
+        this.distancia = d;
     }
 
     public GregorianCalendar getFecha() {
@@ -44,6 +46,37 @@ public class Pedido {
         return cliente;
     }
 
+    public double getDistancia() {
+        return distancia;
+    }
+
+    public void setDistancia(double distancia) {
+        this.distancia = distancia;
+    }
+
+    public void setFecha(GregorianCalendar fecha) {
+        this.fecha = fecha;
+    }
+
+    public void setZona(String zona) {
+        this.zona = zona;
+    }
+
+    public void setMascota(boolean mascota) {
+        this.mascota = mascota;
+    }
+
+    public void setCant_pasajeros(int cant_pasajeros) {
+        this.cant_pasajeros = cant_pasajeros;
+    }
+
+    public void setEquipaje(boolean equipaje) {
+        this.equipaje = equipaje;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
 
     @Override
     public String toString() {

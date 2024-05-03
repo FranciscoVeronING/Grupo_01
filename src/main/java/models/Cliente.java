@@ -12,7 +12,6 @@ public class Cliente extends Usuario{
     private String mail;
     private Direccion direccion;
     private GregorianCalendar fecha_nacimiento;
-    private ArrayList<Viaje> viajes;
 
     //Lanzar excepcion si nombre de usuario ya existe
     public Cliente(String nombre_usuario, String contrasenia,String nombre, String apellido, String telefono, String mail, Direccion direccion, GregorianCalendar fecha_nacimiento){
@@ -23,8 +22,6 @@ public class Cliente extends Usuario{
         this.mail = mail;
         this.direccion = direccion;
         this.fecha_nacimiento = fecha_nacimiento;
-        this.viajes = new ArrayList<Viaje>();
-
     }
 
     public String getNombre() {
@@ -76,23 +73,15 @@ public class Cliente extends Usuario{
         this.fecha_nacimiento = fecha_nacimiento;
     }
 
-    public void setViajes(Viaje viaje) {
-        this.viajes.add(viaje);
-    }
-
-    public ArrayList<Viaje> getViajes(){
-        return this.viajes;
-    }
-
     public void calificar_Chofer(Chofer chofer){
         int calif, n = 11;
         calif = (int) (Math.random() * n) + 1;
         chofer.setCalificacion_clientes(calif);
    }
 
-
     public void pagar_viaje(Viaje viaje) {
-        viaje.setEstado_de_viaje("pagado");
+        Viaje v = Sistema.getInstancia().getViajeActivoCliente(this);
+        Sistema.getInstancia().pagarViaje(v);
     }
 
     @Override
