@@ -3,7 +3,7 @@ package models;
 
 import Exception.PedidoIncoherenteException;
 
-public abstract class Vehiculo implements IVehiculo{
+public abstract class Vehiculo implements IVehiculo {
     protected String patente;
     protected int cant_max_pasajeros;
     protected boolean petfriendly;

@@ -179,6 +179,14 @@ public class Sistema {
         return valido;
     }
 
+    public String listado_clientes(){
+        StringBuilder reporte = new StringBuilder();
+        Iterator<Cliente> clientes = this.getClientes();
+        while (clientes.hasNext()){
+            reporte.append("\n").append(clientes.next().toString());
+        }
+        return reporte.toString();
+    }
     public String historico_viajes(){
         StringBuilder reporte = new StringBuilder();
         Iterator<IViaje> viajes = this.getViajes();
@@ -192,15 +200,6 @@ public class Sistema {
         Iterator<Empleado> empleados = this.getChoferes();
         while (empleados.hasNext()){
             reporte.append("\n").append(empleados.next());
-        }
-        return reporte.toString();
-    }
-    // Detalle de cada Cliente. Incluye Puntaje
-    public String listado_clientes(){
-        StringBuilder reporte = new StringBuilder();
-        Iterator<Cliente> clientes = this.getClientes();
-        while (clientes.hasNext()){
-            reporte.append("\n").append(clientes.next().toString());
         }
         return reporte.toString();
     }

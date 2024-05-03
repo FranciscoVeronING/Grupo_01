@@ -61,8 +61,6 @@ public abstract class Empleado {
         this.cant_viajes = cant_viajes;
     }
 
-
-
     @Override
     public String toString() {
         return  " dni='" + dni + '\'' +
