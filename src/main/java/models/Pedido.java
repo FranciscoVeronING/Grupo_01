@@ -54,6 +54,30 @@ public class Pedido {
         this.distancia = distancia;
     }
 
+    public void setFecha(GregorianCalendar fecha) {
+        this.fecha = fecha;
+    }
+
+    public void setZona(String zona) {
+        this.zona = zona;
+    }
+
+    public void setMascota(boolean mascota) {
+        this.mascota = mascota;
+    }
+
+    public void setCant_pasajeros(int cant_pasajeros) {
+        this.cant_pasajeros = cant_pasajeros;
+    }
+
+    public void setEquipaje(boolean equipaje) {
+        this.equipaje = equipaje;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Pedido{");

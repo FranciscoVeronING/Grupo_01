@@ -23,8 +23,6 @@ public class Cliente extends Usuario{
         this.mail = mail;
         this.direccion = direccion;
         this.fecha_nacimiento = fecha_nacimiento;
-        this.viajes = new ArrayList<Viaje>();
-
     }
 
     public String getNombre() {
@@ -76,9 +74,6 @@ public class Cliente extends Usuario{
         this.fecha_nacimiento = fecha_nacimiento;
     }
 
-    public void setViajes(Viaje viaje) {
-        this.viajes.add(viaje);
-    }
 
     public ArrayList<Viaje> getViajes(){
         return this.viajes;
@@ -90,9 +85,9 @@ public class Cliente extends Usuario{
         chofer.setCalificacion_clientes(calif);
    }
 
-
     public void pagar_viaje(Viaje viaje) {
-        viaje.setEstado_de_viaje("pagado");
+        Viaje v = Sistema.getInstancia().getViajeActivoCliente(this);
+        v.pagarse();
     }
 
     @Override

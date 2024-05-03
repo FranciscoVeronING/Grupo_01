@@ -13,5 +13,4 @@ public interface IViaje {
     public void setCosto_base(double costo_base);
     public double getCosto_base();
     public void calcularCostoViaje();
-
 }

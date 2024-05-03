@@ -69,8 +69,21 @@ public class Viaje implements IViaje {
         this.costo_base = costo_base;
     }
 
+
+
     @Override
     public String toString() {
         return "Viaje ($ " + costo_viaje + ")";
+    }
+
+    public void finalizarse() {
+        Empleado chofer = getChofer();
+        setEstado_de_viaje("finalizado");
+        chofer.setOcupado(false);
+        chofer.setCant_viajes(chofer.getCant_viajes() + 1);
+    }
+
+    public void pagarse() {
+        setEstado_de_viaje("pagado");
     }
 }

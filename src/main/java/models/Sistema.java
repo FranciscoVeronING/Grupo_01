@@ -39,6 +39,24 @@ public class Sistema {
         return viajesChofer;
     }
 
+    public ArrayList<IViaje> getViajesCliente(Cliente cliente) {
+        ArrayList<IViaje> viajesCliente = new ArrayList<IViaje>();
+        for (IViaje viaje : viajes) if (cliente == viaje.getPedido().getCliente()) viajesCliente.add(viaje);
+        return viajesCliente;
+    }
+
+    public Viaje getViajeActivoChofer(Empleado chofer) {
+        for (IViaje viaje : viajes)
+            if (chofer == viaje.getChofer() && viaje.getEstado_de_viaje().equalsIgnoreCase("pagado")) return (Viaje) viaje;
+        return null;
+    }
+
+    public Viaje getViajeActivoCliente(Cliente cliente) {
+        for (IViaje viaje : viajes)
+            if (cliente == viaje.getPedido().getCliente() && viaje.getEstado_de_viaje().equalsIgnoreCase("iniciado")) return (Viaje) viaje;
+        return null;
+    }
+
     public boolean existeVehiculo(Pedido pedido) {
         boolean existe = false;
         Iterator<IVehiculo> it = this.vehiculos.iterator();
