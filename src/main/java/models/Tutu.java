@@ -8,9 +8,12 @@ public class Tutu extends Vehiculo {
     @Override
     public Integer getPrioridad(Pedido pedido) {
         int puntaje = 0;
-        if (!(validarVehiculo(pedido))) return null;
-        if (pedido.isEquipaje()) puntaje = 40 * pedido.getCant_pasajeros();
-        else puntaje = 30;
+        if (!(validarVehiculo(pedido)))
+            return null;
+        if (pedido.isEquipaje())
+            puntaje = 40 * pedido.getCant_pasajeros();
+        else
+            puntaje = 30;
         return Integer.valueOf(puntaje);
     }
 

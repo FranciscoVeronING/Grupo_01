@@ -2,17 +2,9 @@ package models;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import Exception.UsuarioRepetidoException;
 
-/**
- * Funciones Cliente:
- * * Registro en sistema
- * * formulario de solicitud de viaje
- * * pago de viaje
- * * calificacion chofer
- * * visaulizacion de sus viajes
- *
- *
- */
+
 public class Cliente extends Usuario{
     private String nombre;
     private String apellido;
@@ -23,7 +15,7 @@ public class Cliente extends Usuario{
     private ArrayList<Viaje> viajes;
 
     //Lanzar excepcion si nombre de usuario ya existe
-    public Cliente(String nombre_usuario, String contrasenia,String nombre, String apellido, String telefono, String mail, Direccion direccion, GregorianCalendar fecha_nacimiento) throws UsuarioRepetidoException{
+    public Cliente(String nombre_usuario, String contrasenia,String nombre, String apellido, String telefono, String mail, Direccion direccion, GregorianCalendar fecha_nacimiento){
         super(nombre_usuario,contrasenia);
         this.nombre = nombre;
         this.apellido = apellido;
@@ -33,10 +25,6 @@ public class Cliente extends Usuario{
         this.fecha_nacimiento = fecha_nacimiento;
         this.viajes = new ArrayList<Viaje>();
 
-    }
-
-    public Cliente(String nombre) {
-        this.nombre = nombre;
     }
 
     public String getNombre() {
@@ -92,17 +80,16 @@ public class Cliente extends Usuario{
         this.viajes.add(viaje);
     }
 
+    public ArrayList<Viaje> getViajes(){
+        return this.viajes;
+    }
+
     public void calificar_Chofer(Chofer chofer){
         int calif, n = 11;
         calif = (int) (Math.random() * n) + 1;
         chofer.setCalificacion_clientes(calif);
    }
 
-   public void ver_viajes(){
-       for (int i = 0; i < this.viajes.size(); i++) {
-           this.viajes.get(i).toString();
-       }
-   }
 
     public void pagar_viaje(Viaje viaje) {
         viaje.setEstado_de_viaje("pagado");

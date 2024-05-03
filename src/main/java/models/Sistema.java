@@ -1,5 +1,9 @@
 package models;
 
+import Exception.VehiculoNoDisponibleException;
+import Exception.ChoferNoDisponibleException;
+import Exception.UsuarioRepetidoException;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -58,7 +62,8 @@ public class Sistema {
 
     public IViaje asignarPedidoVehiculo(Pedido pedido) throws VehiculoNoDisponibleException {
         IViaje viaje = ViajeFactory.getViaje(pedido);
-        if (!existeVehiculo(pedido)) throw new VehiculoNoDisponibleException(); // No existe vehiculo valido
+        if (!existeVehiculo(pedido))
+            throw new VehiculoNoDisponibleException("No existe el vehiculo"); // No existe vehiculo valido
         else {
             viaje.setVehiculo(buscarMejorVehiculo(pedido));
             agregarViaje(viaje);
@@ -76,11 +81,12 @@ public class Sistema {
                 viaje.setEstado_de_viaje("iniciado");
             }
         }
-        if (viaje.getChofer() == null) throw new FaltaDeChoferException("Falta de choferes disponibles");
+        if (viaje.getChofer() == null)                  //Va aca? o al comienzo del metodo?
+            throw new ChoferNoDisponibleException("Falta de choferes disponibles");
         return viaje;
     }
 
-    //GETSUELDOMENSUAL Y GETSUELDOSTOTALES DEBE IR EN ADMINISTRADOR
+    //GETSUELDOMENSUAL Y GETSUELDOSTOTALES DEBE IR EN ADMINISTRADOR, POR AHORA QUEDA ACA.
     public double getSueldoMensual(int i){
         return this.choferes.get(i).getSueldo();
     }
@@ -104,8 +110,17 @@ public class Sistema {
         this.viajes.add(v);
     }
 
-    public void agregarCliente(Cliente c) {
-        this.clientes.add(c);
+    public void agregarCliente(Cliente c) throws UsuarioRepetidoException{      //HACER ESTO CON UN ITERATOR.
+       Iterator <Cliente> clientes = this.clientes.iterator();
+       boolean flag = true;
+        while (clientes.hasNext() && flag == true)
+            if (clientes.next().getNombre_usuario().equalsIgnoreCase(c.getNombre_usuario()))
+                flag = false;
+        if (flag)
+            this.clientes.add(c);
+        else
+            throw new UsuarioRepetidoException("Usuario existente");
+
     }
 
     public ArrayList<Empleado> getChoferes() {
@@ -135,5 +150,37 @@ public class Sistema {
         while (clientes.hasNext() && valido)
             valido = !clientes.next().getNombre_usuario().equalsIgnoreCase(nombre_usuario);
         return valido;
+    }
+
+    public void cliente_ver_propios_viajes(Cliente cliente){
+       Iterator<Viaje> viajes = cliente.getViajes().iterator();
+       while (viajes.hasNext()){
+            viajes.next().toString();
+       }
+    }
+
+    public void historico_viajes(){
+        Iterator<IViaje> viajes = this.getViajes().iterator();
+        while (viajes.hasNext()){
+            viajes.next().toString();
+        }
+    }
+    public void listado_choferes(){
+        Iterator<Empleado> empleados = this.getChoferes().iterator();
+        while (empleados.hasNext()){
+            empleados.next().toString();
+        }
+    }
+    public void listado_clientes(){
+        Iterator<Cliente> clientes = this.getClientes().iterator();
+        while (clientes.hasNext()){
+            clientes.next().toString();
+        }
+    }
+    public void listado_vehiculos(){
+        Iterator<IVehiculo> vehiculos = this.getVehiculos().iterator();
+        while (vehiculos.hasNext()){
+            vehiculos.next().toString();
+        }
     }
 }

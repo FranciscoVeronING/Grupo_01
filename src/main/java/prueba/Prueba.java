@@ -1,6 +1,7 @@
 package prueba;
 
 import models.*;
+import Exception.*;
 
 import java.util.GregorianCalendar;
 
@@ -33,11 +34,16 @@ public class Prueba {
         for (IVehiculo v : e.getVehiculos())
             System.out.println(v);
 
-        Cliente c1 = new Cliente("Juan");
-        Cliente c2 = new Cliente("Maria");
+        Cliente c1 = new Cliente("Juan_Perez", "1234", "Juan", "Perez", "12345678", "juanperez@gmail.com", new Direccion("Calle Falsa", "123", "8","A"), new GregorianCalendar(1990, 5, 10));
+        Cliente c2 = new Cliente("Maria_Gomez", "5678", "Maria", "Gomez", "87654321", "mariagomez@gmail.com", new Direccion("Calle Falsa", "456", null,null), new GregorianCalendar(1995, 2, 16));
 
-        e.agregarCliente(c1);
-        e.agregarCliente(c2);
+        try {
+            e.agregarCliente(c1);
+            e.agregarCliente(c2);
+        }
+        catch (UsuarioRepetidoException ex){
+            System.out.println(ex);
+        }
 
         Empleado choferTemporario = new ChoferTemporario("12345678", "Maria", 0, 0);
         Empleado choferPermanente = new ChoferPermanente("98746532", "Juan", 0, new GregorianCalendar(1995,2,16), 20,2);
@@ -64,7 +70,7 @@ public class Prueba {
             e.asignarViajeChofer(v2);
             e.asignarViajeChofer(v3);
         }
-        catch (VehiculoNoDisponibleException ex ) { //arreglar
+        catch (VehiculoNoDisponibleException ex){
             System.out.println(ex);
         }
         catch(ChoferNoDisponibleException ex){
@@ -84,6 +90,5 @@ public class Prueba {
         }
 
         System.out.println("El sueldo total de los choferes es: " + e.getSueldosTotales());
-
     }
 }
