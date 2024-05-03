@@ -137,10 +137,10 @@ public class Sistema {
         this.viajes.add(v);
     }
 
-    public void agregarCliente(Cliente c) throws UsuarioRepetidoException{      //HACER ESTO CON UN ITERATOR.
+    public void agregarCliente(Cliente c) throws UsuarioRepetidoException{
        Iterator <Cliente> clientes = this.clientes.iterator();
        boolean flag = true;
-        while (clientes.hasNext() && flag == true)
+        while (clientes.hasNext() && flag)
             if (clientes.next().getNombre_usuario().equalsIgnoreCase(c.getNombre_usuario()))
                 flag = false;
         if (flag)
@@ -179,54 +179,79 @@ public class Sistema {
         return valido;
     }
 
-    public void historico_viajes(){
+    public String historico_viajes(){
+        StringBuilder reporte = new StringBuilder();
         Iterator<IViaje> viajes = this.getViajes();
         while (viajes.hasNext()){
-            viajes.next().toString();
+            reporte.append("\n").append(viajes.next().toString());
         }
+        return reporte.toString();
     }
-    public void listado_choferes(){
+    public String listado_choferes(){
+        StringBuilder reporte = new StringBuilder();
         Iterator<Empleado> empleados = this.getChoferes();
         while (empleados.hasNext()){
-            empleados.next().toString();
+            reporte.append("\n").append(empleados.next());
         }
+        return reporte.toString();
     }
-    public void listado_clientes(){
+    // Detalle de cada Cliente. Incluye Puntaje
+    public String listado_clientes(){
+        StringBuilder reporte = new StringBuilder();
         Iterator<Cliente> clientes = this.getClientes();
         while (clientes.hasNext()){
-            clientes.next().toString();
+            reporte.append("\n").append(clientes.next().toString());
         }
+        return reporte.toString();
     }
-    public void listado_vehiculos(){
+    public String listado_vehiculos(){
+        StringBuilder reporte = new StringBuilder();
         Iterator<IVehiculo> vehiculos = this.getVehiculos();
         while (vehiculos.hasNext()){
-            vehiculos.next().toString();
+            reporte.append("\n").append(vehiculos.next().toString());
         }
+        return reporte.toString();
     }
 
     public void puntaje_mes_finalizado(GregorianCalendar pricipio_mes){
         double max = 0;
-        Empleado maxviajes = null;
-        Iterator<Empleado> empleadoIterator = this.choferes.iterator();
+        Empleado maxKM = null;
+        Iterator<Empleado> empleadoIterator = getChoferes();
         while (empleadoIterator.hasNext()) {
             Empleado empleado = empleadoIterator.next();
             double km_realizados = 0;
             int cantidad = 0;
-            Iterator<IViaje> viajeIterator = this.viajes.iterator();
-            while (empleadoIterator.hasNext() && viajeIterator.hasNext() && viajeIterator.next().getPedido().getFecha().compareTo(pricipio_mes) >= 0) {
-                IViaje viaje = viajeIterator.next();
-                if (empleado.getDni().equalsIgnoreCase(viaje.getChofer().dni)){
-                    km_realizados += viaje.getPedido().getDistancia();
+            Iterator<IViaje> viajesChofer = getViajesChofer(empleado);
+            while (viajesChofer.hasNext()) {
+                IViaje v = viajesChofer.next();
+                if (v.getPedido().getFecha().compareTo(pricipio_mes) >= 0) {
+                    km_realizados += v.getPedido().getDistancia();
                     cantidad++;
                 }
             }
             empleado.setPuntaje(cantidad*5);
             if (km_realizados > max) {
                 max = km_realizados;
-                maxviajes = empleado;
+                maxKM = empleado;
             }
         }
-        if(maxviajes != null)
-            maxviajes.setPuntaje(15);
+        if(maxKM != null)
+            maxKM.aumentarPuntaje(15);
+    }
+
+    public void finalizarViaje(Viaje viajeActivo) {
+        viajeActivo.finalizarse();
+        Empleado chofer = viajeActivo.getChofer();
+        IVehiculo vehiculo = viajeActivo.getVehiculo();
+        // Lo saco de lista y pongo ultimo CHOFER
+        this.choferes.remove(chofer);
+        this.choferes.addLast(chofer);
+        // Lo saco de lista y pongo ultimo VEHICULO
+        this.vehiculos.remove(vehiculo);
+        this.vehiculos.addFirst(vehiculo);
+    }
+
+    public void pagarViaje(Viaje v) {
+        v.pagarse();
     }
 }

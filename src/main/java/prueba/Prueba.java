@@ -65,7 +65,7 @@ public class Prueba {
         */
         Pedido p1 = new Pedido(new GregorianCalendar(1999,5,10),"ESTANDAR", true, 4, true, c1, 10);
         Pedido p2 = new Pedido(new GregorianCalendar(2000,4,12), "PELIGROSA", false, 1, false, c2, 10);
-        Pedido p3 = new Pedido(new GregorianCalendar(2000,8,25), "ESTANDAR", false, 1, false, c1, 10);
+        Pedido p3 = new Pedido(new GregorianCalendar(2000,4,25), "ESTANDAR", false, 1, false, c1, 10);
         //Pedido p4 = new Pedido(new GregorianCalendar(2000, 1, 1), "ESTANDAR", false, 10, false, c1, 10);
         //Pedido p5 = new Pedido(new GregorianCalendar(), "PELIGROSA", false, 20, false, c2, 10);
 
@@ -108,5 +108,16 @@ public class Prueba {
             System.out.println("El sueldo de " + chofer + " es " + e.getSueldoMensual(chofer));
         }
         System.out.println("El sueldo total de los choferes es: " + e.getSueldosTotales());
+
+        System.out.println("\nLISTADO VEHICULOS\n");
+        System.out.println(e.listado_vehiculos());
+
+        System.out.println("\nLISTADO CLIENTES\n");
+        System.out.println(e.listado_clientes());
+
+        e.puntaje_mes_finalizado(new GregorianCalendar(2000,4,1));
+        System.out.println("\nLISTADO CHOFERES\n");
+        System.out.println(e.listado_choferes());
+
     }
 }

@@ -12,7 +12,6 @@ public class Cliente extends Usuario{
     private String mail;
     private Direccion direccion;
     private GregorianCalendar fecha_nacimiento;
-    private ArrayList<Viaje> viajes;
 
     //Lanzar excepcion si nombre de usuario ya existe
     public Cliente(String nombre_usuario, String contrasenia,String nombre, String apellido, String telefono, String mail, Direccion direccion, GregorianCalendar fecha_nacimiento){
@@ -82,7 +81,7 @@ public class Cliente extends Usuario{
 
     public void pagar_viaje(Viaje viaje) {
         Viaje v = Sistema.getInstancia().getViajeActivoCliente(this);
-        v.pagarse();
+        Sistema.getInstancia().pagarViaje(v);
     }
 
     @Override
