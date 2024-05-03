@@ -74,11 +74,6 @@ public class Cliente extends Usuario{
         this.fecha_nacimiento = fecha_nacimiento;
     }
 
-
-    public ArrayList<Viaje> getViajes(){
-        return this.viajes;
-    }
-
     public void calificar_Chofer(Chofer chofer){
         int calif, n = 11;
         calif = (int) (Math.random() * n) + 1;

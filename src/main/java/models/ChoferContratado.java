@@ -1,6 +1,7 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class ChoferContratado extends Empleado {
     private double ganancia_viaje;
@@ -15,8 +16,9 @@ public class ChoferContratado extends Empleado {
     public double getSueldo() {
         double salario = 0;
         Sistema e = Sistema.getInstancia();
-        ArrayList<IViaje> viajes = e.getViajesChofer(this);
-        for (IViaje viaje : viajes) {
+        Iterator<IViaje> viajes = e.getViajesChofer(this);
+        for (Iterator<IViaje> it = viajes; it.hasNext(); ) {
+            IViaje viaje = it.next();
             salario += viaje.getCosto_viaje() * ganancia_viaje;
         }
         return salario;

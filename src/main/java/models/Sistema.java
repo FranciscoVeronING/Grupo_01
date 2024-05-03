@@ -33,16 +33,16 @@ public class Sistema {
         return _instancia;
     }
 
-    public ArrayList<IViaje> getViajesChofer(Empleado chofer) {
+    public Iterator<IViaje> getViajesChofer(Empleado chofer) {
         ArrayList<IViaje> viajesChofer = new ArrayList<IViaje>();
         for (IViaje viaje : viajes) if (chofer == viaje.getChofer()) viajesChofer.add(viaje);
-        return viajesChofer;
+        return viajesChofer.iterator();
     }
 
-    public ArrayList<IViaje> getViajesCliente(Cliente cliente) {
+    public Iterator<IViaje> getViajesCliente(Cliente cliente) {
         ArrayList<IViaje> viajesCliente = new ArrayList<IViaje>();
         for (IViaje viaje : viajes) if (cliente == viaje.getPedido().getCliente()) viajesCliente.add(viaje);
-        return viajesCliente;
+        return viajesCliente.iterator();
     }
 
     public Viaje getViajeActivoChofer(Empleado chofer) {
@@ -114,8 +114,8 @@ public class Sistema {
     }
 
     //GETSUELDOMENSUAL Y GETSUELDOSTOTALES DEBE IR EN ADMINISTRADOR, POR AHORA QUEDA ACA.
-    public double getSueldoMensual(int i){
-        return this.choferes.get(i).getSueldo();
+    public double getSueldoMensual(Empleado chofer){
+        return chofer.getSueldo();
     }
     public double getSueldosTotales(){
         double sueldo = 0;
@@ -150,62 +150,55 @@ public class Sistema {
 
     }
 
-    public ArrayList<Empleado> getChoferes() {
-        return choferes;
+    public Iterator<Empleado> getChoferes() {
+        return choferes.iterator();
     }
 
     public Empleado getChofer(int i){
         return (Empleado) this.choferes.get(i);
     }
 
-    public ArrayList<IVehiculo> getVehiculos() {
-        return vehiculos;
+    public Iterator<IVehiculo> getVehiculos() {
+        return vehiculos.iterator();
     }
 
-    public ArrayList<Cliente> getClientes() {
-        return clientes;
+    public Iterator<Cliente> getClientes() {
+        return clientes.iterator();
     }
 
-    public ArrayList<IViaje> getViajes() {
-        return viajes;
+    public Iterator<IViaje> getViajes() {
+        return viajes.iterator();
     }
 
     // Comprueba si el nombre de usuario no esta ocupado
     public boolean validarUsuario(String nombre_usuario) {
         boolean valido = true;
-        Iterator<Cliente> clientes = getClientes().iterator();
+        Iterator<Cliente> clientes = getClientes();
         while (clientes.hasNext() && valido)
             valido = !clientes.next().getNombre_usuario().equalsIgnoreCase(nombre_usuario);
         return valido;
     }
 
-    public void cliente_ver_propios_viajes(Cliente cliente){
-       Iterator<Viaje> viajes = cliente.getViajes().iterator();
-       while (viajes.hasNext()){
-            viajes.next().toString();
-       }
-    }
-
     public void historico_viajes(){
-        Iterator<IViaje> viajes = this.getViajes().iterator();
+        Iterator<IViaje> viajes = this.getViajes();
         while (viajes.hasNext()){
             viajes.next().toString();
         }
     }
     public void listado_choferes(){
-        Iterator<Empleado> empleados = this.getChoferes().iterator();
+        Iterator<Empleado> empleados = this.getChoferes();
         while (empleados.hasNext()){
             empleados.next().toString();
         }
     }
     public void listado_clientes(){
-        Iterator<Cliente> clientes = this.getClientes().iterator();
+        Iterator<Cliente> clientes = this.getClientes();
         while (clientes.hasNext()){
             clientes.next().toString();
         }
     }
     public void listado_vehiculos(){
-        Iterator<IVehiculo> vehiculos = this.getVehiculos().iterator();
+        Iterator<IVehiculo> vehiculos = this.getVehiculos();
         while (vehiculos.hasNext()){
             vehiculos.next().toString();
         }
