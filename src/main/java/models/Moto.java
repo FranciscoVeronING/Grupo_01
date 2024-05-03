@@ -8,9 +8,9 @@ public class Moto extends Vehiculo {
     @Override
     public Integer getPrioridad(Pedido pedido) {
         int puntaje = 0;
-        if (!(validarVehiculo(pedido))) return null;
+        if (!(validarVehiculo(pedido))) return 0;
         if (pedido.getCant_pasajeros() == 1 && !pedido.isEquipaje() && !pedido.isMascota()) puntaje = 1000;
-        return Integer.valueOf(puntaje);
+        return puntaje;
     }
 
     @Override

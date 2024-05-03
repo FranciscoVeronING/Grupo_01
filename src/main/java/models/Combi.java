@@ -8,7 +8,7 @@ public class Combi extends Vehiculo {
     @Override
     public Integer getPrioridad(Pedido pedido) {
         int puntaje = 0;
-        if (!(validarVehiculo(pedido))) return null;
+        if (!(validarVehiculo(pedido))) return 0;
         puntaje = pedido.getCant_pasajeros()*10;
         if (pedido.isEquipaje()) puntaje += 100;
         return Integer.valueOf(puntaje);

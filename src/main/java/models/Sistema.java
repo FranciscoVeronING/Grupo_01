@@ -3,6 +3,7 @@ package models;
 import Exception.VehiculoNoDisponibleException;
 import Exception.ChoferNoDisponibleException;
 import Exception.UsuarioRepetidoException;
+import Exception.PedidoIncoherenteException;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -53,7 +54,7 @@ public class Sistema {
         while (it.hasNext()) {
             IVehiculo v = it.next();
             Integer prioridad = v.getPrioridad(pedido);
-            if (prioridad != null && prioridad > maxP) {
+            if (prioridad != 0 && prioridad > maxP) {
                 maxP = prioridad;
                 mejor = v;
             }
@@ -61,8 +62,9 @@ public class Sistema {
         return mejor;
     }
 
-    public IViaje asignarPedidoVehiculo(Pedido pedido) throws VehiculoNoDisponibleException {
+    public IViaje asignarPedidoVehiculo(Pedido pedido) throws VehiculoNoDisponibleException, PedidoIncoherenteException {
         IViaje viaje = ViajeFactory.getViaje(pedido);
+        validarPedido(pedido);
         if (!existeVehiculo(pedido))
             throw new VehiculoNoDisponibleException("No existe el vehiculo"); // No existe vehiculo valido
         else {
@@ -70,6 +72,11 @@ public class Sistema {
             agregarViaje(viaje);
         }
         return viaje;
+    }
+
+    private void validarPedido(Pedido pedido) throws PedidoIncoherenteException {
+        if (pedido.getCant_pasajeros() > 10) throw new PedidoIncoherenteException("Cantidad de pasajeros mayor a 10");
+        if (pedido.getCant_pasajeros() > 4 && pedido.isMascota()) throw new PedidoIncoherenteException("Mascotas no permitidas en combis");
     }
 
     public IViaje asignarViajeChofer(IViaje viaje) throws ChoferNoDisponibleException {
@@ -80,10 +87,10 @@ public class Sistema {
                 viaje.setChofer(c);
                 c.setOcupado(true);
                 viaje.setEstado_de_viaje("iniciado");
-                it.next().setCant_viajes();
+                c.setCant_viajes();
             }
         }
-        if (viaje.getChofer() == null)                  //Va aca? o al comienzo del metodo?
+        if (viaje.getChofer() == null)
             throw new ChoferNoDisponibleException("Falta de choferes disponibles");
         return viaje;
     }
@@ -129,8 +136,8 @@ public class Sistema {
         return choferes;
     }
 
-    public Chofer getChofer(int i){
-        return (Chofer) this.choferes.get(i);
+    public Empleado getChofer(int i){
+        return (Empleado) this.choferes.get(i);
     }
 
     public ArrayList<IVehiculo> getVehiculos() {
