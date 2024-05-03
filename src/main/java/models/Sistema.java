@@ -5,6 +5,7 @@ import Exception.ChoferNoDisponibleException;
 import Exception.UsuarioRepetidoException;
 
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 
 public class Sistema {
@@ -79,6 +80,7 @@ public class Sistema {
                 viaje.setChofer(c);
                 c.setOcupado(true);
                 viaje.setEstado_de_viaje("iniciado");
+                it.next().setCant_viajes();
             }
         }
         if (viaje.getChofer() == null)                  //Va aca? o al comienzo del metodo?
@@ -182,5 +184,31 @@ public class Sistema {
         while (vehiculos.hasNext()){
             vehiculos.next().toString();
         }
+    }
+
+    public void puntaje_mes_finalizado(GregorianCalendar pricipio_mes){
+        double max = 0;
+        Empleado maxviajes = null;
+        Iterator<Empleado> empleadoIterator = this.choferes.iterator();
+        while (empleadoIterator.hasNext()) {
+            Empleado empleado = empleadoIterator.next();
+            double km_realizados = 0;
+            int cantidad = 0;
+            Iterator<IViaje> viajeIterator = this.viajes.iterator();
+            while (empleadoIterator.hasNext() && viajeIterator.hasNext() && viajeIterator.next().getPedido().getFecha().compareTo(pricipio_mes) >= 0) {
+                IViaje viaje = viajeIterator.next();
+                if (empleado.getDni().equalsIgnoreCase(viaje.getChofer().dni)){
+                    km_realizados += viaje.getDistancia();
+                    cantidad++;
+                }
+            }
+            empleado.setPuntaje(cantidad*5);
+            if (km_realizados > max) {
+                max = km_realizados;
+                maxviajes = empleado;
+            }
+        }
+        if(maxviajes != null)
+            maxviajes.setPuntaje(15);
     }
 }

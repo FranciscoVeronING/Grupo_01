@@ -5,10 +5,13 @@ public abstract class Empleado {
     protected String nombre;
     private int cant_viajes;
     protected boolean ocupado;
-  
+    private int puntaje;
     public Empleado(String dni,String nombre) {
         this.dni = dni;
         this.nombre = nombre;
+        this.cant_viajes = 0;
+        this.ocupado = false;
+        this.puntaje = 0;
     }
     public abstract double getSueldo();
 
@@ -30,6 +33,18 @@ public abstract class Empleado {
 
     public void setOcupado(boolean ocupado) {
         this.ocupado = ocupado;
+    }
+
+    public void setCant_viajes() {
+        this.cant_viajes++;
+    }
+
+    public int getPuntaje() {
+        return puntaje;
+    }
+
+    public void setPuntaje(int puntaje) {
+        this.puntaje += puntaje;
     }
 
     @Override
