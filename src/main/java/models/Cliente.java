@@ -79,8 +79,8 @@ public class Cliente extends Usuario{
         chofer.setCalificacion_clientes(calif);
    }
 
-    public void pagar_viaje(Viaje viaje) {
-        Viaje v = Sistema.getInstancia().getViajeActivoCliente(this);
+    public void pagar_viaje() {
+        IViaje v = Sistema.getInstancia().getViajeActivoCliente(this);
         Sistema.getInstancia().pagarViaje(v);
     }
 

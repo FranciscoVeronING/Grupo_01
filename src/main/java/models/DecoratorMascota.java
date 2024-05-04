@@ -85,4 +85,13 @@ public class DecoratorMascota implements IViaje {
     public String toString() {
         return encapsulado.toString() + " con mascota ";
     }
+
+    @Override
+    public void pagarse() {
+        encapsulado.pagarse();
+    }
+    @Override
+    public void finalizarse() {
+        encapsulado.finalizarse();
+    }
 }

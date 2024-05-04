@@ -18,4 +18,6 @@ public class DecoratorZonaEstandar extends DecoratorZonas {
     public String toString() {
         return encapsulado.toString() + " en zona estandar ";
     }
+
 }
+

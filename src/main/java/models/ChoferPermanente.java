@@ -2,6 +2,9 @@ package models;
 
 import java.util.GregorianCalendar;
 
+/**
+ * Clase utilizada para representar al chofer permanete que se extiende de la clsae chofer
+ */
 public class ChoferPermanente extends Chofer {
     private  static double plus_antiguedad = 0.02;
     private  static double plus_cant_hijos = 0.015;
@@ -9,6 +12,15 @@ public class ChoferPermanente extends Chofer {
     private double antiguedad;
     private double cant_Hijos;
 
+    /**
+     * 
+     * @param dni
+     * @param nombre
+     * @param aportes
+     * @param fecha_ingreso
+     * @param antiguedad
+     * @param cant_Hijos
+     */
     public ChoferPermanente(String dni, String nombre, double aportes,GregorianCalendar fecha_ingreso, double antiguedad, double cant_Hijos) {
         super(dni, nombre, aportes);
         this.antiguedad = antiguedad;
@@ -18,7 +30,7 @@ public class ChoferPermanente extends Chofer {
 
 
     @Override
-    public double getSueldo() {
+    public double getSueldo(GregorianCalendar fecha_inicio_mes) {
         double salario = this.sueldo_basico;
         salario += sueldo_basico * (1 + this.antiguedad * plus_antiguedad);
         salario += sueldo_basico * (1 + plus_cant_hijos * cant_Hijos);

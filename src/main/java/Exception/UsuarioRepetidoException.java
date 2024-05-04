@@ -12,8 +12,7 @@ public class UsuarioRepetidoException extends Exception{
     @param arg0 Parametro que indica a que se debe que se haya lanzado la excepcion
      */
     public UsuarioRepetidoException(String arg0){
-         super(arg0);
-     }
-
+        super(arg0);
     }
+}
 

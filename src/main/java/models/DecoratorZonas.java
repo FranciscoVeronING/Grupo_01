@@ -75,4 +75,14 @@ public abstract class DecoratorZonas implements IViaje {
     public void calcularCostoViaje() {
         encapsulado.calcularCostoViaje();
     }
+
+    @Override
+    public void pagarse() {
+        encapsulado.pagarse();
+    }
+
+    @Override
+    public void finalizarse() {
+        encapsulado.finalizarse();
+    }
 }

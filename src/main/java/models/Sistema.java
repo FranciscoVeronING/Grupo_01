@@ -45,16 +45,20 @@ public class Sistema {
         return viajesCliente.iterator();
     }
 
-    public Viaje getViajeActivoChofer(Empleado chofer) {
+    public IViaje getViajeActivoChofer(Empleado chofer) {
+        IViaje aux = null;
         for (IViaje viaje : viajes)
-            if (chofer == viaje.getChofer() && viaje.getEstado_de_viaje().equalsIgnoreCase("pagado")) return (Viaje) viaje;
-        return null;
+            if (chofer == viaje.getChofer() && viaje.getEstado_de_viaje().equalsIgnoreCase("pagado"))
+                aux =  viaje;
+        return aux;
     }
 
-    public Viaje getViajeActivoCliente(Cliente cliente) {
+    public IViaje getViajeActivoCliente(Cliente cliente) {
+        IViaje aux = null;
         for (IViaje viaje : viajes)
-            if (cliente == viaje.getPedido().getCliente() && viaje.getEstado_de_viaje().equalsIgnoreCase("iniciado")) return (Viaje) viaje;
-        return null;
+            if (cliente == viaje.getPedido().getCliente() && viaje.getEstado_de_viaje().equalsIgnoreCase("iniciado"))
+                aux =  viaje;
+        return aux;
     }
 
     public boolean existeVehiculo(Pedido pedido) {
@@ -114,15 +118,28 @@ public class Sistema {
     }
 
     //GETSUELDOMENSUAL Y GETSUELDOSTOTALES DEBE IR EN ADMINISTRADOR, POR AHORA QUEDA ACA.
-    public double getSueldoMensual(Empleado chofer){
-        return chofer.getSueldo();
+    public double getSueldoMensual(Empleado chofer, GregorianCalendar fecha_inicio_mes){
+
+        return chofer.getSueldo(fecha_inicio_mes);
     }
-    public double getSueldosTotales(){
+    public double getSueldosTotales(GregorianCalendar fecha_inicio_mes){
         double sueldo = 0;
         for (Empleado c : this.choferes) {
-            sueldo += c.getSueldo();
+
+            sueldo += c.getSueldo(fecha_inicio_mes);
         }
         return sueldo;
+    }
+
+    public String listadoSueldoMes(GregorianCalendar fecha_inicio_mes){
+        final StringBuilder sb = new StringBuilder("Listado Sueldos Mensuales: \n");
+        Iterator<Empleado> empleadoIterator = this.choferes.iterator();
+        while (empleadoIterator.hasNext()) {
+            Empleado empleado = empleadoIterator.next();
+            sb.append(empleado.getNombre()).append(empleado.getDni()).append("\t$ ").append(empleado.getSueldo(fecha_inicio_mes)).append("\n");
+        }
+        sb.append("Sueldo Total a pagar:\t$ ").append(this.getSueldosTotales(fecha_inicio_mes));
+        return sb.toString();
     }
 
     public void agregarChofer(Empleado c) {
@@ -137,14 +154,20 @@ public class Sistema {
         this.viajes.add(v);
     }
 
-    public void agregarCliente(Cliente c) throws UsuarioRepetidoException{
+    /**
+     * Funcion que agrega un cliente a la lista de clientes de la empresa.
+     * <b>Precondicion: </b> el cliente debe ser distinto de null<br>
+     * @param cliente : Parametro de tipo Cliente
+     * @throws UsuarioRepetidoException
+     */
+    public void agregarCliente(Cliente cliente) throws UsuarioRepetidoException{
        Iterator <Cliente> clientes = this.clientes.iterator();
        boolean flag = true;
         while (clientes.hasNext() && flag)
-            if (clientes.next().getNombre_usuario().equalsIgnoreCase(c.getNombre_usuario()))
+            if (clientes.next().getNombre_usuario().equalsIgnoreCase(cliente.getNombre_usuario()))
                 flag = false;
         if (flag)
-            this.clientes.add(c);
+            this.clientes.add(cliente);
         else
             throw new UsuarioRepetidoException("Usuario existente");
 
@@ -169,16 +192,10 @@ public class Sistema {
     public Iterator<IViaje> getViajes() {
         return viajes.iterator();
     }
-
-    // Comprueba si el nombre de usuario no esta ocupado
-    public boolean validarUsuario(String nombre_usuario) {
-        boolean valido = true;
-        Iterator<Cliente> clientes = getClientes();
-        while (clientes.hasNext() && valido)
-            valido = !clientes.next().getNombre_usuario().equalsIgnoreCase(nombre_usuario);
-        return valido;
-    }
-
+    /**
+     * Funcion que genera un String que representa el listado de todos los clientes de la empresa.
+     * @return : devuelve una variable de tipo String que contiene el listado de los clientes de la empresa.
+     */
     public String listado_clientes(){
         StringBuilder reporte = new StringBuilder();
         Iterator<Cliente> clientes = this.getClientes();
@@ -187,6 +204,11 @@ public class Sistema {
         }
         return reporte.toString();
     }
+
+    /**
+     * Funcion que genera un String que representa el listado de todos los viajes de la empresa.
+     * @return : devuelve una variable de tipo String que contiene el listado de los viajes de la empresa.
+     */
     public String historico_viajes(){
         StringBuilder reporte = new StringBuilder();
         Iterator<IViaje> viajes = this.getViajes();
@@ -195,6 +217,10 @@ public class Sistema {
         }
         return reporte.toString();
     }
+    /**
+     * Funcion que genera un String que representa el listado de choferes de la empresa.
+     * @return : devuelve una variable de tipo String que contiene el listado de los choferes de la empresa.
+     */
     public String listado_choferes(){
         StringBuilder reporte = new StringBuilder();
         Iterator<Empleado> empleados = this.getChoferes();
@@ -203,6 +229,11 @@ public class Sistema {
         }
         return reporte.toString();
     }
+
+    /**
+     * Funcion que genera un String que representa el listado de vehiculos de la empresa.
+     * @return : devuelve una variable de tipo String que contiene el listado de los vehiculos de la empresa.
+     */
     public String listado_vehiculos(){
         StringBuilder reporte = new StringBuilder();
         Iterator<IVehiculo> vehiculos = this.getVehiculos();
@@ -212,6 +243,10 @@ public class Sistema {
         return reporte.toString();
     }
 
+    /**
+     * Funcion que calcula los puntajes de todos los choferes en un periodo de un mes de trabajo. Se conoce que la fecha limite es la actual, y se pasa por parametro la fecha de inicio del mes a analizar.
+     * @param pricipio_mes : parametro de tipo GregorianCalendar que representa la fecha de inicio de mes que acaba de terminar
+     */
     public void puntaje_mes_finalizado(GregorianCalendar pricipio_mes){
         double max = 0;
         Empleado maxKM = null;
@@ -235,10 +270,10 @@ public class Sistema {
             }
         }
         if(maxKM != null)
-            maxKM.aumentarPuntaje(15);
+            maxKM.setPuntaje(15);
     }
 
-    public void finalizarViaje(Viaje viajeActivo) {
+    public void finalizarViaje(IViaje viajeActivo) {
         viajeActivo.finalizarse();
         Empleado chofer = viajeActivo.getChofer();
         IVehiculo vehiculo = viajeActivo.getVehiculo();
@@ -247,10 +282,46 @@ public class Sistema {
         this.choferes.addLast(chofer);
         // Lo saco de lista y pongo ultimo VEHICULO
         this.vehiculos.remove(vehiculo);
-        this.vehiculos.addFirst(vehiculo);
+        this.vehiculos.addLast(vehiculo);
     }
 
-    public void pagarViaje(Viaje v) {
+    public void pagarViaje(IViaje v) {
         v.pagarse();
     }
+
+    public String viajesClienteFecha(Cliente cliente, GregorianCalendar fechai, GregorianCalendar fechaf){
+        final StringBuilder sb = new StringBuilder("Viajes de ");
+        sb.append(cliente.getNombre_usuario()).append(": \n");
+        Iterator<IViaje> viajes = this.getViajesCliente(cliente);
+        while (viajes.hasNext()) {
+            IViaje viaje = viajes.next();
+            if ((viaje.getPedido().getFecha().compareTo(fechai) >= 0) && (viaje.getPedido().getFecha().compareTo(fechaf) <= 0))
+                sb.append(viaje.toString()).append("\n");
+        }
+    return sb.toString();
+
+    }
+    public String viajesChoferesFecha(Empleado chofer, GregorianCalendar fechai, GregorianCalendar fechaf){
+        final StringBuilder sb = new StringBuilder("Viajes de ");
+        sb.append(chofer.getNombre()).append(" ,DNI: ").append(chofer.getDni()).append(": \n");
+        Iterator<IViaje> viajes = this.getViajesChofer(chofer);
+        while (viajes.hasNext()) {
+            IViaje viaje = viajes.next();
+            if ((viaje.getPedido().getFecha().compareTo(fechai) >= 0) && (viaje.getPedido().getFecha().compareTo(fechaf) <= 0))
+                sb.append(viaje.toString()).append("\n");
+        }
+        return sb.toString();
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Sistema{");
+        sb.append("choferes=").append(choferes);
+        sb.append(", vehiculos=").append(vehiculos);
+        sb.append(", clientes=").append(clientes);
+        sb.append(", viajes=").append(viajes);
+        sb.append('}');
+        return sb.toString();
+    }
+
 }

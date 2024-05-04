@@ -1,5 +1,8 @@
 package models;
 
+import java.util.GregorianCalendar;
+import java.util.Iterator;
+
 public class ChoferTemporario extends Chofer {
  private double plus_x_cant_viajes;
 
@@ -10,9 +13,14 @@ public class ChoferTemporario extends Chofer {
 
 
     @Override
-    public double getSueldo() {
+    public double getSueldo(GregorianCalendar fecha_inicio_mes) {
         double salario = sueldo_basico;
-        salario *= (1 + plus_x_cant_viajes * getCant_viajes());
+        int cant_viajes = 0;
+        Sistema e = Sistema.getInstancia();
+        Iterator<IViaje> viajes = e.getViajesChofer(this);
+        while (viajes.hasNext() && viajes.next().getPedido().getFecha().compareTo(fecha_inicio_mes) > 0)
+            cant_viajes++;
+        salario *= (1 + plus_x_cant_viajes * cant_viajes);
         salario *= (1 - aportes);
         return salario;
     }

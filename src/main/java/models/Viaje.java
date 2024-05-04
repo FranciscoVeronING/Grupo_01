@@ -1,5 +1,7 @@
 package models;
 
+import java.util.GregorianCalendar;
+
 public class Viaje implements IViaje {
     private double costo_base;
     private double costo_viaje;
@@ -73,17 +75,18 @@ public class Viaje implements IViaje {
 
     @Override
     public String toString() {
-        return "Viaje ($ " + costo_viaje + ")";
+        return this.getPedido().formatFecha(this.getPedido().getFecha())+" ($ " + costo_viaje + ")";
     }
 
     public void finalizarse() {
         Empleado chofer = getChofer();
         setEstado_de_viaje("finalizado");
         chofer.setOcupado(false);
-        chofer.setCant_viajes(chofer.getCant_viajes() + 1);
+        chofer.setCant_viajes();
     }
 
     public void pagarse() {
         setEstado_de_viaje("pagado");
     }
+
 }

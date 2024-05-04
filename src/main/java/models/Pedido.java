@@ -81,13 +81,22 @@ public class Pedido {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Pedido{");
-        sb.append("fecha=").append(fecha);
+        sb.append("fecha=").append(formatFecha(fecha));
         sb.append(", zona='").append(zona).append('\'');
         sb.append(", mascota=").append(mascota);
         sb.append(", cant_pasajeros=").append(cant_pasajeros);
         sb.append(", equipaje=").append(equipaje);
         sb.append(", cliente=").append(cliente);
         sb.append('}');
+        return sb.toString();
+    }
+
+    public String formatFecha(GregorianCalendar fecha){
+        int day = fecha.get(fecha.DAY_OF_MONTH);
+        int month = fecha.get(fecha.MONTH) + 1; // Los meses en Java empiezan en 0, por lo que se suma 1 para obtener el mes correcto.
+        int year = fecha.get(fecha.YEAR);
+        final StringBuilder sb = new StringBuilder("(");
+        sb.append(year).append("/").append(month).append("/").append(day).append(")");
         return sb.toString();
     }
 }

@@ -84,4 +84,13 @@ public class DecoratorEquipaje implements IViaje {
     public String toString() {
         return encapsulado.toString() + " con equipaje ";
     }
+
+    @Override
+    public void pagarse() {
+        encapsulado.pagarse();
+    }
+    @Override
+    public void finalizarse() {
+        encapsulado.finalizarse();
+    }
 }

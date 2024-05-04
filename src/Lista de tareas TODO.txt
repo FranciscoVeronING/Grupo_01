@@ -1,18 +1,18 @@
 -Diagrama UML. no
 -Documentacion. no
--Administrador.  //la dejamos vacia
-	.Gestion de clientes, choferes y vehiculos
+-Administrador.  //la dejamos vacia, hecho.
+	.Gestion de clientes, choferes y vehiculos. Se hardcodea
 	.Solicitud de listados. Hecho en prueba.
-	.Calculo salarios mensuales chofer y sueldo a pagar en total. hecho en prueba y empresa.
+	.Calculo salarios mensuales chofer y sueldo a pagar en total. Hecho.
 -Cliente. hecho
-	.Excepcion en caso de usuario repetido. hacer excepcion 
+	.Excepcion en caso de usuario repetido. Hecho
 	.Completar un formulario de solicitud de viaje. hecho
-	.Excepciones en caso de rechazo de pedido (falta de vehiculo, falta de chofer, solicitud incoherente). falta hacer
-	.Aceptacion del pedido. 
+	.Excepciones en caso de rechazo de pedido (falta de vehiculo, falta de chofer, solicitud incoherente). Hecho
+	.Aceptacion del pedido. Hecho
 	.set pagado. Hecho
 	.Calificar chofer. hecho
 	.Visualizacion de propios viajes de cliente. hecho
--Usuarios:  (Hay que hacerla en la parte 2)  //la hacemos ahora y extendemos cliente y admin de aca.
+-Usuarios:  (Hay que hacerla en la parte 2)  //la hacemos ahora y extendemos cliente y admin de aca. Hecho
 -Vehiculos
 	.Factory vehiculos. hecho
 	.indice de prioridad. hecho
@@ -26,7 +26,7 @@
 	.metodo pagado. hecho
 	.viaje finalizado? //Hecho en chofer
 	.Consultar como hacer con el arraylist y el chofer, lo sacamos de la arraylist cuando esta en viaje? o lo dejamos y lo marcamos como no disponible?
-	//lo marcamos como ocupado, cuando termina el viaje lo mandamos al final del arraylist. HACER
+	//lo marcamos como ocupado, cuando termina el viaje lo mandamos al final del arraylist. hecho
 Puntaje de la empresa sobre choferes. //Hecha
 
 Generacion de reportes: Listo

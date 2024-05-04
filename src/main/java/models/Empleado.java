@@ -1,5 +1,7 @@
 package models;
 
+import java.util.GregorianCalendar;
+
 /**
  *
  *Clase que representa a los choferes de la empresa
@@ -7,8 +9,9 @@ package models;
 public abstract class Empleado {
     protected String dni;
     protected String nombre;
-    private int cant_viajes;
+    protected int cant_viajes;
     protected boolean ocupado;
+    protected int puntaje_Empresa;
 
     /**
      * Constructor que asigna al empleado un numero de dni y nombre
@@ -22,8 +25,10 @@ public abstract class Empleado {
     public Empleado(String dni,String nombre) {
         this.dni = dni;
         this.nombre = nombre;
+        this.puntaje_Empresa = 0;
+        this.ocupado = false;
     }
-    public abstract double getSueldo();
+    public abstract double getSueldo(GregorianCalendar fecha_inicio_mes);
 
     public String getDni() {
         return dni;
@@ -45,6 +50,11 @@ public abstract class Empleado {
         this.ocupado = ocupado;
     }
 
+    public void finalizarViaje() {
+        IViaje viajeActivo = Sistema.getInstancia().getViajeActivoChofer(this);
+        Sistema.getInstancia().finalizarViaje(viajeActivo);
+    }
+
     @Override
     public String toString() {
         return  "dni='" + dni + '\'' +
@@ -52,5 +62,21 @@ public abstract class Empleado {
                 ", cant_viajes=" + cant_viajes +
                 ", ocupado=" + ocupado +
                 '}';
+    }
+
+    /**
+     *<br>Metodo que incrementa en uno la cantidad de viajes del empleado
+     */
+    public void setCant_viajes() {
+        this.cant_viajes++;
+    }
+
+    /**
+     * Metodo que incrementa el puntaje del empleado segun corresponda
+     * <b>Pre: </> El parametro debe ser mayor a cero
+     * @param i Es el valor a incrementar el puntaje del empleado por viaje
+     */
+    public void setPuntaje(int i) {
+        this.puntaje_Empresa += i;
     }
 }
