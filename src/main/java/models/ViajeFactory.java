@@ -1,7 +1,14 @@
 package models;
 
+/**
+ * Metodo que aplica el patron Factory a la clase viaje
+ */
 public class ViajeFactory {
 
+    /**
+     * Metodo que averigua las condiciones del viaje solicitado y asi generar el viaje segun su zona
+     * @param pedido Parametro que almacena la informacion del viaje que se esta solicitando
+     */
     public static IViaje getViaje(Pedido pedido) {
         IViaje respuesta = new Viaje(pedido);
 

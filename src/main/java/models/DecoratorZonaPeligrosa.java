@@ -1,10 +1,16 @@
 package models;
 
+/**
+ * Clase utilizada para cuando la zona del pedido es una zona peligrosa
+ * */
 public class DecoratorZonaPeligrosa extends DecoratorZonas {
     public DecoratorZonaPeligrosa(IViaje encapsulado) {
         super(encapsulado);
     }
 
+    /**
+     * Calcula el costo del viaje en el caso que el mismo sea en una zona peligrosa
+     */
     @Override
     public void calcularCostoViaje() {
         super.calcularCostoViaje();

@@ -1,8 +1,15 @@
 package models;
-
+/**
+ * Clase utilizada para agregar metodos del viaje a cerca de la mascota de manera dinamica
+ */
 public class DecoratorMascota implements IViaje {
     IViaje encapsulado;
 
+    /**
+     * Metodo utilizado para generar el encapsulado del metodo decorator
+     * <b>Pre: </> El parametro no puede ser null ni estar vacio
+     * @param encapsulado Encapsula la informacion del viaje seteada anteriormente con la interfaz viaje
+     */
     public DecoratorMascota(IViaje encapsulado) {
         this.encapsulado = encapsulado;
     }
@@ -72,6 +79,9 @@ public class DecoratorMascota implements IViaje {
         return encapsulado.getCosto_base();
     }
 
+    /***
+     * Metodo utilizado para calcular el costo de viaje solicitado con el requerimiento de si llega a necesitar un vehiculo pet friendly
+     */
     @Override
     public void calcularCostoViaje() {
         encapsulado.calcularCostoViaje();
@@ -93,5 +103,15 @@ public class DecoratorMascota implements IViaje {
     @Override
     public void finalizarse() {
         encapsulado.finalizarse();
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return encapsulado.compareTo(o);
+    }
+
+    @Override
+    public Viaje clone() throws CloneNotSupportedException {
+        return encapsulado.clone();
     }
 }

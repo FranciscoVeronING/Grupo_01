@@ -3,7 +3,10 @@ package models;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class Pedido {
+/**
+ * Clase que representa el pedido hecho por el usuario y sus requerimientos
+ */
+public class Pedido implements Cloneable{
     private GregorianCalendar fecha; //contempla hora
     private String zona;
     private boolean mascota;
@@ -12,6 +15,23 @@ public class Pedido {
     private Cliente cliente;
     private double distancia;
 
+    /**
+     * Constructor que setea los parametros que representan los requerimientos del usuario para el viaje
+     * <b>Pre: </> El parametro fecha no puede ser null ni estar vacio
+     * @param fecha Fecha en la que se realizo el pedido
+     * <b>Pre: </> El parametro zona no puede ser null ni estar vacio
+     * @param zona La zona en donde se llevara a cabo el pedido
+     * <b>Pre: </> El parametro mascota no puede ser null ni estar vacio
+     * @param mascota Indica si el viaje involucra mascotas
+     * <b>Pre: </> El parametro cant_pasejors no puede ser cero
+     * @param cant_pasajeros Indica cuantos pasajeros habra
+     * <b>Pre: </> El parametro equipaje no puede ser null ni estar vacio
+     * @param equipaje Indica si el vehiculo necesitara baul
+     * <b>Pre: </> El parametro cliente no puede ser null ni estar vacio
+     * @param cliente Parametro que se utiliza para almacenar la informacion del cliente que solicita el pedido
+     * <b>Pre: </> El parametro d debe ser mayor de cero
+     * @param d Indica la distancia del viaje
+     */
     public Pedido(GregorianCalendar fecha, String zona, boolean mascota, int cant_pasajeros, boolean equipaje, Cliente cliente, double d) {
         this.fecha = fecha;
         this.zona = zona;
@@ -98,5 +118,18 @@ public class Pedido {
         final StringBuilder sb = new StringBuilder("(");
         sb.append(year).append("/").append(month).append("/").append(day).append(")");
         return sb.toString();
+    }
+
+    @Override
+    public Pedido clone() {
+        try {
+            Pedido clone = (Pedido) super.clone();
+            clone.cliente = (Cliente) this.cliente.clone();
+            clone.fecha = (GregorianCalendar) this.fecha.clone();
+            // TODO: copy mutable state here, so the clone can't change the internals of the original
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }

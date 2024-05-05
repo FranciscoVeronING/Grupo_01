@@ -1,8 +1,16 @@
 package models;
 
-public class DecoratorEquipaje implements IViaje {
+/**
+ * Clase utilizada para agregar metodos del viaje a cerca del equipaje de manera dinamica
+ */
+public  class DecoratorEquipaje implements IViaje {
     IViaje encapsulado;
 
+    /**
+     * Metodo utilizado para generar el encapsulado del metodo decorator
+     * <b>Pre: </> El parametro no puede ser null ni estar vacio
+     * @param encapsulado Encapsula la informacion del viaje seteada anteriormente con la interfaz viaje
+     */
     public DecoratorEquipaje(IViaje encapsulado) {
         this.encapsulado = encapsulado;
     }
@@ -71,6 +79,9 @@ public class DecoratorEquipaje implements IViaje {
         return encapsulado.getCosto_base();
     }
 
+    /**
+     * Metodo utilizado para calcular el costo del viaje en caso que necesite baul por el usuario
+     */
     @Override
     public void calcularCostoViaje() {
         encapsulado.calcularCostoViaje();
@@ -92,5 +103,15 @@ public class DecoratorEquipaje implements IViaje {
     @Override
     public void finalizarse() {
         encapsulado.finalizarse();
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return encapsulado.compareTo(o);
+    }
+
+    @Override
+    public Viaje clone() throws CloneNotSupportedException {
+        return encapsulado.clone();
     }
 }

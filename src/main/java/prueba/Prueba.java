@@ -12,7 +12,7 @@ public class Prueba {
         super();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws CloneNotSupportedException {
 
         Sistema e = Sistema.getInstancia();
 
@@ -143,7 +143,6 @@ public class Prueba {
         System.out.println(e.viajesChoferesFecha(choferTemporario,new GregorianCalendar(2024,Calendar.SEPTEMBER,1),new GregorianCalendar(2024, Calendar.DECEMBER,1)));
         System.out.println(e.viajesClienteFecha(c3,new GregorianCalendar(2024,Calendar.SEPTEMBER,1),new GregorianCalendar(2024, Calendar.DECEMBER,1)));
 
-
         System.out.println("\nLISTADO VEHICULOS\n");
         System.out.println(e.listado_vehiculos());
 
@@ -153,6 +152,9 @@ public class Prueba {
         e.puntaje_mes_finalizado(new GregorianCalendar(2000,4,1));
         System.out.println("\nLISTADO CHOFERES\n");
         System.out.println(e.listado_choferes());
+
+        System.out.println("\nLISTADO VIAJES\n");
+        System.out.println(e.historico_viajes());
 
     }
 }

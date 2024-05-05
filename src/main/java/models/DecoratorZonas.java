@@ -85,4 +85,14 @@ public abstract class DecoratorZonas implements IViaje {
     public void finalizarse() {
         encapsulado.finalizarse();
     }
+
+    @Override
+    public int compareTo(Object o) {
+        return encapsulado.compareTo(o);
+    }
+
+    @Override
+    public Viaje clone() throws CloneNotSupportedException {
+        return encapsulado.clone();
+    }
 }

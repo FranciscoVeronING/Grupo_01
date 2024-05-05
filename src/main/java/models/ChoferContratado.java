@@ -5,7 +5,7 @@ import java.util.GregorianCalendar;
 import java.util.Iterator;
 
 /**
- * Es la clase utilizada cuando el chofer es de tipo Contratado
+ * Es la clase utilizada para representar al chofer que es de tipo Contratado
  */
 public class ChoferContratado extends Empleado {
     private double ganancia_viaje;

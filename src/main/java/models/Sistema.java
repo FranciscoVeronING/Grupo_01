@@ -5,11 +5,12 @@ import Exception.ChoferNoDisponibleException;
 import Exception.UsuarioRepetidoException;
 import Exception.PedidoIncoherenteException;
 
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import java.util.Iterator;
+import java.util.*;
 
-public class Sistema {
+/**
+ * Clase que representa a la empresa en el programa
+ */
+public class Sistema  {
     /**
      * @aggregation composite
      */
@@ -27,24 +28,46 @@ public class Sistema {
         this.viajes = new ArrayList<IViaje>();
     }
 
+    /**
+     * Metodo que aplica el patron singleton
+     * @return Devuelve una sola instancia del sistema
+     */
     public static Sistema getInstancia() {
         if (_instancia == null)
             _instancia = new Sistema();
         return _instancia;
     }
 
+    /**
+     * Retorna un iterador que contiene todos los viajes realizados por un empleado chofer dado
+     * <b>Pre: </> El parametro chofer no puede ser null ni vacio
+     * @param chofer El empleado chofer del cual se desean obtener los viajes
+     * @return Un iterador que contiene todos los viajes realizados por el chofer especificado
+     */
     public Iterator<IViaje> getViajesChofer(Empleado chofer) {
         ArrayList<IViaje> viajesChofer = new ArrayList<IViaje>();
         for (IViaje viaje : viajes) if (chofer == viaje.getChofer()) viajesChofer.add(viaje);
         return viajesChofer.iterator();
     }
 
+    /**
+     * Obtiene un iterador de los viajes asociados a un cliente dado
+     *<b>Pre: </>El parametro cliente no puede ser null ni vacio
+     * @param cliente El cliente para el cual se desean obtener los viajes.
+     * @return Un iterador de los viajes asociados al cliente.
+     */
     public Iterator<IViaje> getViajesCliente(Cliente cliente) {
         ArrayList<IViaje> viajesCliente = new ArrayList<IViaje>();
         for (IViaje viaje : viajes) if (cliente == viaje.getPedido().getCliente()) viajesCliente.add(viaje);
         return viajesCliente.iterator();
     }
 
+    /**
+     * Obtiene un iterador de los viajes asociados al chofer activo
+     * <b>Pre: </> El parametro chofer no puede ser null ni estar vacio
+     * @param chofer El chofer disponible que sera capaz de tomar el viaje
+     * @return El viaje activo asociado al chofer, o null si no hay ninguno activo y pagado
+     */
     public IViaje getViajeActivoChofer(Empleado chofer) {
         IViaje aux = null;
         for (IViaje viaje : viajes)
@@ -53,6 +76,7 @@ public class Sistema {
         return aux;
     }
 
+    
     public IViaje getViajeActivoCliente(Cliente cliente) {
         IViaje aux = null;
         for (IViaje viaje : viajes)
@@ -209,11 +233,22 @@ public class Sistema {
      * Funcion que genera un String que representa el listado de todos los viajes de la empresa.
      * @return : devuelve una variable de tipo String que contiene el listado de los viajes de la empresa.
      */
-    public String historico_viajes(){
+    public String historico_viajes() throws CloneNotSupportedException {
+        assert getInstancia().viajes.isEmpty();
+        ArrayList<IViaje> viajesClone = (ArrayList<IViaje>) getInstancia().viajes.clone();
+        for (int i = 0; i < getInstancia().viajes.size(); i++) {
+            viajesClone.add(getInstancia().viajes.get(i).clone());
+        }
+        if(!viajesClone.isEmpty())
+            viajesClone.sort(Comparator.comparingDouble(IViaje::getCosto_viaje).reversed());
+
+
         StringBuilder reporte = new StringBuilder();
-        Iterator<IViaje> viajes = this.getViajes();
-        while (viajes.hasNext()){
-            reporte.append("\n").append(viajes.next().toString());
+        Iterator<IViaje> viajeIterator = viajesClone.iterator();
+        if (viajeIterator.hasNext()) {
+            do {
+                reporte.append("\n").append(viajeIterator.next().toString());
+            } while (viajeIterator.hasNext());
         }
         return reporte.toString();
     }
@@ -323,5 +358,4 @@ public class Sistema {
         sb.append('}');
         return sb.toString();
     }
-
 }

@@ -1,12 +1,13 @@
 package models;
 
+import java.io.Serializable;
 import java.util.GregorianCalendar;
 
 /**
  *
  *Clase que representa a los choferes de la empresa
  */
-public abstract class Empleado {
+public abstract class Empleado implements Cloneable{
     protected String dni;
     protected String nombre;
     protected int cant_viajes;
@@ -78,5 +79,16 @@ public abstract class Empleado {
      */
     public void setPuntaje(int i) {
         this.puntaje_Empresa += i;
+    }
+
+    @Override
+    public Empleado clone() {
+        try {
+            Empleado clone = (Empleado) super.clone();
+            // TODO: copy mutable state here, so the clone can't change the internals of the original
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }
