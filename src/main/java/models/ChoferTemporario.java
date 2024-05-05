@@ -7,17 +7,17 @@ import java.util.Iterator;
  * Clase utilizada para representar al chofer temporario que se extiende de la clsae chofer
  */
 public class ChoferTemporario extends Chofer {
- private double plus_x_cant_viajes;
+    private final double plus_x_cant_viajes;
 
  /**
   * Constructor que setea el plus por cantidad de viajes
-  * <b>Pre:</> El parametro dni no puede ser null ni estar vacio
+  * <b>Pre:</b> El parametro dni no puede ser null ni estar vacio
   * @param dni dni del chofer temporario seteado en la clase chofer
-  * <b>Pre: </>El parametro nombre no puede ser null ni estar vacio
+  * <b>Pre: </b>El parametro nombre no puede ser null ni estar vacio
   * @param nombre nombre del chofer temporario seteado en la clase chofer
-  *               <b>Pre:</> El parametro aportes debe ser mayor a cero
+  *               <b>Pre:</b> El parametro aportes debe ser mayor a cero
   * @param aportes Aportes del chofer temporario seteado en la clase chofer
-  *                 <b>Pre: </> plusCantViajes debe ser mayor a cero
+  *                 <b>Pre: </b> plusCantViajes debe ser mayor a cero
   * @param plusCantViajes Porcentaje que se aplica al básico según la cantidad de viajes
   */
     public ChoferTemporario(String dni, String nombre, double aportes, double plusCantViajes) {
@@ -27,7 +27,7 @@ public class ChoferTemporario extends Chofer {
 
  /**
   *
-  * <b>Pre:</>La fecha debe ser valida
+  * <b>Pre:</b>La fecha debe ser valida
   * @param fecha_inicio_mes La fecha en la que se quiere saber el salario del chofer temporario
   * @return Devuelve el sueldo del chofer temporario
   */

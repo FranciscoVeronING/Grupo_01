@@ -2,7 +2,7 @@ package models;
 
 /**
  * Clase utilizada para cuando la zona del pedido es una zona peligrosa
- * */
+ */
 public class DecoratorZonaPeligrosa extends DecoratorZonas {
     public DecoratorZonaPeligrosa(IViaje encapsulado) {
         super(encapsulado);

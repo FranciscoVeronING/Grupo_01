@@ -92,7 +92,9 @@ public abstract class DecoratorZonas implements IViaje {
     }
 
     @Override
-    public Viaje clone() throws CloneNotSupportedException {
-        return encapsulado.clone();
+    public IViaje clone() throws CloneNotSupportedException {
+        DecoratorZonas clon = (DecoratorZonas) super.clone();
+        if (encapsulado != null) clon.encapsulado.clone();
+        return clon;
     }
 }

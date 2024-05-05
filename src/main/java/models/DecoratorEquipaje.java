@@ -8,7 +8,7 @@ public  class DecoratorEquipaje implements IViaje {
 
     /**
      * Metodo utilizado para generar el encapsulado del metodo decorator
-     * <b>Pre: </> El parametro no puede ser null ni estar vacio
+     * <b>Pre: </b> El parametro no puede ser null ni estar vacio
      * @param encapsulado Encapsula la informacion del viaje seteada anteriormente con la interfaz viaje
      */
     public DecoratorEquipaje(IViaje encapsulado) {
@@ -111,7 +111,9 @@ public  class DecoratorEquipaje implements IViaje {
     }
 
     @Override
-    public Viaje clone() throws CloneNotSupportedException {
-        return encapsulado.clone();
+    public IViaje clone() throws CloneNotSupportedException {
+        DecoratorEquipaje clon = (DecoratorEquipaje) super.clone();
+        if (encapsulado != null) clon.encapsulado.clone();
+        return clon;
     }
 }

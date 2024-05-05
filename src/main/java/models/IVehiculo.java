@@ -2,7 +2,9 @@ package models;
 
 
 public interface  IVehiculo extends Cloneable{
-  public Integer getPrioridad(Pedido pedido);
-  public boolean validarVehiculo(Pedido pedido);
-  public Vehiculo clone()throws CloneNotSupportedException;
+  Integer getPrioridad(Pedido pedido);
+  boolean validarVehiculo(Pedido pedido);
+  Vehiculo clone()throws CloneNotSupportedException;
+  public void setOcupado(boolean x);
+  public boolean isOcupado();
 }

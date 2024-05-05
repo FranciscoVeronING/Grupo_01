@@ -1,8 +1,7 @@
 package models;
-import Exception.UsuarioRepetidoException;
 
 /**
- * La clase usuario representa a todo usuario que se quiera registrar en el sistema
+ * La clase que representa a cualquier usuario que se quiera registrar en el sistema
  */
 public abstract class Usuario {
     protected  String  nombre_usuario;
@@ -10,10 +9,10 @@ public abstract class Usuario {
 
     /**
      * Constructor utilizado para setear el nombre de usuario y contrasenia al usuario
-     * <b>Pre: </> El nombre de usuario no puede ser null ni estar vacio
-     * @param nombre_usuario Parametro utilizado para almacenar el nombre de usuario
-     * <b>Pre: </> La contrasenia no puede ser null ni estar vacio
-     * @param contrasenia Parametro que almacena la contrasenia del usuario
+     * <b>Pre: </b> El nombre de usuario no puede ser null ni estar vacio
+     * @param nombre_usuario : Parametro utilizado para almacenar el nombre de usuario
+     * <b>Pre: </b> La contrasenia no puede ser null ni estar vacio
+     * @param contrasenia : Parametro que almacena la contrasenia del usuario
      */
     public Usuario (String nombre_usuario, String contrasenia) {
         this.contrasenia = contrasenia;
@@ -22,10 +21,6 @@ public abstract class Usuario {
 
     public void setNombre_usuario(String nombre_usuario) {
         this.nombre_usuario = nombre_usuario;
-    }
-
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
     }
 
     public String getNombre_usuario() {

@@ -1,12 +1,14 @@
 package models;
-
-import java.util.Date;
 import java.util.GregorianCalendar;
+
+import static java.util.Calendar.DAY_OF_MONTH;
+import static java.util.Calendar.MONTH;
+import static java.util.Calendar.YEAR;
 
 /**
  * Clase que representa el pedido hecho por el usuario y sus requerimientos
  */
-public class Pedido implements Cloneable{
+public class Pedido implements Cloneable {
     private GregorianCalendar fecha; //contempla hora
     private String zona;
     private boolean mascota;
@@ -17,20 +19,20 @@ public class Pedido implements Cloneable{
 
     /**
      * Constructor que setea los parametros que representan los requerimientos del usuario para el viaje
-     * <b>Pre: </> El parametro fecha no puede ser null ni estar vacio
-     * @param fecha Fecha en la que se realizo el pedido
-     * <b>Pre: </> El parametro zona no puede ser null ni estar vacio
-     * @param zona La zona en donde se llevara a cabo el pedido
-     * <b>Pre: </> El parametro mascota no puede ser null ni estar vacio
-     * @param mascota Indica si el viaje involucra mascotas
-     * <b>Pre: </> El parametro cant_pasejors no puede ser cero
-     * @param cant_pasajeros Indica cuantos pasajeros habra
-     * <b>Pre: </> El parametro equipaje no puede ser null ni estar vacio
-     * @param equipaje Indica si el vehiculo necesitara baul
-     * <b>Pre: </> El parametro cliente no puede ser null ni estar vacio
-     * @param cliente Parametro que se utiliza para almacenar la informacion del cliente que solicita el pedido
-     * <b>Pre: </> El parametro d debe ser mayor de cero
-     * @param d Indica la distancia del viaje
+     * <b>Pre: </b> El parametro fecha no puede ser null ni estar vacio
+     * @param fecha : Fecha en la que se realizo el pedido
+     * <b>Pre: </b> El parametro zona no puede ser null ni estar vacio
+     * @param zona : La zona en donde se llevara a cabo el pedido
+     * <b>Pre: </b> El parametro mascota no puede ser null ni estar vacio
+     * @param mascota : Indica si el viaje involucra mascotas
+     * <b>Pre: </b> El parametro cant_pasejors no puede ser cero
+     * @param cant_pasajeros : Indica cuantos pasajeros habra
+     * <b>Pre: </b> El parametro equipaje no puede ser null ni estar vacio
+     * @param equipaje : Indica si el vehiculo necesitara baul
+     * <b>Pre: </b> El parametro cliente no puede ser null ni estar vacio
+     * @param cliente : Parametro que se utiliza para almacenar la informacion del cliente que solicita el pedido
+     * <b>Pre: </b> El parametro d debe ser mayor de cero
+     * @param d : Indica la distancia del viaje
      */
     public Pedido(GregorianCalendar fecha, String zona, boolean mascota, int cant_pasajeros, boolean equipaje, Cliente cliente, double d) {
         this.fecha = fecha;
@@ -98,6 +100,24 @@ public class Pedido implements Cloneable{
         this.cliente = cliente;
     }
 
+    public String formatFecha(GregorianCalendar fecha){
+        final StringBuilder sb = new StringBuilder("(");
+        sb.append(fecha.get(YEAR)).append("/").append(fecha.get(MONTH) + 1).append("/").append(fecha.get(DAY_OF_MONTH)).append(")");
+        return sb.toString();
+    }
+
+    @Override
+    public Pedido clone() {
+        try {
+            Pedido clone = (Pedido) super.clone();
+            clone.cliente =this.cliente.clone();
+            clone.fecha = (GregorianCalendar) this.fecha.clone();
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Pedido{");
@@ -109,27 +129,5 @@ public class Pedido implements Cloneable{
         sb.append(", cliente=").append(cliente);
         sb.append('}');
         return sb.toString();
-    }
-
-    public String formatFecha(GregorianCalendar fecha){
-        int day = fecha.get(fecha.DAY_OF_MONTH);
-        int month = fecha.get(fecha.MONTH) + 1; // Los meses en Java empiezan en 0, por lo que se suma 1 para obtener el mes correcto.
-        int year = fecha.get(fecha.YEAR);
-        final StringBuilder sb = new StringBuilder("(");
-        sb.append(year).append("/").append(month).append("/").append(day).append(")");
-        return sb.toString();
-    }
-
-    @Override
-    public Pedido clone() {
-        try {
-            Pedido clone = (Pedido) super.clone();
-            clone.cliente = (Cliente) this.cliente.clone();
-            clone.fecha = (GregorianCalendar) this.fecha.clone();
-            // TODO: copy mutable state here, so the clone can't change the internals of the original
-            return clone;
-        } catch (CloneNotSupportedException e) {
-            throw new AssertionError();
-        }
     }
 }

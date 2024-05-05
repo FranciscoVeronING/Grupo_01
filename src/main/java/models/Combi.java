@@ -10,17 +10,17 @@ public class Combi extends Vehiculo {
 
     /**
      * Metodo utilizado para calcular la prioridad que tendra la combi para ser utilizada ante los requisitos del usuario
-     * <b>Pre:</> pedido no puede ser null ni estar vacio
-     * @param pedido Parametro utilizado para almacenar las solicitud de viaje del usuario
-     * @return Devuelve un valor que representa la prioridad de la combi ante los otros vehiculos
+     * <b>Pre:</b> pedido no puede ser null ni estar vacio
+     * @param pedido : Parametro utilizado para almacenar las solicitud de viaje del usuario
+     * @return : Devuelve un valor que representa la prioridad de la combi ante los otros vehiculos
      */
     @Override
     public Integer getPrioridad(Pedido pedido) {
-        int puntaje = 0;
+        int puntaje;
         if (!(validarVehiculo(pedido))) return 0;
         puntaje = pedido.getCant_pasajeros()*10;
         if (pedido.isEquipaje()) puntaje += 100;
-        return Integer.valueOf(puntaje);
+        return puntaje;
     }
 
     @Override

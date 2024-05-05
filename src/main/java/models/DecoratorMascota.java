@@ -7,8 +7,8 @@ public class DecoratorMascota implements IViaje {
 
     /**
      * Metodo utilizado para generar el encapsulado del metodo decorator
-     * <b>Pre: </> El parametro no puede ser null ni estar vacio
-     * @param encapsulado Encapsula la informacion del viaje seteada anteriormente con la interfaz viaje
+     * <b>Pre: </b> El parametro no puede ser null ni estar vacio
+     * @param encapsulado : Encapsula la informacion del viaje seteada anteriormente con la interfaz IViaje
      */
     public DecoratorMascota(IViaje encapsulado) {
         this.encapsulado = encapsulado;
@@ -23,7 +23,6 @@ public class DecoratorMascota implements IViaje {
     public void setCosto_viaje(double val) {
         encapsulado.setCosto_viaje(val);
     }
-
 
     public double getDistancia() {
         return getPedido().getDistancia();
@@ -111,7 +110,9 @@ public class DecoratorMascota implements IViaje {
     }
 
     @Override
-    public Viaje clone() throws CloneNotSupportedException {
-        return encapsulado.clone();
+    public IViaje clone() throws CloneNotSupportedException {
+        DecoratorMascota clon = (DecoratorMascota) super.clone();
+        if (encapsulado != null) clon.encapsulado.clone();
+        return clon;
     }
 }

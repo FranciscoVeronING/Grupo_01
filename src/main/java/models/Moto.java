@@ -10,7 +10,7 @@ public class Moto extends Vehiculo {
 
     /**
      * Metodo utilizado para calcular la prioridad que tendra la moto para ser utilizada ante los requisitos del usuario
-     * <b>Pre:</> pedido no puede ser null ni estar vacio
+     * <b>Pre:</b> pedido no puede ser null ni estar vacio
      * @param pedido Parametro utilizado para almacenar las solicitud de viaje del usuario
      * @return Devuelve un valor que representa la prioridad de la moto ante los otros vehiculos
      */

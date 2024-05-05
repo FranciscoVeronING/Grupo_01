@@ -8,13 +8,13 @@ public class Direccion implements Cloneable{
 
     /**
      * Clase utilizada para establecer la direccion destino del viaje
-     * <b>Pre: </> El parametro nombre no puede ser null ni estar vacio
+     * <b>Pre: </b> El parametro nombre no puede ser null ni estar vacio
      * @param nombre Almacena el nombre de la direccion
-     * <b>Pre:</>El parametro altura no puede ser null ni estar vacio
+     * <b>Pre:</b>El parametro altura no puede ser null ni estar vacio
      * @param altura Almacena la altura de la calle de la direccion
-     * <b>Pre: </>El parametro piso no puede ser null ni estar vacio
+     * <b>Pre: </b>El parametro piso no puede estar vacio
      * @param piso Almacena el piso del edificio
-     * <b>Pre: </>El parametro letra no puede ser null ni estar vacio
+     * <b>Pre: </b>El parametro letra no puede estar vacio
      * @param letra Almacena la letra del piso de la direccion
      */
     public Direccion(String nombre, String altura, String piso, String letra) {
@@ -57,6 +57,15 @@ public class Direccion implements Cloneable{
     }
 
     @Override
+    public Direccion clone() {
+        try {
+            return (Direccion) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+    }
+
+    @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Direccion{");
         sb.append("nombre='").append(nombre).append('\'');
@@ -67,14 +76,4 @@ public class Direccion implements Cloneable{
         return sb.toString();
     }
 
-    @Override
-    public Direccion clone() {
-        try {
-            Direccion clone = (Direccion) super.clone();
-            // TODO: copy mutable state here, so the clone can't change the internals of the original
-            return clone;
-        } catch (CloneNotSupportedException e) {
-            throw new AssertionError();
-        }
-    }
 }
