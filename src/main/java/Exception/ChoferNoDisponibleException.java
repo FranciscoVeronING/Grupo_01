@@ -3,7 +3,7 @@ package Exception;
 /**
  * <br>Clase que representa la excepcion de que no haya un chofer disponible para tomar el pedido. se extiende de Exception
  */
-public class ChoferNoDisponibleException extends Exception {
+public class ChoferNoDisponibleException extends PedidoImposibleException {
 
     /**
      *<br>

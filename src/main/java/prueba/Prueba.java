@@ -20,6 +20,7 @@ public class Prueba {
         IVehiculo moto2 = VehiculoFactory.getVehiculo("MOTO", "BBB222");
         IVehiculo auto1 = VehiculoFactory.getVehiculo("AUTO", "CCC333");
         IVehiculo auto2 = VehiculoFactory.getVehiculo("AUTO", "DDD444");
+        IVehiculo auto3 = VehiculoFactory.getVehiculo("AUTO", "DDD445");
         IVehiculo combi1 = VehiculoFactory.getVehiculo("COMBI", "EEE555");
         IVehiculo combi2 = VehiculoFactory.getVehiculo("COMBI", "FFF666");
 
@@ -29,16 +30,17 @@ public class Prueba {
         e.agregarVehiculo(auto2);
         e.agregarVehiculo(combi1);
         e.agregarVehiculo(combi2);
+        e.agregarVehiculo(auto3);
 
         Cliente c1 = new Cliente("Juan_Perez", "1234", "Juan", "Perez", "12345678", "juanperez@gmail.com", new Direccion("Calle Falsa", "123", "8","A"), new GregorianCalendar(1990, Calendar.MAY, 10));
         Cliente c2 = new Cliente("Maria_Gomez", "5678", "Maria", "Gomez", "87654321", "mariagomez@gmail.com", new Direccion("Calle Falsa", "456", null,null), new GregorianCalendar(1995, Calendar.FEBRUARY, 16));
         Cliente c3 = new Cliente("Maria_Gomeria", "asdds", "Maria", "Gomerias", "12345467", "mariagomerias@gmail.com", new Direccion("Calle Falsa", "567", null,null), new GregorianCalendar(1965, Calendar.FEBRUARY, 16));
-        Cliente c4 = new Cliente("Juan_Pelotas", "1234", "Juan", "Perez", "12345678", "juanperez@gmail.com", new Direccion("Calle Falsa", "123", "8","A"), new GregorianCalendar(1990, Calendar.MARCH, 10));
-        Cliente c5 = new Cliente("Bokitaelmasgrande", "5678", "Maria", "Gomez", "87654321", "mariagomez@gmail.com", new Direccion("Calle Falsa", "456", null,null), new GregorianCalendar(1995, Calendar.OCTOBER, 16));
-        Cliente c6 = new Cliente("PartinMatriarca", "asdds", "Martin", "Gomerias", "12345467", "mariagomerias@gmail.com", new Direccion("Calle Falsa", "567", null,null), new GregorianCalendar(1965, Calendar.DECEMBER, 16));
-        Cliente c7 = new Cliente("Juesus", "1234", "Juancito", "Perez", "12345678", "juanperez@gmail.com", new Direccion("Calle Falsa", "123", "8","A"), new GregorianCalendar(1990, Calendar.NOVEMBER, 10));
-        Cliente c8 = new Cliente("FranciscoVergon", "5678", "Maria", "Gomez", "87654321", "mariagomez@gmail.com", new Direccion("Calle Falsa", "456", null,null), new GregorianCalendar(1995, Calendar.APRIL, 16));
-        Cliente c9 = new Cliente("JamesBond", "asdds", "Maria", "Gomerias", "12345467", "mariagomerias@gmail.com", new Direccion("Calle Falsa", "567", null,null), new GregorianCalendar(1965, Calendar.JANUARY, 16));
+        Cliente c4 = new Cliente("CapitanLeonel", "1234", "Capitan", "Leonel", "12345678", "juanperez@gmail.com", new Direccion("Calle Falsa", "123", "8","A"), new GregorianCalendar(1990, Calendar.MARCH, 10));
+        Cliente c5 = new Cliente("JuanBondoni", "5678", "Juan", "Bondoni", "87654321", "mariagomez@gmail.com", new Direccion("Calle Falsa", "456", null,null), new GregorianCalendar(1995, Calendar.OCTOBER, 16));
+        Cliente c6 = new Cliente("MartinPatriarca", "asdds", "Martin", "Patriarca", "12345467", "mariagomerias@gmail.com", new Direccion("Calle Falsa", "567", null,null), new GregorianCalendar(1965, Calendar.DECEMBER, 16));
+        Cliente c7 = new Cliente("Ivonne", "1234", "Ivonne", "Pascal", "12345678", "juanperez@gmail.com", new Direccion("Calle Falsa", "123", "8","A"), new GregorianCalendar(1990, Calendar.NOVEMBER, 10));
+        Cliente c8 = new Cliente("FranciscoVeron", "5678", "Francisco", "Veron", "87654321", "mariagomez@gmail.com", new Direccion("Calle Falsa", "456", null,null), new GregorianCalendar(1995, Calendar.APRIL, 16));
+        Cliente c9 = new Cliente("JamesBond", "asdds", "James", "Bond", "12345467", "mariagomerias@gmail.com", new Direccion("Calle Falsa", "567", null,null), new GregorianCalendar(1965, Calendar.JANUARY, 16));
         Cliente c10 = new Cliente("JamesBond", "asdds", "Martina", "Patriarco", "12345467", "mariagomerias@gmail.com", new Direccion("Calle Falsa", "567", null,null), new GregorianCalendar(1965, Calendar.JANUARY, 16));
         try {
             e.agregarCliente(c1);
@@ -85,26 +87,26 @@ public class Prueba {
 */
         try {
             IViaje v1 = e.asignarPedidoVehiculo(p1);
+            e.asignarViajeChofer(v1);
             IViaje v2 = e.asignarPedidoVehiculo(p2);
+            e.asignarViajeChofer(v2);
             IViaje v3 = e.asignarPedidoVehiculo(p3);
+            e.asignarViajeChofer(v3);
             IViaje v4 = e.asignarPedidoVehiculo(p4);
+            e.asignarViajeChofer(v4);
             IViaje v5 = e.asignarPedidoVehiculo(p5);
+            e.asignarViajeChofer(v5);
             IViaje v6 = e.asignarPedidoVehiculo(p6);
+            e.asignarViajeChofer(v6);
             IViaje v7 = e.asignarPedidoVehiculo(p7);
+            e.asignarViajeChofer(v7);
             IViaje v8 = e.asignarPedidoVehiculo(p8);
+            e.asignarViajeChofer(v8);
             /*IViaje v9 = e.asignarPedidoVehiculo(p9);
             IViaje v10 = e.asignarPedidoVehiculo(p10);
             IViaje v11 = e.asignarPedidoVehiculo(p11); //Pedido incoherente
             IViaje v12 = e.asignarPedidoVehiculo(p12); //Pedido Incoherente
 */
-            e.asignarViajeChofer(v1);
-            e.asignarViajeChofer(v2);
-            e.asignarViajeChofer(v3);
-            e.asignarViajeChofer(v4);
-            e.asignarViajeChofer(v5);
-            e.asignarViajeChofer(v6);
-
-
             v1.getPedido().getCliente().pagar_viaje();
             v1.getChofer().finalizarViaje();
 
@@ -149,6 +151,7 @@ public class Prueba {
             pp.next().calcularCostoViaje();
         }
 
+        e.puntaje_mes_finalizado(new GregorianCalendar(2000,Calendar.SEPTEMBER,1));
         ///Listados
 
         System.out.println(e.getSueldosTotales(new GregorianCalendar(2024,Calendar.SEPTEMBER,1)));
@@ -162,7 +165,7 @@ public class Prueba {
         System.out.println("\nLISTADO CLIENTES\n");
         System.out.println(e.listado_clientes());
 
-        e.puntaje_mes_finalizado(new GregorianCalendar(2000,Calendar.MAY,1));
+
         System.out.println("\nLISTADO CHOFERES\n");
         System.out.println(e.listado_choferes());
 

@@ -101,8 +101,8 @@ public class Sistema  {
         Iterator<IVehiculo> it = this.vehiculos.iterator();
         while (it.hasNext() && !existe) {
             IVehiculo v = it.next();
-            if (!v.isOcupado())
-                existe = it.next().getPrioridad(pedido) != 0;
+            if (!v.isOcupado() && v.getPrioridad(pedido) != null)
+                existe = true;
         }
         return existe;
     }
@@ -121,7 +121,7 @@ public class Sistema  {
             IVehiculo v = it.next();
             if (!v.isOcupado()) {
                 Integer prioridad = v.getPrioridad(pedido);
-                if (prioridad != 0 && prioridad > maxP) {
+                if (prioridad != null && prioridad > maxP) {
                     maxP = prioridad;
                     mejor = v;
                 }
@@ -142,11 +142,11 @@ public class Sistema  {
         IViaje viaje = ViajeFactory.getViaje(pedido);
         validarPedido(pedido);
         if (!existeVehiculo(pedido))
-            throw new VehiculoNoDisponibleException("No existe el vehiculo"); // No existe vehiculo valido
+            throw new VehiculoNoDisponibleException("No hay vehiculo disponible"); // No existe vehiculo valido
         else {
             IVehiculo v = buscarMejorVehiculo(pedido);
             viaje.setVehiculo(v);
-            v.setOcupado(false);
+            v.setOcupado(true);
             this.agregarViaje(viaje);
         }
         return viaje;
