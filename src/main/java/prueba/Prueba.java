@@ -88,58 +88,36 @@ public class Prueba {
         try {
             IViaje v1 = e.asignarPedidoVehiculo(p1);
             e.asignarViajeChofer(v1);
-            IViaje v2 = e.asignarPedidoVehiculo(p2);
-            e.asignarViajeChofer(v2);
-            IViaje v3 = e.asignarPedidoVehiculo(p3);
-            e.asignarViajeChofer(v3);
-            IViaje v4 = e.asignarPedidoVehiculo(p4);
-            e.asignarViajeChofer(v4);
-            IViaje v5 = e.asignarPedidoVehiculo(p5);
-            e.asignarViajeChofer(v5);
-            IViaje v6 = e.asignarPedidoVehiculo(p6);
-            e.asignarViajeChofer(v6);
-            IViaje v7 = e.asignarPedidoVehiculo(p7);
-            e.asignarViajeChofer(v7);
-            IViaje v8 = e.asignarPedidoVehiculo(p8);
-            e.asignarViajeChofer(v8);
-            /*IViaje v9 = e.asignarPedidoVehiculo(p9);
-            IViaje v10 = e.asignarPedidoVehiculo(p10);
-            IViaje v11 = e.asignarPedidoVehiculo(p11); //Pedido incoherente
-            IViaje v12 = e.asignarPedidoVehiculo(p12); //Pedido Incoherente
-*/
             v1.getPedido().getCliente().pagar_viaje();
             v1.getChofer().finalizarViaje();
-
+            IViaje v2 = e.asignarPedidoVehiculo(p2);
+            e.asignarViajeChofer(v2);
             v2.getPedido().getCliente().pagar_viaje();
             v2.getChofer().finalizarViaje();
-
-            e.asignarViajeChofer(v7);
-            e.asignarViajeChofer(v8);
-            /*v1.getPedido().getCliente().pagar_viaje();
-            v2.getPedido().getCliente().pagar_viaje();
+            IViaje v3 = e.asignarPedidoVehiculo(p3);
+            e.asignarViajeChofer(v3);
             v3.getPedido().getCliente().pagar_viaje();
-            v1.getChofer().finalizarViaje();
-            v2.getChofer().finalizarViaje();
             v3.getChofer().finalizarViaje();
-            e.asignarViajeChofer(v7);
-            e.asignarViajeChofer(v8);
-            e.asignarViajeChofer(v9);
-            e.asignarViajeChofer(v10); //Lanza excepcion porque no hay choferes disponible*/
-
-            v3.getPedido().getCliente().pagar_viaje();
+            IViaje v4 = e.asignarPedidoVehiculo(p4);
+            e.asignarViajeChofer(v4);
             v4.getPedido().getCliente().pagar_viaje();
-            v5.getPedido().getCliente().pagar_viaje();
-            v6.getPedido().getCliente().pagar_viaje();
-            v7.getPedido().getCliente().pagar_viaje();
-            v8.getPedido().getCliente().pagar_viaje();
-
-            v3.getChofer().finalizarViaje();
             v4.getChofer().finalizarViaje();
+            IViaje v5 = e.asignarPedidoVehiculo(p5);
+            e.asignarViajeChofer(v5);
+            v5.getPedido().getCliente().pagar_viaje();
             v5.getChofer().finalizarViaje();
+            IViaje v6 = e.asignarPedidoVehiculo(p6);
+            e.asignarViajeChofer(v6);
+            v6.getPedido().getCliente().pagar_viaje();
             v6.getChofer().finalizarViaje();
+            IViaje v7 = e.asignarPedidoVehiculo(p7);
+            e.asignarViajeChofer(v7);
+            v7.getPedido().getCliente().pagar_viaje();
             v7.getChofer().finalizarViaje();
+            IViaje v8 = e.asignarPedidoVehiculo(p8);
+            e.asignarViajeChofer(v8);
+            v8.getPedido().getCliente().pagar_viaje();
             v8.getChofer().finalizarViaje();
-
         }
         catch(VehiculoNoDisponibleException | ChoferNoDisponibleException | PedidoIncoherenteException ex){
             System.out.println(ex.getMessage());
