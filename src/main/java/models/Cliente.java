@@ -1,6 +1,8 @@
 package models;
 import java.util.GregorianCalendar;
 
+import static java.util.Calendar.*;
+
 /**
  * La clase cliente extendida de usuario representa a cada usuario que quiera hacer un pedido al sistema
  * La clase se extiende de usuario y es cloneable
@@ -130,6 +132,12 @@ public class Cliente extends Usuario implements Cloneable{
         }
     }
 
+    public String formatFecha(GregorianCalendar fecha){
+        final StringBuilder sb = new StringBuilder("(");
+        sb.append(fecha.get(YEAR)).append("/").append(fecha.get(MONTH) + 1).append("/").append(fecha.get(DAY_OF_MONTH)).append(")");
+        return sb.toString();
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Cliente{");
@@ -140,7 +148,7 @@ public class Cliente extends Usuario implements Cloneable{
         sb.append(", telefono='").append(telefono).append('\'');
         sb.append(", mail='").append(mail).append('\'');
         sb.append(", direccion=").append(direccion);
-        sb.append(", fecha_nacimiento=").append(fecha_nacimiento);
+        sb.append(", fecha_nacimiento=").append(formatFecha(fecha_nacimiento));
         sb.append('}');
         return sb.toString();
     }
