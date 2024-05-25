@@ -1,6 +1,8 @@
 package models;
 
-public class Direccion implements Cloneable{
+import java.io.Serializable;
+
+public class Direccion implements Cloneable, Serializable {
     private  String nombre;
     private  String altura;
     private  String piso;

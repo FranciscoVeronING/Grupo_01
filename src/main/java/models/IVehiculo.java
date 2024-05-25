@@ -1,7 +1,9 @@
 package models;
 
 
-public interface  IVehiculo extends Cloneable{
+import java.io.Serializable;
+
+public interface  IVehiculo extends Cloneable, Serializable  {
   Integer getPrioridad(Pedido pedido);
   boolean validarVehiculo(Pedido pedido);
   Vehiculo clone()throws CloneNotSupportedException;

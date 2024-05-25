@@ -10,7 +10,7 @@ import java.util.*;
 /**
  * Clase que representa a la empresa en el programa
  */
-public class Sistema  {
+public class Sistema {
 
     private static Sistema _instancia = null;
 
@@ -191,7 +191,7 @@ public class Sistema  {
     public double getSueldosTotales(GregorianCalendar fecha_inicio_mes){
         double sueldo = 0;
         for (Empleado c : this.choferes) {
-            sueldo += c.getSueldo(fecha_inicio_mes);
+            sueldo += c.getSueldo(fecha_inicio_mes, getViajesChofer(c));
         }
         return sueldo;
     }
@@ -208,7 +208,7 @@ public class Sistema  {
         if (empleadoIterator.hasNext()) {
             do {
                 Empleado empleado = empleadoIterator.next();
-                sb.append(empleado.getNombre()).append(" ").append(empleado.getDni()).append("\t$ ").append(empleado.getSueldo(fecha_inicio_mes)).append("\n");
+                sb.append(empleado.getNombre()).append(" ").append(empleado.getDni()).append("\t$ ").append(empleado.getSueldo(fecha_inicio_mes, getViajesChofer(empleado))).append("\n");
             } while (empleadoIterator.hasNext());
         }
         sb.append("Sueldo Total a pagar:\t$ ").append(this.getSueldosTotales(fecha_inicio_mes));
@@ -369,10 +369,10 @@ public class Sistema  {
         vehiculo.setOcupado(false);
         // Lo saco de lista y pongo ultimo CHOFER
         this.choferes.remove(chofer);
-        this.choferes.addLast(chofer);
+        this.choferes.add(chofer);
         // Lo saco de lista y pongo ultimo VEHICULO
         this.vehiculos.remove(vehiculo);
-        this.vehiculos.addLast(vehiculo);
+        this.vehiculos.add(vehiculo);
     }
 
     public void pagarViaje(IViaje v) {

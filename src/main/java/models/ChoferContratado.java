@@ -32,10 +32,8 @@ public class ChoferContratado extends Empleado {
      * @return : El metodo devolvera el sueldo del chofer contratado
      */
     @Override
-    public double getSueldo(GregorianCalendar fecha_inicio_mes) {
+    public double getSueldo(GregorianCalendar fecha_inicio_mes, Iterator<IViaje> viajes) {
         double salario = 0;
-        Sistema e = Sistema.getInstancia();
-        Iterator<IViaje> viajes = e.getViajesChofer(this);
         while (viajes.hasNext()){
             IViaje viaje = viajes.next();
             if (viaje.getPedido().getFecha().compareTo(fecha_inicio_mes) > 0)

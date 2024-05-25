@@ -1,6 +1,8 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
 
 /**
  * Clase utilizada para representar al chofer permanente que se extiende de la clsae chofer
@@ -41,7 +43,7 @@ public class ChoferPermanente extends Chofer {
      * @return Devuelve el salario del chofer permanente
      */
     @Override
-    public double getSueldo(GregorianCalendar fecha_inicio_mes) {
+    public double getSueldo(GregorianCalendar fecha_inicio_mes, Iterator<IViaje> viajes) {
         double salario = this.sueldo_basico;
         salario += sueldo_basico * (1 + this.antiguedad * plus_antiguedad);
         salario += sueldo_basico * (1 + plus_cant_hijos * cant_Hijos);

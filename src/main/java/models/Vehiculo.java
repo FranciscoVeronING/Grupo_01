@@ -98,6 +98,18 @@ public abstract class Vehiculo implements IVehiculo, Cloneable {
     }
 
     @Override
+    public Integer getPrioridad(Pedido pedido) {
+        int puntaje;
+        if (!(validarVehiculo(pedido)))
+            return null;
+        if (pedido.isEquipaje())
+            puntaje = 40 * pedido.getCant_pasajeros();
+        else
+            puntaje = 30;
+        return puntaje;
+    }
+
+    @Override
     public String toString() {
         return "{" +
                 "patente='" + patente + '\'' +

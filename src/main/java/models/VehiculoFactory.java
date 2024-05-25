@@ -1,9 +1,11 @@
 package models;
 
+import java.io.Serializable;
+
 /**
  * Clase utilizada para verificar si el vehiculo a utilizar sera un auto, combi o moto
  */
-public class VehiculoFactory {
+public class VehiculoFactory implements Serializable {
     /**
      * Metodo que compara si el vehiculo es de tipo auto,combi o moto
      * <b>Pre: </b> Vehiculo no puede ser null ni estar vacio

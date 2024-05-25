@@ -1,6 +1,8 @@
 package models;
 
-public interface IViaje extends Cloneable {
+import java.io.Serializable;
+
+public interface IViaje extends Cloneable, Serializable {
  double getCosto_viaje();
  void setCosto_viaje(double valor);
  Pedido getPedido();

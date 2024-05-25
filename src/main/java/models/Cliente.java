@@ -8,7 +8,7 @@ import static java.util.Calendar.*;
  * La clase se extiende de usuario y es cloneable
  */
 
-public class Cliente extends Usuario implements Cloneable{
+public class Cliente extends Usuario implements Cloneable {
     private String nombre;
     private String apellido;
     private String telefono;

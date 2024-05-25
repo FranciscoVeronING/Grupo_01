@@ -1,11 +1,15 @@
 package models;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
+
 /**
  *
  *Clase que representa a los choferes de la empresa
  */
-public abstract class Empleado implements Cloneable {
+public abstract class Empleado implements Cloneable, Serializable {
     protected String dni;
     protected String nombre;
     protected int cant_viajes;
@@ -30,7 +34,7 @@ public abstract class Empleado implements Cloneable {
         this.cant_viajes = 0;
     }
 
-    public abstract double getSueldo(GregorianCalendar fecha_inicio_mes);
+    public abstract double getSueldo(GregorianCalendar fecha_inicio_mes, Iterator<IViaje> viajes);
 
     public String getDni() {
         return dni;
