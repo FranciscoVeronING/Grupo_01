@@ -18,6 +18,9 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.MatteBorder;
 import java.awt.Color;
 import javax.swing.border.TitledBorder;
+import javax.swing.JTextPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 public class VistaGeneral extends JFrame {
 
@@ -26,7 +29,11 @@ public class VistaGeneral extends JFrame {
 	private JTextField tf_cantChoferes;
 	private JTextField tf_cantVehiculos;
 	private JTextField tf_cantClientes;
-
+	private JButton btnFinalizar;
+	private JButton btnInicio;
+	private JTextArea textAreaLogCliente;
+	private JTextArea textArea_LogGral;
+	private JTextArea textAreaLogChofer;
 	/**
 	 * Launch the application.
 	 */
@@ -49,16 +56,16 @@ public class VistaGeneral extends JFrame {
 	public VistaGeneral() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		this.contentPane = new JPanel();
+		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		//contentPane.setPreferredSize(new Dimension(900,900));
 
-		setContentPane(contentPane);
-		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(this.contentPane);
+		this.contentPane.setLayout(new BorderLayout(0, 0));
 		
 		JPanel Seteo = new JPanel();
 		Seteo.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		contentPane.add(Seteo, BorderLayout.NORTH);
+		this.contentPane.add(Seteo, BorderLayout.NORTH);
 		Seteo.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		JPanel panel_Seteo = new JPanel();
@@ -74,9 +81,9 @@ public class VistaGeneral extends JFrame {
 		JPanel panelSet_tfChof = new JPanel();
 		panel_Seteo.add(panelSet_tfChof);
 		
-		tf_cantChoferes = new JTextField();
-		panelSet_tfChof.add(tf_cantChoferes);
-		tf_cantChoferes.setColumns(10);
+		this.tf_cantChoferes = new JTextField();
+		panelSet_tfChof.add(this.tf_cantChoferes);
+		this.tf_cantChoferes.setColumns(10);
 		
 		JPanel panelSet_lblCvehiculos = new JPanel();
 		panel_Seteo.add(panelSet_lblCvehiculos);
@@ -87,9 +94,9 @@ public class VistaGeneral extends JFrame {
 		JPanel panelSet_tfVehic = new JPanel();
 		panel_Seteo.add(panelSet_tfVehic);
 		
-		tf_cantVehiculos = new JTextField();
-		panelSet_tfVehic.add(tf_cantVehiculos);
-		tf_cantVehiculos.setColumns(10);
+		this.tf_cantVehiculos = new JTextField();
+		panelSet_tfVehic.add(this.tf_cantVehiculos);
+		this.tf_cantVehiculos.setColumns(10);
 		
 		JPanel panelSet_lblClient = new JPanel();
 		panel_Seteo.add(panelSet_lblClient);
@@ -100,9 +107,9 @@ public class VistaGeneral extends JFrame {
 		JPanel panelSet_tfClient = new JPanel();
 		panel_Seteo.add(panelSet_tfClient);
 		
-		tf_cantClientes = new JTextField();
-		panelSet_tfClient.add(tf_cantClientes);
-		tf_cantClientes.setColumns(10);
+		this.tf_cantClientes = new JTextField();
+		panelSet_tfClient.add(this.tf_cantClientes);
+		this.tf_cantClientes.setColumns(10);
 		
 		JPanel panel_Comienzo = new JPanel();
 		Seteo.add(panel_Comienzo);
@@ -127,35 +134,52 @@ public class VistaGeneral extends JFrame {
 		JPanel panelComienzo_Inicio = new JPanel();
 		panel_Comienzo.add(panelComienzo_Inicio);
 		
-		JButton btnInicio = new JButton("Comenzar");
-		panelComienzo_Inicio.add(btnInicio);
+		this.btnInicio = new JButton("Comenzar");
+		panelComienzo_Inicio.add(this.btnInicio);
 		
 		JPanel LogGeneral = new JPanel();
 		LogGeneral.setBorder(new TitledBorder(null, "Log General:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		contentPane.add(LogGeneral, BorderLayout.CENTER);
+		this.contentPane.add(LogGeneral, BorderLayout.CENTER);
 		LogGeneral.setPreferredSize(new Dimension(500,400));
+		LogGeneral.setLayout(new BorderLayout(0, 0));
 		
-		JList list_LogGeneral = new JList();
-		LogGeneral.add(list_LogGeneral);
+		this.textArea_LogGral = new JTextArea();
+		LogGeneral.add(this.textArea_LogGral);
 		
 		JPanel panelCCH = new JPanel();
-		contentPane.add(panelCCH, BorderLayout.EAST);
+		this.contentPane.add(panelCCH, BorderLayout.EAST);
 		panelCCH.setLayout(new GridLayout(2, 0, 0, 0));
 		
 		JPanel panel_LogCliente = new JPanel();
 		panel_LogCliente.setBorder(new TitledBorder(null, "Log Cliente:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelCCH.add(panel_LogCliente);
+		panel_LogCliente.setLayout(new BorderLayout(0, 0));
 		
-		JList list_LogCliente = new JList();
-		panel_LogCliente.add(list_LogCliente);
+		this.textAreaLogCliente = new JTextArea();
+		panel_LogCliente.add(this.textAreaLogCliente);
 		
 		JPanel panel_LogChofer = new JPanel();
 		panel_LogChofer.setBorder(new TitledBorder(null, "Log Chofer :", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelCCH.add(panel_LogChofer);
 		panel_LogChofer.setPreferredSize(new Dimension(300,300));
+		panel_LogChofer.setLayout(new BorderLayout(0, 0));
 		
-		JList list_LogChofer = new JList();
-		panel_LogChofer.add(list_LogChofer);
+		this.textAreaLogChofer = new JTextArea();
+		panel_LogChofer.add(this.textAreaLogChofer);
+		
+		JPanel panelSurFin = new JPanel();
+		this.contentPane.add(panelSurFin, BorderLayout.SOUTH);
+		panelSurFin.setLayout(new BorderLayout(0, 0));
+		
+		this.btnFinalizar = new JButton("Finalizar Simulacion");
+		panelSurFin.add(this.btnFinalizar);
+		
+		
+		this.btnFinalizar.setActionCommand("Finalizar_Simulacion");
+		this.btnFinalizar.setActionCommand("Iniciar_Simulacion");
 	}
+	
+	
+	
 
 }
