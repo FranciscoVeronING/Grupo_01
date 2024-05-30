@@ -1,9 +1,10 @@
 package models;
 
+
 /**
  * Clase que se extiende de Empleado usada para agregar informacion de los choferes
  */
-public abstract class Chofer extends Empleado {
+public abstract class Chofer extends Empleado{
 
 protected double sueldo_basico;
 protected double aportes;

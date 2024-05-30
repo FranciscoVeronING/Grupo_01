@@ -7,7 +7,7 @@ import java.util.Iterator;
 /**
  * Es la clase utilizada para representar al chofer que es de tipo Contratado
  */
-public class ChoferContratado extends Empleado {
+public class ChoferContratado extends Empleado{
     private double ganancia_viaje;
 
     /**

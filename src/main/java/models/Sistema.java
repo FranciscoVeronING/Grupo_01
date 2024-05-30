@@ -13,11 +13,13 @@ import java.util.*;
 public class Sistema {
 
     private static Sistema _instancia = null;
+    private SistemaXML sistemaOutput;
+    private SistemaXML sistemaInput;
 
-    private final ArrayList<Empleado> choferes;
-    private final ArrayList<IVehiculo> vehiculos;
-    private final ArrayList<Cliente> clientes;
-    private final ArrayList<IViaje> viajes;
+    private ArrayList<Empleado> choferes;
+    private ArrayList<IVehiculo> vehiculos;
+    private ArrayList<Cliente> clientes;
+    private ArrayList<IViaje> viajes;
 
     private Sistema() {
         this.choferes = new ArrayList<>();
@@ -34,6 +36,22 @@ public class Sistema {
         if (_instancia == null)
             _instancia = new Sistema();
         return _instancia;
+    }
+
+    public void setViajes(ArrayList<IViaje> viajes) {
+        this.viajes = viajes;
+    }
+
+    public void setClientes(ArrayList<Cliente> clientes) {
+        this.clientes = clientes;
+    }
+
+    public void setVehiculos(ArrayList<IVehiculo> vehiculos) {
+        this.vehiculos = vehiculos;
+    }
+
+    public void setChoferes(ArrayList<Empleado> choferes) {
+        this.choferes = choferes;
     }
 
     /**
@@ -246,32 +264,49 @@ public class Sistema {
 
     }
 
-    public Iterator<Empleado> getChoferes() {
+    public Iterator<Empleado> getIteratorChoferes() {
         return choferes.iterator();
+    }
+
+    public ArrayList<Empleado> getChoferes() {
+        return choferes;
     }
 
     public Empleado getChofer(int i){
         return (Empleado) this.choferes.get(i);
     }
 
-    public Iterator<IVehiculo> getVehiculos() {
+    public Iterator<IVehiculo> getIteratorVehiculos() {
         return vehiculos.iterator();
     }
 
-    public Iterator<Cliente> getClientes() {
+    public ArrayList<IVehiculo> getVehiculos() {
+        return vehiculos;
+    }
+
+    public Iterator<Cliente> getIteratorClientes() {
         return clientes.iterator();
     }
 
-    public Iterator<IViaje> getViajes() {
+    public ArrayList<Cliente> getClientes() {
+        return clientes;
+    }
+
+    public Iterator<IViaje> getIteratorViajes() {
         return viajes.iterator();
     }
+
+    public ArrayList<IViaje> getViajes() {
+        return viajes;
+    }
+
     /**
      * Funcion que genera un String que representa el listado de todos los clientes de la empresa.
      * @return : devuelve una variable de tipo String que contiene el listado de los clientes de la empresa.
      */
     public String listado_clientes(){
         StringBuilder reporte = new StringBuilder();
-        Iterator<Cliente> clientes = this.getClientes();
+        Iterator<Cliente> clientes = this.getIteratorClientes();
         while (clientes.hasNext()){
             reporte.append("\n").append(clientes.next().toString());
         }
@@ -307,7 +342,7 @@ public class Sistema {
      */
     public String listado_choferes(){
         StringBuilder reporte = new StringBuilder();
-        Iterator<Empleado> empleados = this.getChoferes();
+        Iterator<Empleado> empleados = this.getIteratorChoferes();
         while (empleados.hasNext()){
             reporte.append("\n").append(empleados.next());
         }
@@ -320,7 +355,7 @@ public class Sistema {
      */
     public String listado_vehiculos(){
         StringBuilder reporte = new StringBuilder();
-        Iterator<IVehiculo> vehiculos = this.getVehiculos();
+        Iterator<IVehiculo> vehiculos = this.getIteratorVehiculos();
         while (vehiculos.hasNext()){
             reporte.append("\n").append(vehiculos.next().toString());
         }
@@ -334,7 +369,7 @@ public class Sistema {
     public void puntaje_mes_finalizado(GregorianCalendar pricipio_mes){
         double max = 0;
         Empleado maxKM = null;
-        Iterator<Empleado> empleadoIterator = getChoferes();
+        Iterator<Empleado> empleadoIterator = getIteratorChoferes();
         while (empleadoIterator.hasNext()) {
             Empleado empleado = empleadoIterator.next();
             double km_realizados = 0;
@@ -424,6 +459,19 @@ public class Sistema {
         }
         return sb.toString();
     }
+    public void cargaSistema(){
+        SistemaDTO sistemaDTO= new SistemaDTO();
+        sistemaDTO = sistemaInput.cargaSistema();
+        Sistema.getInstancia().setChoferes(sistemaDTO.getChoferes());
+        Sistema.getInstancia().setVehiculos(sistemaDTO.getVehiculos());
+        Sistema.getInstancia().setClientes(sistemaDTO.getClientes());
+        Sistema.getInstancia().setViajes(sistemaDTO.getViajes());
+    }
+
+    public void guardaSistema(){
+        sistemaOutput.grabaSistema();
+    }
+
 
     @Override
     public String toString() {

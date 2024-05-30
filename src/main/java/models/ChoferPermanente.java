@@ -7,7 +7,7 @@ import java.util.Iterator;
 /**
  * Clase utilizada para representar al chofer permanente que se extiende de la clsae chofer
  */
-public class ChoferPermanente extends Chofer {
+public class ChoferPermanente extends Chofer{
     private  static double plus_antiguedad = 0.02;
     private  static double plus_cant_hijos = 0.015;
     private GregorianCalendar fecha_ingreso;

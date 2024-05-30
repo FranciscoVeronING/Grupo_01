@@ -124,7 +124,7 @@ public class Prueba {
         }
 
         // Calcular los costos de los viaje
-        Iterator<IViaje> pp = e.getViajes();
+        Iterator<IViaje> pp = e.getIteratorViajes();
         while (pp.hasNext()) {
             pp.next().calcularCostoViaje();
         }

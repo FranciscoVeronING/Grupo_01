@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
 
+
 /**
  * Clase utilizada para representar al chofer temporario que se extiende de la clsae chofer
  */
-public class ChoferTemporario extends Chofer {
+public class ChoferTemporario extends Chofer{
     private final double plus_x_cant_viajes;
 
  /**
