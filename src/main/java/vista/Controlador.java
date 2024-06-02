@@ -41,8 +41,7 @@ public class Controlador implements ActionListener {
 			try {
 				///Crear Funcion en sistema de crear cliente, esa funcion deberia llamar a añadir cliente.
 				///debe validar si el nombre de usuario existe
-				Sistema.getInstancia().creaCliente(r.getNombre(),r.getApellido(),r.getMail(),r.getTelefono(),r.getNombreUser(), r.getContrasenia(), r.getNombreCalle(), r.getAlturaCalle(), r.getPisoCalle(), r.getLetraCalle());			
-			}
+				Sistema.getInstancia().creaCliente(r.getNombreUser(),r.getContrasenia(),r.getNombre(),r.getApellido(),r.getTelefono(),r.getMail(),r.getNombreCalle(),r.getAlturaCalle(),r.getPisoCalle(),r.getLetraCalle(),r.getFechaDeNacimiento());}
 			catch(Exception ex){
 				JOptionPane.showMessageDialog(null, "Usuario ya registrado");	
 			}

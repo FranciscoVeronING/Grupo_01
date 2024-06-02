@@ -16,6 +16,9 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.FlowLayout;
 import java.util.GregorianCalendar;
+import com.toedter.calendar.JCalendar;
+import com.toedter.calendar.JDayChooser;
+import com.toedter.calendar.JDateChooser;
 
 public class VistaAppCliente_Registrarse extends JFrame implements IVistaAppCliente_Registrarse{
 
@@ -32,6 +35,7 @@ public class VistaAppCliente_Registrarse extends JFrame implements IVistaAppClie
 	private JTextField tf_PisoCalle;
 	private JTextField tf_letraCalle;
 	private JButton btnRegistrarme;
+	private JDateChooser dateChooser;
 	
 	public VistaAppCliente_Registrarse() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -175,6 +179,10 @@ public class VistaAppCliente_Registrarse extends JFrame implements IVistaAppClie
 		JPanel panel_1 = new JPanel();
 		panel.add(panel_1);
 		
+		this.dateChooser = new JDateChooser();
+		panel_1.add(this.dateChooser);
+		this.dateChooser.setPreferredSize(new Dimension(100,20));
+		
 		JPanel panel_6 = new JPanel();
 		panel.add(panel_6);
 		
@@ -279,6 +287,8 @@ public class VistaAppCliente_Registrarse extends JFrame implements IVistaAppClie
 
 	@Override
 	public GregorianCalendar getFechaDeNacimiento() {
-		return this. ; //???
+		GregorianCalendar date = new GregorianCalendar();
+		date.setTime(this.dateChooser.getDate());
+		return date;
 	}
 }

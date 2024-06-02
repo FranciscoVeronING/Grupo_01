@@ -1,6 +1,7 @@
 package vista;
 
 import java.awt.event.ActionListener;
+import java.util.GregorianCalendar;
 
 public interface IVistaAppCliente_Registrarse {
 
@@ -16,5 +17,5 @@ public interface IVistaAppCliente_Registrarse {
 	 String getAlturaCalle();
 	 String getPisoCalle();
 	 String getLetraCalle();
-	 String getFechaDeNacimiento();
+	 GregorianCalendar getFechaDeNacimiento();
 }
