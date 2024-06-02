@@ -7,7 +7,7 @@ import java.util.Iterator;
 /**
  * Clase utilizada para representar al chofer permanente que se extiende de la clsae chofer
  */
-public class ChoferPermanente extends Chofer{
+public class ChoferPermanente extends Chofer {
     private  static double plus_antiguedad = 0.02;
     private  static double plus_cant_hijos = 0.015;
     private GregorianCalendar fecha_ingreso;
@@ -29,8 +29,8 @@ public class ChoferPermanente extends Chofer{
      * <b>Pre:</b> El parametro cant_Hijos debe ser cero o mayor
      * @param cant_Hijos : La cantidad de hijos que el chofer permanente
      */
-    public ChoferPermanente(String dni, String nombre, double aportes,GregorianCalendar fecha_ingreso, double antiguedad, double cant_Hijos) {
-        super(dni, nombre, aportes);
+    public ChoferPermanente(BolsaDeViajes b, String dni, String nombre, double aportes,GregorianCalendar fecha_ingreso, double antiguedad, double cant_Hijos) {
+        super(b, dni, nombre, aportes);
         this.antiguedad = antiguedad;
         this.cant_Hijos = cant_Hijos;
         this.fecha_ingreso = fecha_ingreso;

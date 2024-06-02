@@ -15,6 +15,7 @@ public class SistemaXML {
         catch(FileNotFoundException fileNotFound){
             System.out.println("ERROR AL CREAR EL ARCHIVO");
         }
+        assert encoder != null;
         encoder.writeObject(sistemaDTO);
         encoder.close();
     }
@@ -28,6 +29,7 @@ public class SistemaXML {
             System.out.println("ERROR AL ABRIR EL ARCHIVO");
         }
 
+        assert decoder != null;
         SistemaDTO sistemaDTO = (SistemaDTO) decoder.readObject();
         return sistemaDTO;
     }

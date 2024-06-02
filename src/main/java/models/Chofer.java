@@ -4,7 +4,7 @@ package models;
 /**
  * Clase que se extiende de Empleado usada para agregar informacion de los choferes
  */
-public abstract class Chofer extends Empleado{
+public abstract class Chofer extends EmpleadoRunnable {
 
 protected double sueldo_basico;
 protected double aportes;
@@ -18,8 +18,8 @@ protected double aportes;
      * <b>Pre: </b> dni no puede ser menor a cero
      * @param aportes : Parametro que es utilizado para setear los aportes del chofer
      */
-    public Chofer(String dni, String nombre, double aportes) {
-        super(dni, nombre);
+    public Chofer(BolsaDeViajes b, String dni, String nombre, double aportes) {
+        super(b, dni, nombre);
         this.sueldo_basico = 1000;
         this.aportes = aportes;
         this.calificacion_clientes = 0;

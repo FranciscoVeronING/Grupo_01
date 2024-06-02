@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.FlowLayout;
+import java.util.GregorianCalendar;
 
 public class VistaAppCliente_Registrarse extends JFrame implements IVistaAppCliente_Registrarse{
 
@@ -273,8 +274,11 @@ public class VistaAppCliente_Registrarse extends JFrame implements IVistaAppClie
 
 	@Override
 	public String getLetraCalle() {
-		return this.tf_letraCalle.getText();}
+		return this.tf_letraCalle.getText();
+	}
 
-	
-	
+	@Override
+	public GregorianCalendar getFechaDeNacimiento() {
+		return this. ; //???
+	}
 }

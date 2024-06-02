@@ -86,14 +86,14 @@ public final class Viaje implements IViaje,Cloneable {
      * Metodo utilizado para indicar que el viaje finalizo y se libera un chofer
      */
     public void finalizarse() {
-        setEstado_de_viaje("finalizado");
+        setEstado_de_viaje("FINALIZADO");
     }
 
     /**
      * Metodo utilizado para indicar que el viaje fue pagado con exito
      */
     public void pagarse() {
-        setEstado_de_viaje("pagado");
+        setEstado_de_viaje("PAGADO");
     }
 
     @Override

@@ -14,7 +14,7 @@ public class SistemaDTO implements Serializable {
         this.choferes = Sistema.getInstancia().getChoferes();
         this.vehiculos = Sistema.getInstancia().getVehiculos();
         this.clientes = Sistema.getInstancia().getClientes();
-        this.viajes = Sistema.getInstancia().getViajes();
+       // this.viajes = Sistema.getInstancia().getViajes();
     }
 
     public void setChoferes(ArrayList<Empleado> choferes) {
@@ -29,9 +29,9 @@ public class SistemaDTO implements Serializable {
         this.clientes = clientes;
     }
 
-    public void setViajes(ArrayList<IViaje> viajes) {
-        this.viajes = viajes;
-    }
+   // public void setViajes(ArrayList<IViaje> viajes) {
+  //      this.viajes = viajes;
+   // }
 
     public ArrayList<Empleado> getChoferes() {
         return choferes;
@@ -41,9 +41,9 @@ public class SistemaDTO implements Serializable {
         return vehiculos;
     }
 
-    public ArrayList<IViaje> getViajes() {
-        return viajes;
-    }
+  //  public ArrayList<IViaje> getViajes() {
+   //     return viajes;
+   // }
 
     public ArrayList<Cliente> getClientes() {
         return clientes;

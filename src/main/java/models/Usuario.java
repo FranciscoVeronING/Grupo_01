@@ -19,6 +19,9 @@ public abstract class Usuario {
         this.setNombre_usuario(nombre_usuario);
     }
 
+    public Usuario() {
+    }
+
     public void setNombre_usuario(String nombre_usuario) {
         this.nombre_usuario = nombre_usuario;
     }
@@ -27,4 +30,9 @@ public abstract class Usuario {
         return nombre_usuario;
     }
 
+    public String getContrasenia() {return contrasenia;}
+
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
+    }
 }

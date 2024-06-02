@@ -3,8 +3,8 @@ package vista;
 import java.util.Observable;
 import java.util.Observer;
 
-public abstract class ObservadorAbstracto implements Observer{
-private Observable observado;
+public abstract class ObservadorAbstracto implements Observer {
+protected Observable observado;
 
 
 	public ObservadorAbstracto(Observable observado) {

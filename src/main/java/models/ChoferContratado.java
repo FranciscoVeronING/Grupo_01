@@ -7,7 +7,7 @@ import java.util.Iterator;
 /**
  * Es la clase utilizada para representar al chofer que es de tipo Contratado
  */
-public class ChoferContratado extends Empleado{
+public class ChoferContratado extends EmpleadoRunnable {
     private double ganancia_viaje;
 
     /**
@@ -19,8 +19,8 @@ public class ChoferContratado extends Empleado{
      * <b>Pre: </b> ganancia no puede ser menor a 0
      * @param ganancia : Es la ganancia del chofer contratado
      */
-    public ChoferContratado(String nombre, String dni, double ganancia) {
-        super(nombre, dni);
+    public ChoferContratado(BolsaDeViajes b, String nombre, String dni, double ganancia) {
+        super(b, nombre, dni);
         this.ganancia_viaje = ganancia;
     }
 

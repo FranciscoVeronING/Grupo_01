@@ -1,5 +1,6 @@
 package models;
 import java.util.GregorianCalendar;
+import java.util.Random;
 
 import static java.util.Calendar.*;
 
@@ -38,14 +39,16 @@ public class Cliente extends Usuario implements Cloneable {
      * El parametro fecha_nacimiento no puede ser null ni estar vacio
      * @param fecha_nacimiento : Parametro utilizado para almacenar la fecha de nacimiento del usuario
      */
-    public Cliente(String nombre_usuario, String contrasenia,String nombre, String apellido, String telefono, String mail, Direccion direccion, GregorianCalendar fecha_nacimiento){
-        super(nombre_usuario,contrasenia);
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.telefono = telefono;
-        this.mail = mail;
-        this.direccion = direccion;
+    public Cliente(){
+        super();
+        this.nombre = generaNombre();
+        this.apellido = generaApellido();
+        this.telefono = generaTelefono();
+        this.mail = generaMailAleatorio();
+        this.direccion = direccion;             //FALTA VER ESTO
         this.fecha_nacimiento = fecha_nacimiento;
+        this.setNombre_usuario(this.nombre+this.apellido);
+        this.setContrasenia("1234");
     }
 
     public String getNombre() {
@@ -135,6 +138,40 @@ public class Cliente extends Usuario implements Cloneable {
     public String formatFecha(GregorianCalendar fecha){
         final StringBuilder sb = new StringBuilder("(");
         sb.append(fecha.get(YEAR)).append("/").append(fecha.get(MONTH) + 1).append("/").append(fecha.get(DAY_OF_MONTH)).append(")");
+        return sb.toString();
+    }
+
+    public String generaNombre(){
+        String[] nombres = {"Juan", "Pedro", "Pablo", "Maria", "Jose", "Ana", "Lucia", "Carlos", "Fernando", "Sofia", "Lionel", "Guille", "Ivonne", "Matias", "Maite", "Francisco", "Martin", "Dario", "Tomas", "Homero"};
+        Random rand = new Random();
+        return nombres[rand.nextInt(nombres.length)];
+    }
+
+    public String generaApellido(){
+        String[] apellidos = {"Gonzalez", "Rodriguez", "Perez", "Sanchez", "Ramirez", "Torres", "Dominguez", "Castillo", "Gutierrez", "Hernandez", "Lopez", "Martinez", "Rivera", "Mendoza", "Vasquez", "Castro", "Ortiz", "Ruiz", "Romero", "Alvarez"};
+        Random rand = new Random();
+        return apellidos[rand.nextInt(apellidos.length)];
+    }
+
+    public String generaTelefono() {
+        Random rand = new Random();
+        StringBuilder sb = new StringBuilder(7);
+        for (int i = 0; i < 7; i++) {
+            int num = rand.nextInt(10); // Genera un número aleatorio entre 0 y 9
+            sb.append(num);
+        }
+        return "223" + sb.toString();
+    }
+
+    public String generaMailAleatorio() {
+        String caracteres = "abcdefghijklmnopqrstuvwxyz";
+        Random rand = new Random();
+        StringBuilder sb = new StringBuilder(10);
+        for (int i = 0; i < 10; i++) {
+            int index = rand.nextInt(caracteres.length());
+            sb.append(caracteres.charAt(index));
+        }
+        sb.append("@gmail.com");
         return sb.toString();
     }
 

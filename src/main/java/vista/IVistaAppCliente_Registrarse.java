@@ -16,4 +16,5 @@ public interface IVistaAppCliente_Registrarse {
 	 String getAlturaCalle();
 	 String getPisoCalle();
 	 String getLetraCalle();
+	 String getFechaDeNacimiento();
 }

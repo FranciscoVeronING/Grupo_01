@@ -4,6 +4,7 @@ import Exception.VehiculoNoDisponibleException;
 import Exception.ChoferNoDisponibleException;
 import Exception.UsuarioRepetidoException;
 import Exception.PedidoIncoherenteException;
+import Exception.UsuarioIncorrectoException;
 
 import java.util.*;
 
@@ -11,7 +12,6 @@ import java.util.*;
  * Clase que representa a la empresa en el programa
  */
 public class Sistema {
-
     private static Sistema _instancia = null;
     private SistemaXML sistemaOutput;
     private SistemaXML sistemaInput;
@@ -19,13 +19,12 @@ public class Sistema {
     private ArrayList<Empleado> choferes;
     private ArrayList<IVehiculo> vehiculos;
     private ArrayList<Cliente> clientes;
-    private ArrayList<IViaje> viajes;
+    private BolsaDeViajes viajes;
 
     private Sistema() {
         this.choferes = new ArrayList<>();
         this.vehiculos = new ArrayList<>();
         this.clientes = new ArrayList<>();
-        this.viajes = new ArrayList<>();
     }
 
     /**
@@ -38,7 +37,70 @@ public class Sistema {
         return _instancia;
     }
 
-    public void setViajes(ArrayList<IViaje> viajes) {
+    // Crear cliente, vehiculos y empleados
+
+    /**
+     * Funcion que crear y agrega un cliente a la lista de clientes de la empresa.
+     * <b>Precondicion: </b> los parametros deben ser validos (strings distintas de null o ""), y objetos distintos de null
+     * @throws UsuarioRepetidoException Se lanza cuando el nombre de usuario ya esta en uso
+     */
+    public Cliente crearCliente(String nombre_usuario, String contrasenia,String nombre, String apellido, String telefono, String mail, String NombreCalle, String AlturaCalle, String PisoCalle, String LetraCalle, GregorianCalendar fecha_nacimiento) throws UsuarioRepetidoException {
+        Cliente c = new Cliente(nombre_usuario, contrasenia, nombre, apellido, telefono, mail, new Direccion(NombreCalle, AlturaCalle, PisoCalle, LetraCalle), fecha_nacimiento);
+        verificarClienteRepetido(c);
+        this.clientes.add(c);
+        return c;
+    }
+
+    public Vehiculo crearVehiculo(String patente, String vehiculo) {
+        Vehiculo v = (Vehiculo) VehiculoFactory.getVehiculo(vehiculo, patente);
+        vehiculos.add(v);
+        return v;
+    }
+
+    public ChoferContratado crearChoferContratado(BolsaDeViajes b, String nombre, String dni, double ganancia) {
+        ChoferContratado c = new ChoferContratado(b, nombre, dni, ganancia);
+        choferes.add(c);
+        return c;
+    }
+
+    public ChoferPermanente crearChoferPermanente(BolsaDeViajes b, String dni, String nombre, double aportes,GregorianCalendar fecha_ingreso, double antiguedad, double cant_Hijos) {
+        ChoferPermanente c = new ChoferPermanente(b, dni, nombre, aportes, fecha_ingreso, antiguedad, cant_Hijos);
+        choferes.add(c);
+        return c;
+    }
+
+    public ChoferTemporario crearChoferTemporario(BolsaDeViajes b, String dni, String nombre, double aportes, double plusCantViajes) {
+        ChoferTemporario c = new ChoferTemporario(b, dni, nombre, aportes, plusCantViajes);
+        choferes.add(c);
+        return c;
+    }
+
+    // Validacion Cliente
+
+    public void verificarClienteRepetido(Cliente cliente) throws UsuarioRepetidoException {
+        Iterator <Cliente> clientes = this.clientes.iterator();
+        boolean repetido = false;
+        while (clientes.hasNext() && !repetido)
+            if (clientes.next().getNombre_usuario().equalsIgnoreCase(cliente.getNombre_usuario()))
+                repetido = true;
+        if (repetido) throw new UsuarioRepetidoException(cliente.nombre_usuario);
+    }
+
+    public void verificarExistenciaCliente(String u, String c) throws UsuarioIncorrectoException {
+        Iterator <Cliente> clientes = this.clientes.iterator();
+        boolean existe = false;
+        Cliente cliente = null;
+        while (clientes.hasNext() && !existe) {
+            cliente = clientes.next();
+            if (cliente.getNombre_usuario().equalsIgnoreCase(u))
+                existe = true;
+        }
+        if (!(existe && cliente.getContrasenia().equalsIgnoreCase(c))) throw new UsuarioIncorrectoException(u, c);
+    }
+
+    // Getters y Setters basicos
+
+    public void setViajes(BolsaDeViajes viajes) {
         this.viajes = viajes;
     }
 
@@ -54,6 +116,10 @@ public class Sistema {
         this.choferes = choferes;
     }
 
+    public ArrayList<Empleado> getChoferes() {
+        return choferes;
+    }
+
     /**
      * Retorna un iterador que contiene todos los viajes realizados por un empleado chofer dado
      * <b>Pre: </b> El parametro chofer no puede ser null ni vacio
@@ -62,7 +128,7 @@ public class Sistema {
      */
     public Iterator<IViaje> getViajesChofer(Empleado chofer) {
         ArrayList<IViaje> viajesChofer = new ArrayList<>();
-        for (IViaje viaje : viajes) if (chofer == viaje.getChofer()) viajesChofer.add(viaje);
+        for (IViaje viaje : viajes.getViajes()) if (chofer == viaje.getChofer()) viajesChofer.add(viaje);
         return viajesChofer.iterator();
     }
 
@@ -74,9 +140,45 @@ public class Sistema {
      */
     public Iterator<IViaje> getViajesCliente(Cliente cliente) {
         ArrayList<IViaje> viajesCliente = new ArrayList<>();
-        for (IViaje viaje : viajes) if (cliente == viaje.getPedido().getCliente()) viajesCliente.add(viaje);
+        for (IViaje viaje : viajes.getViajes()) if (cliente == viaje.getPedido().getCliente()) viajesCliente.add(viaje);
         return viajesCliente.iterator();
     }
+
+    public Iterator<IVehiculo> getIteratorVehiculos() {
+        return vehiculos.iterator();
+    }
+
+    public ArrayList<IVehiculo> getVehiculos() {
+        return vehiculos;
+    }
+
+    public Iterator<Cliente> getIteratorClientes() {
+        return clientes.iterator();
+    }
+
+    public ArrayList<Cliente> getClientes() {
+        return clientes;
+    }
+
+    public Iterator<IViaje> getIteratorViajes() {
+        return viajes.getViajes().iterator();
+    }
+
+    public ArrayList<IViaje> getViajes() {
+        return viajes.getViajes();
+    }
+
+    public Iterator<Empleado> getIteratorChoferes() {
+        return choferes.iterator();
+    }
+
+    public Empleado getChofer(int i){
+        return (Empleado) this.choferes.get(i);
+    }
+
+
+
+    // Otros Getters y Setters
 
     /**
      * Obtiene un iterador de los viajes asociados al chofer activo
@@ -86,7 +188,7 @@ public class Sistema {
      */
     public IViaje getViajeActivoChofer(Empleado chofer) {
         IViaje aux = null;
-        for (IViaje viaje : viajes)
+        for (IViaje viaje : viajes.getViajes())
             if (chofer == viaje.getChofer() && viaje.getEstado_de_viaje().equalsIgnoreCase("pagado"))
                 aux =  viaje;
         return aux;
@@ -106,6 +208,73 @@ public class Sistema {
             if (x.getEstado_de_viaje().equalsIgnoreCase("iniciado")) aux = x;
         }
         return aux;
+    }
+
+    /**
+     * Metodo que calcular los sueldos totales de la fecha solicitada
+     * @return : devuelve el sueldo en la fecha solicitada
+     */
+    public double getSueldosTotales(GregorianCalendar fecha_inicio_mes){
+        double sueldo = 0;
+        for (Empleado c : this.choferes) {
+            sueldo += c.getSueldo(fecha_inicio_mes, getViajesChofer(c));
+        }
+        return sueldo;
+    }
+
+    /**
+     * Genera un listado de los viajes de un cliente entre dos fechas dadas
+     *<b>Pre: </b> clliente no puede ser null ni estar vacio
+     * @param cliente El cliente para el cual se desea obtener los viajes
+     *                <b>Pre:</b> fechai debe ser una fecha valida
+     * @param fechai La fecha de inicio del período para el cual se desean los viajes
+     *               <b>Pre: </b> fechaf debe ser una fecha valida y posterior a fechai
+     * @param fechaf La fecha final del período para el cual se desean los viajes
+     * @return Una cadena que contiene el listado de los viajes del cliente dentro del período especificado
+     */
+    public String viajesClienteFecha(Cliente cliente, GregorianCalendar fechai, GregorianCalendar fechaf){
+        final StringBuilder sb = new StringBuilder("Viajes de ");
+        sb.append(cliente.getNombre_usuario()).append(": \n");
+        Iterator<IViaje> viajes = this.getViajesCliente(cliente);
+        while (viajes.hasNext()) {
+            IViaje viaje = viajes.next();
+            if ((viaje.getPedido().getFecha().compareTo(fechai) >= 0) && (viaje.getPedido().getFecha().compareTo(fechaf) <= 0))
+                sb.append(viaje).append("\n");
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Genera un listado de los viajes de un chofer entre dos fechas dadas
+     *<b>Pre: </b> chofer no puede ser null ni vacio
+     * @param chofer : El chofer para el cual se desea obtener los viajes
+     *<b>Pre: </b> fechai debe ser una fecha valida
+     * @param fechai : La fecha de inicio del período para el cual se desean los viajes
+     *<b>Pre: </b> fechaf debe ser una fecha valida y posterior a fechai
+     * @param fechaf : La fecha final del período para el cual se desean los viajes
+     * @return :  Cadena que contiene el listado de los viajes del chofer dentro del período especificado
+     */
+    public String viajesChoferesFecha(Empleado chofer, GregorianCalendar fechai, GregorianCalendar fechaf){
+        final StringBuilder sb = new StringBuilder("Viajes de ");
+        sb.append(chofer.getNombre()).append(" ,DNI: ").append(chofer.getDni()).append(": \n");
+        Iterator<IViaje> viajes = this.getViajesChofer(chofer);
+        while (viajes.hasNext()) {
+            IViaje viaje = viajes.next();
+            if ((viaje.getPedido().getFecha().compareTo(fechai) >= 0) && (viaje.getPedido().getFecha().compareTo(fechaf) <= 0))
+                sb.append(viaje).append("\n");
+        }
+        return sb.toString();
+    }
+
+
+    // Manejo de Pedidos y Viajes
+
+    public Pedido hacerPedido(GregorianCalendar fecha, String zona, boolean mascota, int cant_pasajeros, boolean equipaje, Cliente c, double d) {
+        return new Pedido(fecha, zona, mascota, cant_pasajeros, equipaje, c, d);
+    }
+
+    public void agregarViaje(IViaje v) {
+        this.viajes.getViajes().add(v);
     }
 
     /**
@@ -148,21 +317,29 @@ public class Sistema {
         return mejor;
     }
 
+    public IViaje solicitarViaje(Pedido pedido) {
+        IViaje v = ViajeFactory.getViaje(pedido);
+        v.setEstado_de_viaje("SOLICITADO");
+        return v;
+    }
+
+    public void solicitarAceptacion(Pedido pedido) throws PedidoIncoherenteException {
+        validarPedido(pedido);
+    }
+
     /**
-     * Metodo que asigna un vehiculo al pedido
-     * <b>Pre: </b> pedido no puede ser null ni estar vacio
-     * @param pedido almacena informacion a cerca del pedido y que auto sera el mejor para los requerimientos del mismo
+     * Metodo que asigna un vehiculo al Viaje
+     * <b>Pre: </b> viaje no puede ser null ni estar vacio
+     * @param viaje almacena informacion a cerca del pedido y que auto sera el mejor para los requerimientos del mismo
      * @return El viaje asociado al pedido y vehículo asignado
      * @throws VehiculoNoDisponibleException Si no hay ningún vehículo disponible para el pedido
      * @throws PedidoIncoherenteException Si el pedido no es coherente o válido
      */
-    public IViaje asignarPedidoVehiculo(Pedido pedido) throws VehiculoNoDisponibleException, PedidoIncoherenteException {
-        IViaje viaje = ViajeFactory.getViaje(pedido);
-        validarPedido(pedido);
-        if (!existeVehiculo(pedido))
+    public IViaje asignarVehiculoViaje(Viaje viaje) throws VehiculoNoDisponibleException, PedidoIncoherenteException {
+        if (!existeVehiculo(viaje.getPedido()))
             throw new VehiculoNoDisponibleException("No hay vehiculo disponible"); // No existe vehiculo valido
         else {
-            IVehiculo v = buscarMejorVehiculo(pedido);
+            IVehiculo v = buscarMejorVehiculo(viaje.getPedido());
             viaje.setVehiculo(v);
             v.setOcupado(true);
             this.agregarViaje(viaje);
@@ -203,16 +380,29 @@ public class Sistema {
     }
 
     /**
-     * Metodo que calcular los sueldos totales de la fecha solicitada
-     * @return : devuelve el sueldo en la fecha solicitada
+     * Metodo que actualiza el estado del chofer dejandolo ultimo en los choferes disponibles
+     * <b>Pre: </> viajeActivo no puede ser null ni estar vacio
+     * @param viajeActivo Representa el viaje que esta llevando a cabo el chofer
      */
-    public double getSueldosTotales(GregorianCalendar fecha_inicio_mes){
-        double sueldo = 0;
-        for (Empleado c : this.choferes) {
-            sueldo += c.getSueldo(fecha_inicio_mes, getViajesChofer(c));
-        }
-        return sueldo;
+    public void finalizarViaje(IViaje viajeActivo) {
+        viajeActivo.finalizarse();
+        Empleado chofer = viajeActivo.getChofer();
+        IVehiculo vehiculo = viajeActivo.getVehiculo();
+        vehiculo.setOcupado(false);
+        // Lo saco de lista y pongo ultimo CHOFER
+        this.choferes.remove(chofer);
+        this.choferes.add(chofer);
+        // Lo saco de lista y pongo ultimo VEHICULO
+        this.vehiculos.remove(vehiculo);
+        this.vehiculos.add(vehiculo);
     }
+
+    public void pagarViaje(IViaje v) {
+        v.pagarse();
+    }
+
+
+    // Listados
 
     /**
      * Genera un listado de los sueldos mensuales de todos los choferes para un mes
@@ -233,73 +423,6 @@ public class Sistema {
         return sb.toString();
     }
 
-    public void agregarChofer(Empleado c) {
-        this.choferes.add(c);
-    }
-
-    public void agregarVehiculo(IVehiculo v) {
-        this.vehiculos.add(v);
-    }
-
-    public void agregarViaje(IViaje v) {
-        this.viajes.add(v);
-    }
-
-    /**
-     * Funcion que agrega un cliente a la lista de clientes de la empresa.
-     * <b>Precondicion: </b> el cliente debe ser distinto de null<br>
-     * @param cliente : Parametro de tipo Cliente
-     * @throws UsuarioRepetidoException Se lanza cuando el nombre de usuario ya esta en uso
-     */
-    public void agregarCliente(Cliente cliente) throws UsuarioRepetidoException{
-       Iterator <Cliente> clientes = this.clientes.iterator();
-       boolean flag = true;
-        while (clientes.hasNext() && flag)
-            if (clientes.next().getNombre_usuario().equalsIgnoreCase(cliente.getNombre_usuario()))
-                flag = false;
-        if (flag)
-            this.clientes.add(cliente);
-        else
-            throw new UsuarioRepetidoException("Usuario existente");
-
-    }
-
-    public Iterator<Empleado> getIteratorChoferes() {
-        return choferes.iterator();
-    }
-
-    public ArrayList<Empleado> getChoferes() {
-        return choferes;
-    }
-
-    public Empleado getChofer(int i){
-        return (Empleado) this.choferes.get(i);
-    }
-
-    public Iterator<IVehiculo> getIteratorVehiculos() {
-        return vehiculos.iterator();
-    }
-
-    public ArrayList<IVehiculo> getVehiculos() {
-        return vehiculos;
-    }
-
-    public Iterator<Cliente> getIteratorClientes() {
-        return clientes.iterator();
-    }
-
-    public ArrayList<Cliente> getClientes() {
-        return clientes;
-    }
-
-    public Iterator<IViaje> getIteratorViajes() {
-        return viajes.iterator();
-    }
-
-    public ArrayList<IViaje> getViajes() {
-        return viajes;
-    }
-
     /**
      * Funcion que genera un String que representa el listado de todos los clientes de la empresa.
      * @return : devuelve una variable de tipo String que contiene el listado de los clientes de la empresa.
@@ -318,11 +441,11 @@ public class Sistema {
      * @return : devuelve una variable de tipo String que contiene el listado de los viajes de la empresa.
      */
     public String historico_viajes() throws CloneNotSupportedException {
-        assert getInstancia().viajes.isEmpty();
-        ArrayList<IViaje> viajesClone = (ArrayList<IViaje>) getInstancia().viajes.clone();
+        assert getInstancia().viajes.getViajes().isEmpty();
+        ArrayList<IViaje> viajesClone = (ArrayList<IViaje>) getInstancia().viajes.getViajes().clone();
         viajesClone.clear();
-        for (int i = 0; i < getInstancia().viajes.size(); i++) {
-            viajesClone.add(getInstancia().viajes.get(i).clone());
+        for (int i = 0; i < getInstancia().viajes.getViajes().size(); i++) {
+            viajesClone.add(getInstancia().viajes.getViajes().get(i).clone());
         }
         if(!viajesClone.isEmpty())
             viajesClone.sort(Comparator.comparingDouble(IViaje::getCosto_viaje).reversed());
@@ -336,6 +459,7 @@ public class Sistema {
         }
         return reporte.toString();
     }
+
     /**
      * Funcion que genera un String que representa el listado de choferes de la empresa.
      * @return : devuelve una variable de tipo String que contiene el listado de los choferes de la empresa.
@@ -392,80 +516,16 @@ public class Sistema {
             maxKM.setPuntaje(15);
     }
 
-    /**
-     * Metodo que actualiza el estado del chofer dejandolo ultimo en los choferes disponibles
-     * <b>Pre: </> viajeActivo no puede ser null ni estar vacio
-     * @param viajeActivo Representa el viaje que esta llevando a cabo el chofer
-     */
-    public void finalizarViaje(IViaje viajeActivo) {
-        viajeActivo.finalizarse();
-        Empleado chofer = viajeActivo.getChofer();
-        IVehiculo vehiculo = viajeActivo.getVehiculo();
-        vehiculo.setOcupado(false);
-        // Lo saco de lista y pongo ultimo CHOFER
-        this.choferes.remove(chofer);
-        this.choferes.add(chofer);
-        // Lo saco de lista y pongo ultimo VEHICULO
-        this.vehiculos.remove(vehiculo);
-        this.vehiculos.add(vehiculo);
-    }
 
-    public void pagarViaje(IViaje v) {
-        v.pagarse();
-    }
+    // Sistema
 
-    /**
-     * Genera un listado de los viajes de un cliente entre dos fechas dadas
-     *<b>Pre: </b> clliente no puede ser null ni estar vacio
-     * @param cliente El cliente para el cual se desea obtener los viajes
-     *                <b>Pre:</b> fechai debe ser una fecha valida
-     * @param fechai La fecha de inicio del período para el cual se desean los viajes
-     *               <b>Pre: </b> fechaf debe ser una fecha valida y posterior a fechai
-     * @param fechaf La fecha final del período para el cual se desean los viajes
-     * @return Una cadena que contiene el listado de los viajes del cliente dentro del período especificado
-     */
-
-    public String viajesClienteFecha(Cliente cliente, GregorianCalendar fechai, GregorianCalendar fechaf){
-        final StringBuilder sb = new StringBuilder("Viajes de ");
-        sb.append(cliente.getNombre_usuario()).append(": \n");
-        Iterator<IViaje> viajes = this.getViajesCliente(cliente);
-        while (viajes.hasNext()) {
-            IViaje viaje = viajes.next();
-            if ((viaje.getPedido().getFecha().compareTo(fechai) >= 0) && (viaje.getPedido().getFecha().compareTo(fechaf) <= 0))
-                sb.append(viaje).append("\n");
-        }
-    return sb.toString();
-
-    }
-
-    /**
-     * Genera un listado de los viajes de un chofer entre dos fechas dadas
-     *<b>Pre: </b> chofer no puede ser null ni vacio
-     * @param chofer : El chofer para el cual se desea obtener los viajes
-     *<b>Pre: </b> fechai debe ser una fecha valida
-     * @param fechai : La fecha de inicio del período para el cual se desean los viajes
-     *<b>Pre: </b> fechaf debe ser una fecha valida y posterior a fechai
-     * @param fechaf : La fecha final del período para el cual se desean los viajes
-     * @return :  Cadena que contiene el listado de los viajes del chofer dentro del período especificado
-     */
-    public String viajesChoferesFecha(Empleado chofer, GregorianCalendar fechai, GregorianCalendar fechaf){
-        final StringBuilder sb = new StringBuilder("Viajes de ");
-        sb.append(chofer.getNombre()).append(" ,DNI: ").append(chofer.getDni()).append(": \n");
-        Iterator<IViaje> viajes = this.getViajesChofer(chofer);
-        while (viajes.hasNext()) {
-            IViaje viaje = viajes.next();
-            if ((viaje.getPedido().getFecha().compareTo(fechai) >= 0) && (viaje.getPedido().getFecha().compareTo(fechaf) <= 0))
-                sb.append(viaje).append("\n");
-        }
-        return sb.toString();
-    }
     public void cargaSistema(){
         SistemaDTO sistemaDTO= new SistemaDTO();
         sistemaDTO = sistemaInput.cargaSistema();
         Sistema.getInstancia().setChoferes(sistemaDTO.getChoferes());
         Sistema.getInstancia().setVehiculos(sistemaDTO.getVehiculos());
         Sistema.getInstancia().setClientes(sistemaDTO.getClientes());
-        Sistema.getInstancia().setViajes(sistemaDTO.getViajes());
+       // Sistema.getInstancia().setViajes(sistemaDTO.getViajes());
     }
 
     public void guardaSistema(){

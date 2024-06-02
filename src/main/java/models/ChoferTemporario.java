@@ -8,7 +8,7 @@ import java.util.Iterator;
 /**
  * Clase utilizada para representar al chofer temporario que se extiende de la clsae chofer
  */
-public class ChoferTemporario extends Chofer{
+public class ChoferTemporario extends Chofer {
     private final double plus_x_cant_viajes;
 
  /**
@@ -22,8 +22,8 @@ public class ChoferTemporario extends Chofer{
   *                 <b>Pre: </b> plusCantViajes debe ser mayor a cero
   * @param plusCantViajes Porcentaje que se aplica al básico según la cantidad de viajes
   */
-    public ChoferTemporario(String dni, String nombre, double aportes, double plusCantViajes) {
-        super(dni, nombre, aportes);
+    public ChoferTemporario(BolsaDeViajes b, String dni, String nombre, double aportes, double plusCantViajes) {
+        super(b, dni, nombre, aportes);
         this.plus_x_cant_viajes = plusCantViajes;
     }
 
