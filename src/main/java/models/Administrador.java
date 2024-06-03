@@ -3,7 +3,7 @@ package models;
 /**
  * Clase utilizada para cuando el usuario es registrado como administrador
  */
-public class Administrador extends Usuario{
+public class Administrador extends Usuario {
 
     /**
      * Constructor utilizado para guardar nombre de usuario y contrasenia al administrador
@@ -11,7 +11,7 @@ public class Administrador extends Usuario{
      * <b>Pre: </b> Contrasenia no puede ser null ni estar vacio
      * @param nombre_usuario : Es el parametro donde se guardara el nombre de usuario del administrador
      * @param contrasenia : Es el parametro donde se guardara la contrasenia de usuario del administrador
-     *
+     *<b>Post: </b> El usuario sera logeado como administrador
      */
     public Administrador(String nombre_usuario, String contrasenia){
         super(nombre_usuario,contrasenia);

@@ -33,7 +33,7 @@ public class VistaAppCliente_formulario extends JFrame implements IVistaAppClien
 	private JButton btnVolver;
 	
 	public VistaAppCliente_formulario() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(VistaAppCliente_formulario.class.getResource("/vista/icon1.png")));
+		//setIconImage(Toolkit.getDefaultToolkit().getImage(VistaAppCliente_formulario.class.getResource("/vista/icon1.png")));
 		setTitle("Subi que te Llevo");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 398, 423);
@@ -132,10 +132,10 @@ public class VistaAppCliente_formulario extends JFrame implements IVistaAppClien
 		this.btnVolver = new JButton("Volver");
 		panel.add(btnVolver);
 		this.btnVolver.setActionCommand("VOLVER");
-		
-		
+
+		this.setVisible(false);
 	}
-	public void setVisible(boolean estado) {
+	public void setVisibleVentana(boolean estado) {
 		this.setVisible(estado);
 	}
 	@Override
@@ -161,7 +161,7 @@ public class VistaAppCliente_formulario extends JFrame implements IVistaAppClien
 	}
 	@Override
 	public void setActionListener(ActionListener actionListener) {
-				
+
 		this.btnPedir.addActionListener(actionListener);
 		this.btnVolver.addActionListener(actionListener);
 	}

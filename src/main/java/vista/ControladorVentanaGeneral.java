@@ -1,22 +1,33 @@
 package vista;
 
+import models.Sistema;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ControladorVentanaGeneral implements ActionListener{
-	
-	public ControladorVentanaGeneral() {
-		// TODO Auto-generated constructor stub
+public class ControladorVentanaGeneral implements ActionListener {
+	private IVistaGeneral vista;
+	public ControladorVentanaGeneral(IVistaGeneral vista) {
+		this.vista = vista;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equalsIgnoreCase("Iniciar_Simulacion")) {
-		//hay que pasarle al modelo los parametros correspondiente a  la creacion de los clientes/choferes/vehiculos
-			//hay que ver si esta activa persistencia o no
+			if(e.getActionCommand().equalsIgnoreCase("Persistir")){
+				Sistema.getInstancia().cargaSistema();
+			}
+			else{
+				Sistema.getInstancia().crearCientesRandom(this.vista.getCantClientes());
+				Sistema.getInstancia().crearChoferesRandom(this.vista.getCantChoferes());
+				Sistema.getInstancia().crearVehiculosRandom(this.vista.getCantVehiculos());
+			}
+
 	}else if(e.getActionCommand().equalsIgnoreCase("Finalizar_Simulacion")) {
-		//finaliza la simulacion. deberia hacer la persistencia aqui
+			Sistema.getInstancia().guardaSistema();
+			Sistema.getInstancia().detenerSimulacion();
 		}
 	}
+
 
 }

@@ -1,6 +1,7 @@
 package models;
 /**
- * Clase que crea el viaje y lo representa en los diferentes momentos, desde que el viaje es solicitado hasta finalizado
+ * Clase que representa el viaje con sus costos,estados,chofer y vehiculo
+ * Implementa la interfaz viaje y cloneable
  */
 
 public final class Viaje implements IViaje,Cloneable {
@@ -11,7 +12,11 @@ public final class Viaje implements IViaje,Cloneable {
     private Empleado chofer;
     private IVehiculo vehiculo;
 
-
+    /**
+     * Constructor utilizado para la incializacion de algunos datos sobre el viaje segun el pedido del cliente
+     * @param pedido Parametro que almacena la informacion sobre el viaje solicitado
+     * <b>Post:</b> El viaje habra sido solicitado
+     */
     public Viaje(Pedido pedido) {
         this.estado_de_viaje = "Solicitado";
         this.pedido = pedido;
@@ -39,6 +44,7 @@ public final class Viaje implements IViaje,Cloneable {
      * Metodo que se utiliza para cambiar el estado del viaje
      * <b>Pre:</b> El parametro no puede ser null ni vacio
      * @param estado_de_viaje El parametro debe guardar el estado del viaje
+     * <b>Post:</b> El estado del viaje habra sido actualizado a su nuevo estado
      */
     public void setEstado_de_viaje(String estado_de_viaje) {
         this.estado_de_viaje = estado_de_viaje;
@@ -52,6 +58,12 @@ public final class Viaje implements IViaje,Cloneable {
         return chofer;
   }
 
+    /**
+     * Asigna un chofer al viaje
+     *<b>Pre:</b> El chofer no puede ser null ni estar vacio
+     * @param chofer Parametro que representa el chofer que se le asigno al viaje
+     * <b>Post:</b>El viaje tendra un chofer asignado
+     */
     public void setChofer(Empleado chofer) {
         this.chofer = chofer;
     }
@@ -59,15 +71,26 @@ public final class Viaje implements IViaje,Cloneable {
     public IVehiculo getVehiculo() {
         return vehiculo;
     }
-
+    /**
+     * Asigna un vehiculo al viaje
+     *<b>Pre:</b> El vehiculo no puede ser null ni estar vacio
+     * @param vehiculo Parametro que representa elvehiculo que se le asigno al viaje
+     * <b>Post:</b>El viaje tendra un vehiculo asignado
+     */
     public void setVehiculo(IVehiculo vehiculo) {
         this.vehiculo = vehiculo;
+        vehiculo.setOcupado(true);
     }
 
     public double getCosto_base() {
         return costo_base;
     }
-
+    /**
+     * Asigna un costo base al viaje
+     *<b>Pre:</b> El costo base no puede ser negativo
+     * @param costo_base Parametro que guarda el costo base del viaje
+     * <b>Post:</b>El viaje tendra un costo base asignado
+     */
     public void setCosto_base(double costo_base) {
         this.costo_base = costo_base;
     }
@@ -76,26 +99,29 @@ public final class Viaje implements IViaje,Cloneable {
         this.costo_viaje = costo_base;
     }
 
-    @Override
-    public int compareTo(Object o) {
-        Viaje v = (Viaje) o;
-        return Double.compare(this.getCosto_viaje(), v.getCosto_viaje()) * -1;
-    }
-
     /**
-     * Metodo utilizado para indicar que el viaje finalizo y se libera un chofer
+     * Metodo utilizado para cambiar el estado del viaje una vez que se termino
+     * <b>Post:</b> El viaje habra finalizado con el estado del mismo actualizado
      */
     public void finalizarse() {
         setEstado_de_viaje("FINALIZADO");
+        vehiculo.setOcupado(false);
     }
 
     /**
      * Metodo utilizado para indicar que el viaje fue pagado con exito
+     * <b>Post:</b> El viaje habra finalizado con el estado del mismo actualizado
      */
     public void pagarse() {
         setEstado_de_viaje("PAGADO");
     }
 
+    /**
+     * <b>Pre: </b> La clase Viaje debe implementar cloneable
+     * <b>Post:</b> El metodo devolvera una instancia clonada de objeto original
+     * @return Devolvera una copia del objeto Viaje
+     * @throws AssertionError se lanzara la excepcion en caso de que la clase no implemente cloneable (lo cual no deberia suceder)
+     */
     @Override
     public Viaje clone() {
         try {
@@ -110,6 +136,12 @@ public final class Viaje implements IViaje,Cloneable {
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();
         }
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Viaje v = (Viaje) o;
+        return Double.compare(this.getCosto_viaje(), v.getCosto_viaje()) * -1;
     }
 
     @Override

@@ -3,14 +3,15 @@ package models;
 abstract class EmpleadoRunnable extends Empleado implements Runnable {
     private BolsaDeViajes bolsa;
 
-    public EmpleadoRunnable(BolsaDeViajes bolsa, String dni, String nombre) {
-        super(nombre, dni);
+    public EmpleadoRunnable(BolsaDeViajes bolsa) {
+        super();
         this.bolsa = bolsa;
     }
 
     public void run() {
         while (!Thread.currentThread().isInterrupted() && bolsa.getSimulacionActiva()) {
             Viaje viaje = bolsa.obtenerViajeSinChofer(); // Método ficticio para obtener un viaje sin chofer
+            this.ocupado = true;
             if (viaje != null) {
                 // Esperar a que el cliente pague el viaje
                 synchronized (viaje) {
@@ -23,7 +24,8 @@ abstract class EmpleadoRunnable extends Empleado implements Runnable {
                         }
                     }
                     // Finalizar el viaje
-                    viaje.finalizarse();
+                    this.ocupado = false;
+                    bolsa.viajeFinalizado(viaje);
                     notifyAll();
                 }
             }

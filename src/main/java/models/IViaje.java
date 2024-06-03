@@ -2,6 +2,9 @@ package models;
 
 import java.io.Serializable;
 
+/**
+ *  La interfaz IViaje define el contrato para los vehículos que pueden ser clonados y serializados.
+ */
 public interface IViaje extends Cloneable, Serializable {
  double getCosto_viaje();
  void setCosto_viaje(double valor);

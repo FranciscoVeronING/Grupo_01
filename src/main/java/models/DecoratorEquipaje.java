@@ -10,6 +10,7 @@ public  class DecoratorEquipaje implements IViaje {
      * Metodo utilizado para generar el encapsulado del metodo decorator
      * <b>Pre: </b> El parametro no puede ser null ni estar vacio
      * @param encapsulado Encapsula la informacion del viaje seteada anteriormente con la interfaz viaje
+     * // TODO POST
      */
     public DecoratorEquipaje(IViaje encapsulado) {
         this.encapsulado = encapsulado;
@@ -81,6 +82,7 @@ public  class DecoratorEquipaje implements IViaje {
 
     /**
      * Metodo utilizado para calcular el costo del viaje en caso que necesite baul por el usuario
+     * <b>Post:</b> El costo del viaje sera incrementado segun la necesidad del equipaje solictiado por el usuario
      */
     @Override
     public void calcularCostoViaje() {

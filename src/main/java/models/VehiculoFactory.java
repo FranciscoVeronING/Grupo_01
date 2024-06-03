@@ -3,7 +3,7 @@ package models;
 import java.io.Serializable;
 
 /**
- * Clase utilizada para verificar si el vehiculo a utilizar sera un auto, combi o moto
+ * Clase utilizada para permitir crear vehiculos sin necesidad de conocer los detalles específicos de su implementación
  */
 public class VehiculoFactory implements Serializable {
     /**
@@ -13,6 +13,7 @@ public class VehiculoFactory implements Serializable {
      * * <b>Pre: </b> Patente no puede ser null ni estar vacio
      * @param patente : Almacena la patente del vehiculo a utiizar
      * @return : Devuelve el tipo de vehiculo que se utilizara
+     * <b>Post: </b> Se habra devuelto el tipo de vehiculo que mejor se adapta a la solicitud del cliente o null en caso de no poder cumplir con los requisitos
      */
     public static IVehiculo getVehiculo(String vehiculo,String patente) {
         IVehiculo encapsulado = null;

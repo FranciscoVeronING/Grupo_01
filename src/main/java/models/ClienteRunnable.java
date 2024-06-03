@@ -6,27 +6,34 @@ import Exception.PedidoIncoherenteException;
 
 class ClienteRunnable extends Cliente implements Runnable {
     private BolsaDeViajes bolsa;
-    private Sistema e = Sistema.getInstancia();
 
-    public ClienteRunnable() {
-       // super(nombre_usuario, contrasenia, nombre, apellido, telefono, mail, direccion, fecha_nacimiento);
-       // this.bolsa = bolsa;
+    public ClienteRunnable(BolsaDeViajes bolsa) {
+       super();
+       this.bolsa = bolsa;
     }
 
     public void run() {
         // Crear pedido y solicitar aceptación
         Pedido pedido = crearPedido();
         try {
-            e.solicitarAceptacion(pedido);
+            Sistema.getInstancia().solicitarAceptacion(pedido);
         } catch (PedidoIncoherenteException ex) {
             throw new RuntimeException(ex);
         }
 
         // Solicitar un viaje sobre el pedido aceptado
-        Viaje viaje = (Viaje) e.solicitarViaje(pedido);
-        if (viaje != null) {
+        IViaje viaje = Sistema.getInstancia().solicitarViaje(pedido);
+        synchronized (viaje) {
+            // Espera a que le hayan asignado un vehiculo
+            while(!viaje.getEstado_de_viaje().equalsIgnoreCase("INICIADO")) {
+                try {
+                    wait();
+                } catch (InterruptedException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
             // Pagar un viaje
-            pagarViaje(viaje);
+            bolsa.viajePagado((Viaje) viaje);
         }
     }
 
@@ -40,12 +47,6 @@ class ClienteRunnable extends Cliente implements Runnable {
         return new Pedido(new GregorianCalendar(), zona, mascotas, cantPax, equipaje, this, distancia );
     }
 
-    private void pagarViaje(Viaje viaje) {
-        // Lógica para realizar el pago del viaje
-        synchronized (viaje) {
-            viaje.pagarse();
-        }
-    }
 
     public String generaZona() {
         String[] zonas = {"ESTANDAR", "SIN ASFALTAR", "PELIGROSA"};

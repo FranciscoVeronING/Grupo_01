@@ -2,6 +2,8 @@ package models;
 
 /**
  * La clase que representa a cualquier usuario que se quiera registrar en el sistema
+ * <b>Post:</b> Se inicializara informacion a cerca del usuario, sea un administrador o cliente
+ * Es la superclase de las clases Cliente y Administrador
  */
 public abstract class Usuario {
     protected  String  nombre_usuario;
@@ -13,10 +15,12 @@ public abstract class Usuario {
      * @param nombre_usuario : Parametro utilizado para almacenar el nombre de usuario
      * <b>Pre: </b> La contrasenia no puede ser null ni estar vacio
      * @param contrasenia : Parametro que almacena la contrasenia del usuario
+     * <b>Post:</b> El usuario tendra asignado un nombre de usuario y contrasenia validos
      */
     public Usuario (String nombre_usuario, String contrasenia) {
         this.contrasenia = contrasenia;
         this.setNombre_usuario(nombre_usuario);
+        System.out.printf(this.contrasenia);
     }
 
     public Usuario() {

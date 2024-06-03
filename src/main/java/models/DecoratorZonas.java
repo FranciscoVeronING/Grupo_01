@@ -1,5 +1,10 @@
 package models;
 
+/**
+ * Clase abracta utilizada para poder definir en la superclase los metodos que implementaran las subclases de manera dinamica
+ * <b>Post: </b> Cada superclase podra implementar de manera dinamica cada uno de estos metodos definidos en la superclase
+ */
+
 public abstract class DecoratorZonas implements IViaje {
     IViaje encapsulado;
 
@@ -91,6 +96,12 @@ public abstract class DecoratorZonas implements IViaje {
         return encapsulado.compareTo(o);
     }
 
+    /**
+     *<b>Pre: </b> La clase Iviaje debe ser cloneable
+     *<b>Post:</b> Se devuelve un nuevo objeto DecoratorZonas que es una copia superficial del objeto actual
+     * @return una copia superficial del objeto actual
+     * @throws CloneNotSupportedException lanzado en el caso de que la clase base no soporte la clonacion
+     */
     @Override
     public IViaje clone() throws CloneNotSupportedException {
         DecoratorZonas clon = (DecoratorZonas) super.clone();

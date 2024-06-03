@@ -1,6 +1,7 @@
 package models;
 
 import java.io.Serializable;
+import java.util.Random;
 
 public class Direccion implements Cloneable, Serializable {
     private  String nombre;
@@ -58,6 +59,13 @@ public class Direccion implements Cloneable, Serializable {
         this.letra = letra;
     }
 
+
+    /**
+     * <b>Pre: </b> Direccion debe ser clonable
+     * <b>Post: </b> Se devolvera un clon a partir del objeto original
+     * @return Se devolvera un clon del objeto direccion
+     * @throws AssertionError En el caso que ocurra una excepción CloneNotSupportedException (lo que no debería suceder si Cliente implementa Cloneable correctamente)
+     */
     @Override
     public Direccion clone() {
         try {

@@ -1,27 +1,23 @@
 package models;
 
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
+import java.util.Random;
 
 /**
  * Es la clase utilizada para representar al chofer que es de tipo Contratado
  */
 public class ChoferContratado extends EmpleadoRunnable {
-    private double ganancia_viaje;
+    private  double ganancia_viaje;
 
     /**
-     * Constructor que utiliza el nombre y dni seteado de la clase Empleado y asigna las ganancias
-     * <b>Pre: </b> nombre no puede ser null ni vacio
-     * @param nombre : nombre del chofer contratado
-     *<b>Pre: </b> dni no puede ser null ni vacio
-     * @param dni : numero de dni del chofer contratado
-     * <b>Pre: </b> ganancia no puede ser menor a 0
-     * @param ganancia : Es la ganancia del chofer contratado
+     * @param b Recurso compartido
+     * <b>Post: </b> El chofer contratado fue inicializado con su ganancia correspondiente
      */
-    public ChoferContratado(BolsaDeViajes b, String nombre, String dni, double ganancia) {
-        super(b, nombre, dni);
-        this.ganancia_viaje = ganancia;
+    public ChoferContratado(BolsaDeViajes b) {
+        super(b);
+        Random r = new Random();
+        this.ganancia_viaje = r.nextDouble() * 50 + 1;
     }
 
     /**
@@ -30,6 +26,7 @@ public class ChoferContratado extends EmpleadoRunnable {
      * @param fecha_inicio_mes : Parametro utilizado para calcular la fecha en la que se quiere verificar el sueldo del chofer contratado
      * <b>Pre: </b> EL sueldo debera ser mayor a cero
      * @return : El metodo devolvera el sueldo del chofer contratado
+     * <b>Post: </b> El salario es calculado segun los viajes que realizo
      */
     @Override
     public double getSueldo(GregorianCalendar fecha_inicio_mes, Iterator<IViaje> viajes) {

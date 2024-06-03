@@ -216,8 +216,15 @@ public class VistaAppCliente_Registrarse extends JFrame implements IVistaAppClie
 		panelSur.add(btnRegistrarme);
 		
 		this.btnRegistrarme.setActionCommand("REGISTRARME");
+
+		this.setVisible(false);
 	}
 
+
+	@Override
+	public void setVisibleVentana(boolean estado) {
+		this.setVisible(estado);
+	}
 
 	@Override
 	public void setActionListener(ActionListener actionListener) {

@@ -5,6 +5,7 @@ import Exception.ChoferNoDisponibleException;
 import Exception.UsuarioRepetidoException;
 import Exception.PedidoIncoherenteException;
 import Exception.UsuarioIncorrectoException;
+import vista.Controlador;
 
 import java.util.*;
 
@@ -12,6 +13,10 @@ import java.util.*;
  * Clase que representa a la empresa en el programa
  */
 public class Sistema {
+    private final String MOTO = "MOTO";
+    private final String AUTO = "AUTO";
+    private final String COMBI = "COMBI";
+
     private static Sistema _instancia = null;
     private SistemaXML sistemaOutput;
     private SistemaXML sistemaInput;
@@ -21,15 +26,19 @@ public class Sistema {
     private ArrayList<Cliente> clientes;
     private BolsaDeViajes viajes;
 
+    private Controlador controlador;
+
     private Sistema() {
         this.choferes = new ArrayList<>();
         this.vehiculos = new ArrayList<>();
         this.clientes = new ArrayList<>();
+        this.viajes = new BolsaDeViajes();
     }
 
     /**
      * Metodo que aplica el patron singleton
      * @return Devuelve una sola instancia del sistema
+     * <b>Post:</b> Se habra creado una instancia de la empresa
      */
     public static Sistema getInstancia() {
         if (_instancia == null)
@@ -40,9 +49,10 @@ public class Sistema {
     // Crear cliente, vehiculos y empleados
 
     /**
-     * Funcion que crear y agrega un cliente a la lista de clientes de la empresa.
-     * <b>Precondicion: </b> los parametros deben ser validos (strings distintas de null o ""), y objetos distintos de null
+     * Metodo que crea y agrega un cliente a la lista de clientes de la empresa.
+     * <b>Pre </b> los parametros deben ser validos (strings distintas de null o ""), y objetos distintos de null
      * @throws UsuarioRepetidoException Se lanza cuando el nombre de usuario ya esta en uso
+     * <b>Post:</b> El cliente habra sido creado con sus datos correspondientes de manera valida
      */
     public Cliente crearCliente(String nombre_usuario, String contrasenia,String nombre, String apellido, String telefono, String mail, String NombreCalle, String AlturaCalle, String PisoCalle, String LetraCalle, GregorianCalendar fecha_nacimiento) throws UsuarioRepetidoException {
         Cliente c = new Cliente(nombre_usuario, contrasenia, nombre, apellido, telefono, mail, new Direccion(NombreCalle, AlturaCalle, PisoCalle, LetraCalle), fecha_nacimiento);
@@ -50,33 +60,102 @@ public class Sistema {
         this.clientes.add(c);
         return c;
     }
-
-    public Vehiculo crearVehiculo(String patente, String vehiculo) {
+    /**
+     * Metodo que crea y agrega un vehiculo a la lista de vehiculos de la empresa.
+     * <b>Pre </b> los parametros deben ser validos (strings distintas de null o ""), y objetos distintos de null
+     * <b>Post:</b> El vehiculo habra sido creado con sus caracteristicas correspondientes de manera valida
+     */
+    /*public Vehiculo crearVehiculo(String patente, String vehiculo) {
         Vehiculo v = (Vehiculo) VehiculoFactory.getVehiculo(vehiculo, patente);
         vehiculos.add(v);
         return v;
-    }
-
-    public ChoferContratado crearChoferContratado(BolsaDeViajes b, String nombre, String dni, double ganancia) {
-        ChoferContratado c = new ChoferContratado(b, nombre, dni, ganancia);
+    }*/
+    /**
+     * Metodo que crea y agrega un chofer contratado a la lista de choferes de la empresa.
+     * <b>Pre </b> los parametros deben ser validos (strings distintas de null o ""), y objetos distintos de null
+     * <b>Post:</b> El chofer contratado habra sido creado con sus datos correspondientes de manera valida
+     */
+    /*public ChoferContratado crearChoferContratado(BolsaDeViajes b, String nombre, String dni, double ganancia) {
+        ChoferContratado c = new ChoferContratado(b);
         choferes.add(c);
         return c;
-    }
-
-    public ChoferPermanente crearChoferPermanente(BolsaDeViajes b, String dni, String nombre, double aportes,GregorianCalendar fecha_ingreso, double antiguedad, double cant_Hijos) {
-        ChoferPermanente c = new ChoferPermanente(b, dni, nombre, aportes, fecha_ingreso, antiguedad, cant_Hijos);
+    }*/
+    /**
+    /* * Metodo que crea y agrega un chofer permanente a la lista de choferes de la empresa.
+     * <b>Pre </b> los parametros deben ser validos (strings distintas de null o ""), y objetos distintos de null
+     * <b>Post:</b> El chofer permanente habra sido creado con sus datos correspondientes de manera valida
+     */
+    /*public ChoferPermanente crearChoferPermanente(BolsaDeViajes b, String dni, String nombre, double aportes,GregorianCalendar fecha_ingreso, double antiguedad, double cant_Hijos) {
+        ChoferPermanente c = new ChoferPermanente(b);
         choferes.add(c);
         return c;
-    }
-
-    public ChoferTemporario crearChoferTemporario(BolsaDeViajes b, String dni, String nombre, double aportes, double plusCantViajes) {
-        ChoferTemporario c = new ChoferTemporario(b, dni, nombre, aportes, plusCantViajes);
+    }*/
+    /**
+     * Metodo que crea y agrega un chofer temporario a la lista de choferes de la empresa.
+     * <b>Pre </b> los parametros deben ser validos (strings distintas de null o ""), y objetos distintos de null
+     * <b>Post:</b> El chofer temporario habra sido creado con sus datos correspondientes de manera valida
+     */
+    /*public ChoferTemporario crearChoferTemporario(BolsaDeViajes b, String dni, String nombre, double aportes, double plusCantViajes) {
+        ChoferTemporario c = new ChoferTemporario(b);
         choferes.add(c);
         return c;
+    }*/
+
+    /**
+     * Metodo que crea y agrega un cliente ALEATORIO a la lista de clientes de la empresa.
+     * <b>Pre </b> cantidad debe ser mayor a 0
+     * <b>Post:</b> El cliente habra sido creado con sus datos correspondientes de manera valida
+     */
+    public void crearCientesRandom(int cantidad) {
+        for (int i = 0; i < cantidad ; i++) {
+            clientes.add(new ClienteRunnable(viajes));
+        }
+    }
+
+    /**
+     * Metodo que crea y agrega una cantidad de choferes ALEATORIOS a la lista de choferes de la empresa.
+     * <b>Pre </b> cantidad debe ser mayor a 0
+     * <b>Post:</b> Los choferes habran sido creado con sus datos correspondientes de manera valida
+     */
+    public void crearChoferesRandom(int cantidad) {
+        for(int i = 0; i < cantidad ; i++) {
+            Random r = new Random();
+            int tipo = r.nextInt(3);
+            switch (tipo) {
+                case(0) : choferes.add(new ChoferContratado(viajes));
+                case(1) : choferes.add(new ChoferPermanente(viajes));
+                case(2) : choferes.add((new ChoferTemporario(viajes)));
+            }
+        }
+    }
+
+    /**
+     * Metodo que crea y agrega una cantidad de vehiculos ALEATORIOS a la lista de vehiculos de la empresa.
+     * <b>Pre </b> cantidad debe ser mayor a 0
+     * <b>Post:</b> Los vehiculos habran sido creado con sus datos correspondientes de manera valida
+     */
+    public void crearVehiculosRandom(int cantidad) {
+        for (int i = 0; i < cantidad; i++) {
+            Random r = new Random();
+            Utiles u = new Utiles();
+            int tipo = r.nextInt(3);
+            switch(tipo) {
+                case(0) : vehiculos.add(VehiculoFactory.getVehiculo(MOTO, u.generaPatente()));
+                case(1) : vehiculos.add(VehiculoFactory.getVehiculo(COMBI, u.generaPatente()));
+                case(2) : vehiculos.add(VehiculoFactory.getVehiculo(AUTO, u.generaPatente()));
+            }
+        }
     }
 
     // Validacion Cliente
 
+    /**
+     * Clase que verifica que el nombre de usuario sea unico
+     * <b>Pre:</b>El cliente no puede estar vacio ni ser null
+     * @param cliente Obtendra la informacion del usuario a evaluar
+     * <b>Post</b> El usuario tendra su nombre de usuario verificado
+     * @throws UsuarioRepetidoException Excepcion lanzada en caso de que el nombre de usuario ya sea utilizado por otro usuario
+     */
     public void verificarClienteRepetido(Cliente cliente) throws UsuarioRepetidoException {
         Iterator <Cliente> clientes = this.clientes.iterator();
         boolean repetido = false;
@@ -86,6 +165,12 @@ public class Sistema {
         if (repetido) throw new UsuarioRepetidoException(cliente.nombre_usuario);
     }
 
+    /**
+     * Metodo que verifica si un cliente existe
+     * Los parametros no pueden ser null ni estar vacios
+     * @throws UsuarioIncorrectoException Excepcion lanzada en caso de que el usuario no exista
+     * <b>Post:</b> Se verificara si un usuario existe o no, devolviendo verdadero o falso
+     */
     public void verificarExistenciaCliente(String u, String c) throws UsuarioIncorrectoException {
         Iterator <Cliente> clientes = this.clientes.iterator();
         boolean existe = false;
@@ -95,10 +180,17 @@ public class Sistema {
             if (cliente.getNombre_usuario().equalsIgnoreCase(u))
                 existe = true;
         }
-        if (!(existe && cliente.getContrasenia().equalsIgnoreCase(c))) throw new UsuarioIncorrectoException(u, c);
+        System.out.println(u);
+        System.out.println(c);
+        if (!existe || !cliente.getContrasenia().equalsIgnoreCase(c))
+            throw new UsuarioIncorrectoException(u, c);
     }
 
     // Getters y Setters basicos
+
+    public BolsaDeViajes getBolsaDeViajes() {
+        return viajes;
+    }
 
     public void setViajes(BolsaDeViajes viajes) {
         this.viajes = viajes;
@@ -125,6 +217,7 @@ public class Sistema {
      * <b>Pre: </b> El parametro chofer no puede ser null ni vacio
      * @param chofer : El empleado chofer del cual se desean obtener los viajes
      * @return : Un iterador que contiene todos los viajes realizados por el chofer especificado
+     * <b>Post:</b> Los viajes realizados por el chofer se almacenaran en un iterador
      */
     public Iterator<IViaje> getViajesChofer(Empleado chofer) {
         ArrayList<IViaje> viajesChofer = new ArrayList<>();
@@ -137,6 +230,7 @@ public class Sistema {
      *<b>Pre: </b>El parametro cliente no puede ser null ni vacio
      * @param cliente : El cliente para el cual se desean obtener los viajes.
      * @return : Un iterador de los viajes asociados al cliente.
+     * <b>Post:</b>Los viajes realizados por el cliente se almacenaran en un iterador
      */
     public Iterator<IViaje> getViajesCliente(Cliente cliente) {
         ArrayList<IViaje> viajesCliente = new ArrayList<>();
@@ -158,6 +252,15 @@ public class Sistema {
 
     public ArrayList<Cliente> getClientes() {
         return clientes;
+    }
+
+    public Cliente getCliente(String nombre) {
+        for (Cliente cliente : this.clientes) {
+            if (cliente.getNombre().equals(nombre)) {
+                return cliente;
+            }
+        }
+        return null;
     }
 
     public Iterator<IViaje> getIteratorViajes() {
@@ -185,6 +288,7 @@ public class Sistema {
      * <b>Pre: </b> El parametro chofer no puede ser null ni estar vacio
      * @param chofer : El chofer disponible que sera capaz de tomar el viaje
      * @return : El viaje activo asociado al chofer, o null si no hay ninguno activo y pagado
+     * <b>Post:</b>  Se le asociara un viaje activo al chofer en caso de que haya alguno disponible
      */
     public IViaje getViajeActivoChofer(Empleado chofer) {
         IViaje aux = null;
@@ -199,6 +303,7 @@ public class Sistema {
      *<b>Pre: </b> cliente no puede ser null ni vacio
      * @param cliente : El cliente para el cual se desea obtener el viaje activo
      * @return : El viaje activo asociado al cliente, o null si no hay ninguno activo e iniciado
+     * <b>Post:</b> Se le asociara un viaje al cliente
      */
     public IViaje getViajeActivoCliente(Cliente cliente) {
         IViaje aux = null;
@@ -213,6 +318,7 @@ public class Sistema {
     /**
      * Metodo que calcular los sueldos totales de la fecha solicitada
      * @return : devuelve el sueldo en la fecha solicitada
+     * <b>Post:</b> Se le cargaran los sueldos a los empleados
      */
     public double getSueldosTotales(GregorianCalendar fecha_inicio_mes){
         double sueldo = 0;
@@ -231,6 +337,7 @@ public class Sistema {
      *               <b>Pre: </b> fechaf debe ser una fecha valida y posterior a fechai
      * @param fechaf La fecha final del período para el cual se desean los viajes
      * @return Una cadena que contiene el listado de los viajes del cliente dentro del período especificado
+     * <b>Post:</b> Se guardaran todos los viajes realizados por el cliente en una fecha concreta
      */
     public String viajesClienteFecha(Cliente cliente, GregorianCalendar fechai, GregorianCalendar fechaf){
         final StringBuilder sb = new StringBuilder("Viajes de ");
@@ -253,6 +360,7 @@ public class Sistema {
      *<b>Pre: </b> fechaf debe ser una fecha valida y posterior a fechai
      * @param fechaf : La fecha final del período para el cual se desean los viajes
      * @return :  Cadena que contiene el listado de los viajes del chofer dentro del período especificado
+     * <b>Post:</b>  Se guardaran todos los viajes realizados por un chofer en una fecha concreta
      */
     public String viajesChoferesFecha(Empleado chofer, GregorianCalendar fechai, GregorianCalendar fechaf){
         final StringBuilder sb = new StringBuilder("Viajes de ");
@@ -269,12 +377,14 @@ public class Sistema {
 
     // Manejo de Pedidos y Viajes
 
+    /**
+     * Metodo que realiza el pedido solicitado por el cliente
+     *<b>Pre:</b>Todos los parametros deben estar inicializados correctamente, no deben estar vacios ni ser nulos
+     * @return devolvera el pedido creado con las especificaciones del cliente
+     * <b>Post:</b> Se habra creado el pedido
+     */
     public Pedido hacerPedido(GregorianCalendar fecha, String zona, boolean mascota, int cant_pasajeros, boolean equipaje, Cliente c, double d) {
         return new Pedido(fecha, zona, mascota, cant_pasajeros, equipaje, c, d);
-    }
-
-    public void agregarViaje(IViaje v) {
-        this.viajes.getViajes().add(v);
     }
 
     /**
@@ -282,8 +392,9 @@ public class Sistema {
      *<b>Pre: </b> pedido no puede ser null ni estar vacio
      * @param pedido : pedido almacena la disponibilidad del vehículo
      * @return : true si existe al menos un vehículo disponible para el pedido, false en caso contrario
+     * <b>Post:</b> La existencia del vehiculo sera verdadera o falsa
      */
-    public boolean existeVehiculo(Pedido pedido) {
+    /*public boolean existeVehiculo(Pedido pedido) {
         boolean existe = false;
         Iterator<IVehiculo> it = this.vehiculos.iterator();
         while (it.hasNext() && !existe) {
@@ -293,14 +404,16 @@ public class Sistema {
         }
         return existe;
     }
+*/
 
     /**
      * Metodo que busca cual sera el mejor vehiculo dados los requisitos del cliente
      * <b>Pre:</b> pedido no puede ser null ni vacio
      * @param pedido : ALmacena los requisitos del cliente
      * @return : devuelve el vehiculo que se adapte a la solicitud del cliente
+     * <b>Post:</b> Se habra encontrado el vehiculo que mejor se adapta al pedido
      */
-    public IVehiculo buscarMejorVehiculo(Pedido pedido) {
+    /*public IVehiculo buscarMejorVehiculo(Pedido pedido) {
         Iterator<IVehiculo> it = this.vehiculos.iterator();
         int maxP = 0;
         IVehiculo mejor = null;
@@ -316,17 +429,55 @@ public class Sistema {
         }
         return mejor;
     }
+*/
 
+    /**
+     * <b>Pre:</b> El parametro pedido no puede ser null ni estra vacio
+     * @param pedido Contiene los requerimientos del pedido hecho por el cliente
+     *<b>Post:</b> El viaje estara en estado de SOLICITADO
+     */
     public IViaje solicitarViaje(Pedido pedido) {
         IViaje v = ViajeFactory.getViaje(pedido);
         v.setEstado_de_viaje("SOLICITADO");
+        viajes.agregarViaje((Viaje) v);
         return v;
     }
 
+    /**
+     * Valida la coherencia del pedido verificando ciertos criterios
+     *<b>Pre: </b> el pedido no puede ser null
+     * @param pedido El pedido que se desea validar con la informacion necesaria del mismo
+     * @throws PedidoIncoherenteException Si el pedido no cumple con los criterios basicos
+     * <b>Post:</b> El viaje sera aceptado o lanzara una excepcion en caso de no tener un vehiculo que cumpla con los requerimientos
+     */
     public void solicitarAceptacion(Pedido pedido) throws PedidoIncoherenteException {
-        validarPedido(pedido);
+        if (pedido.getCant_pasajeros() > 10) throw new PedidoIncoherenteException("Cantidad de pasajeros mayor a 10");
+        if (pedido.getCant_pasajeros() > 4 && pedido.isMascota()) throw new PedidoIncoherenteException("Mascotas no permitidas en combis");
     }
 
+    /**
+     * Metodo que actualiza el estado del chofer dejandolo ultimo en los choferes disponibles
+     * <b>Pre: </> viajeActivo no puede ser null ni estar vacio
+     * @param viajeActivo Representa el viaje que esta llevando a cabo el chofer
+     * <b>Post:</b> El viaje estara en estado finalizado
+     */
+    /*public void finalizarViaje(IViaje viajeActivo) {
+        viajeActivo.finalizarse();
+        Empleado chofer = viajeActivo.getChofer();
+        IVehiculo vehiculo = viajeActivo.getVehiculo();
+        vehiculo.setOcupado(false);
+        // Lo saco de lista y pongo ultimo CHOFER
+        this.choferes.remove(chofer);
+        this.choferes.add(chofer);
+        // Lo saco de lista y pongo ultimo VEHICULO
+        this.vehiculos.remove(vehiculo);
+        this.vehiculos.add(vehiculo);
+    }*/
+/*
+    public void pagarViaje(IViaje v) {
+        v.pagarse();
+    }
+*/
     /**
      * Metodo que asigna un vehiculo al Viaje
      * <b>Pre: </b> viaje no puede ser null ni estar vacio
@@ -334,8 +485,9 @@ public class Sistema {
      * @return El viaje asociado al pedido y vehículo asignado
      * @throws VehiculoNoDisponibleException Si no hay ningún vehículo disponible para el pedido
      * @throws PedidoIncoherenteException Si el pedido no es coherente o válido
+     * <b>Post:</b> //TODO
      */
-    public IViaje asignarVehiculoViaje(Viaje viaje) throws VehiculoNoDisponibleException, PedidoIncoherenteException {
+    /*public IViaje asignarVehiculoViaje(Viaje viaje) throws VehiculoNoDisponibleException, PedidoIncoherenteException {
         if (!existeVehiculo(viaje.getPedido()))
             throw new VehiculoNoDisponibleException("No hay vehiculo disponible"); // No existe vehiculo valido
         else {
@@ -345,18 +497,7 @@ public class Sistema {
             this.agregarViaje(viaje);
         }
         return viaje;
-    }
-
-    /**
-     * Valida la coherencia del pedido verificando ciertos criterios
-     *<b>Pre: </b> el pedido no puede ser null ni vacio
-     * @param pedido El pedido que se desea validar con la informacion necesaria del mismo
-     * @throws PedidoIncoherenteException Si el pedido no es coherente
-     */
-    private void validarPedido(Pedido pedido) throws PedidoIncoherenteException {
-        if (pedido.getCant_pasajeros() > 10) throw new PedidoIncoherenteException("Cantidad de pasajeros mayor a 10");
-        if (pedido.getCant_pasajeros() > 4 && pedido.isMascota()) throw new PedidoIncoherenteException("Mascotas no permitidas en combis");
-    }
+    }*/
 
     /**
      * Metodo que asigna un chofer disponible a un viaje
@@ -364,8 +505,9 @@ public class Sistema {
      * @param viaje El viaje al cual se desea asignar un chofer
      * return El viaje con el chofer asignado
      * @throws ChoferNoDisponibleException Si no hay ningún chofer disponible para el viaje
+     * <b>Post:</b> //TODO
      */
-    public void asignarViajeChofer(IViaje viaje) throws ChoferNoDisponibleException {
+    /*public void asignarViajeChofer(IViaje viaje) throws ChoferNoDisponibleException {
         Iterator<Empleado> it = this.choferes.iterator();
         while (it.hasNext() && viaje.getChofer() == null) {
             Empleado c = it.next();
@@ -377,30 +519,7 @@ public class Sistema {
         }
         if (viaje.getChofer() == null)
             throw new ChoferNoDisponibleException("Falta de choferes disponibles");
-    }
-
-    /**
-     * Metodo que actualiza el estado del chofer dejandolo ultimo en los choferes disponibles
-     * <b>Pre: </> viajeActivo no puede ser null ni estar vacio
-     * @param viajeActivo Representa el viaje que esta llevando a cabo el chofer
-     */
-    public void finalizarViaje(IViaje viajeActivo) {
-        viajeActivo.finalizarse();
-        Empleado chofer = viajeActivo.getChofer();
-        IVehiculo vehiculo = viajeActivo.getVehiculo();
-        vehiculo.setOcupado(false);
-        // Lo saco de lista y pongo ultimo CHOFER
-        this.choferes.remove(chofer);
-        this.choferes.add(chofer);
-        // Lo saco de lista y pongo ultimo VEHICULO
-        this.vehiculos.remove(vehiculo);
-        this.vehiculos.add(vehiculo);
-    }
-
-    public void pagarViaje(IViaje v) {
-        v.pagarse();
-    }
-
+    }*/
 
     // Listados
 
@@ -409,6 +528,7 @@ public class Sistema {
      *<b>Pre: </b> La fecha debe ser una fecha valida
      * @param fecha_inicio_mes : La fecha de inicio del mes para el cual se genera el listado de sueldos
      * @return : Cadena que contiene el listado de sueldos mensuales de los choferes, junto con el sueldo total a pagar
+     * <b>Post:</b>  Se habra generado un listado con los sueldos a los empleados en la fecha solicitada
      */
     public String listadoSueldoMes(GregorianCalendar fecha_inicio_mes){
         final StringBuilder sb = new StringBuilder("Listado Sueldos Mensuales: \n");
@@ -426,6 +546,7 @@ public class Sistema {
     /**
      * Funcion que genera un String que representa el listado de todos los clientes de la empresa.
      * @return : devuelve una variable de tipo String que contiene el listado de los clientes de la empresa.
+     * <b>Post:</b> Se hbara generado un listado con los clientes
      */
     public String listado_clientes(){
         StringBuilder reporte = new StringBuilder();
@@ -439,6 +560,7 @@ public class Sistema {
     /**
      * Funcion que genera un String que representa el listado de todos los viajes de la empresa.
      * @return : devuelve una variable de tipo String que contiene el listado de los viajes de la empresa.
+     * <b>Post:</b> Se habra generado un listado con los viajes
      */
     public String historico_viajes() throws CloneNotSupportedException {
         assert getInstancia().viajes.getViajes().isEmpty();
@@ -463,6 +585,7 @@ public class Sistema {
     /**
      * Funcion que genera un String que representa el listado de choferes de la empresa.
      * @return : devuelve una variable de tipo String que contiene el listado de los choferes de la empresa.
+     * <b>Post:</b> Se habra generado un listado con los choferes de la empresa
      */
     public String listado_choferes(){
         StringBuilder reporte = new StringBuilder();
@@ -476,6 +599,7 @@ public class Sistema {
     /**
      * Funcion que genera un String que representa el listado de vehiculos de la empresa.
      * @return : devuelve una variable de tipo String que contiene el listado de los vehiculos de la empresa.
+     * <b>Post: </b> Se habra generado un listado con los vehiculos utilizados por la empresa
      */
     public String listado_vehiculos(){
         StringBuilder reporte = new StringBuilder();
@@ -488,7 +612,9 @@ public class Sistema {
 
     /**
      * Funcion que calcula los puntajes de todos los choferes en un periodo de un mes de trabajo. Se conoce que la fecha limite es la actual, y se pasa por parametro la fecha de inicio del mes a analizar.
+     *<b>Pre:</b> El parametro no puede ser null ni estar vacio, debe ser una fecha valida
      * @param pricipio_mes : parametro de tipo GregorianCalendar que representa la fecha de inicio de mes que acaba de terminar
+     *<b>Post:</b> Se habra indicado el maximo puntaje del mes que se solicito
      */
     public void puntaje_mes_finalizado(GregorianCalendar pricipio_mes){
         double max = 0;
@@ -516,7 +642,6 @@ public class Sistema {
             maxKM.setPuntaje(15);
     }
 
-
     // Sistema
 
     public void cargaSistema(){
@@ -532,6 +657,13 @@ public class Sistema {
         sistemaOutput.grabaSistema();
     }
 
+    public void detenerSimulacion() {
+        this.viajes.detenerSimulacion();
+    }
+
+    public void setControlador(Controlador controlador) {
+        this.controlador = controlador;
+    }
 
     @Override
     public String toString() {
@@ -543,4 +675,6 @@ public class Sistema {
         sb.append('}');
         return sb.toString();
     }
+
+
 }

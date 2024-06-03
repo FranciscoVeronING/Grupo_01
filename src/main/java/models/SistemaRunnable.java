@@ -7,17 +7,19 @@ import java.util.Iterator;
 import java.util.Observable;
 
 
-class SistemaThread extends ObservadorAbstracto implements Runnable {
+class SistemaRunnable extends ObservadorAbstracto implements Runnable {
     private ArrayList<Vehiculo> vehiculosDisponibles;
     private EventoSistema evento = null;
+    private BolsaDeViajes bolsaViajes;
 
-    public SistemaThread(BolsaDeViajes bolsa, ArrayList<Vehiculo> vehiculosDisponibles) {
+    public SistemaRunnable(BolsaDeViajes bolsa, ArrayList<Vehiculo> vehiculosDisponibles) {
         super(bolsa);
         this.vehiculosDisponibles = vehiculosDisponibles;
+        this.bolsaViajes = bolsa; // medio raro
     }
 
     public void run() {
-        while (evento == null || (evento != null && !evento.isStop())) {
+        while (evento == null || (evento != null && !evento.getMensaje().equalsIgnoreCase(EventoSistema.STOP))) {
             if (evento != null) { // evento = true si se agrega un viaje a la bolsa
                 Viaje viaje = evento.getViaje(); // Obtiene viaje recien agregado, pasado por evento
                 if (viaje != null && !vehiculosDisponibles.isEmpty()) {
@@ -25,6 +27,10 @@ class SistemaThread extends ObservadorAbstracto implements Runnable {
                     Vehiculo vehiculoAsignado = getVehiculoValido(viaje);
                     viaje.setVehiculo(vehiculoAsignado); // Método ficticio para asignar el vehículo al viaje
                     viaje.setEstado_de_viaje("CON VEHICULO");
+                    // Lo muevo al final de la lista
+                    vehiculosDisponibles.remove(vehiculoAsignado);
+                    vehiculosDisponibles.add(vehiculoAsignado);
+                    bolsaViajes.agregarViaje(viaje);
                 }
                 evento = null;
             }
@@ -58,6 +64,8 @@ class SistemaThread extends ObservadorAbstracto implements Runnable {
     @Override
     public void update(Observable obs, Object arg) {
         super.update(obs, arg);
-        this.evento = (EventoSistema) arg;// 'activa' el thread para que le asigne un vehiculo
+        EventoSistema evento = (EventoSistema) arg;
+        // 'activa' el thread para que le asigne un vehiculo al nuevo viaje o para que pare la simulacion
+        if (evento.getMensaje().equalsIgnoreCase(EventoSistema.NUEVOVIAJE) || evento.getMensaje().equalsIgnoreCase(EventoSistema.STOP)) this.evento = evento;
     }
 }

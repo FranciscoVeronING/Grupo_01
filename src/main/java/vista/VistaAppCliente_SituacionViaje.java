@@ -1,3 +1,5 @@
+package vista;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -53,6 +55,8 @@ public class VistaAppCliente_SituacionViaje extends JFrame implements IVistaAppC
 		this.panelSur.add(this.btnPagar);
 		this.btnPagar.setActionCommand("PAGAR");
 
+		this.setVisible(false);
+
 	}
 
 	@Override
@@ -60,8 +64,8 @@ public class VistaAppCliente_SituacionViaje extends JFrame implements IVistaAppC
 		this.btnPagar.addActionListener(actionListener);
 
 	}
-
-	public void setVisible(boolean estado) {
+	@Override
+	public void setVisibleVentana(boolean estado){
 		this.setVisible(estado);
 	}
 

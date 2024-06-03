@@ -16,6 +16,7 @@ public class Tutu extends Vehiculo {
     /**
      * Metodo utilizado para calcular la prioridad que tendra el auto para ser utilizada ante los requisitos del usuario
      * <b>Pre:</b> pedido no puede ser null ni estar vacio
+     * <b>Post:</b> Se le asignara una prioridad al vehiculo tutu segun que tan adecuado sea este vehiculo ante la solicitudes del usuario
      * @param pedido : Parametro utilizado para almacenar las solicitud de viaje del usuario
      * @return : Devuelve un valor que representa la prioridad del auto ante los otros vehiculos
      */

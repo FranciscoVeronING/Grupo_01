@@ -11,6 +11,7 @@ public class DecoratorZonaSinAsfaltar extends DecoratorZonas {
 
     /**
      * Metodo que calcula el costo del viaje en una zona sin asfaltar
+     * <b>Post:</b> El costo del viaje sera incrementado segun el costo de la zona sin asfaltar del viaje solictiado por el usuario
      */
     @Override
     public void calcularCostoViaje() {

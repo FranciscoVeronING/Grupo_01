@@ -8,8 +8,11 @@ import java.util.Iterator;
 /**
  *
  *Clase que representa a los choferes de la empresa
+ * La clase es cloneable
+ * La clase es serializable
  */
 public abstract class Empleado implements Cloneable, Serializable {
+
     protected String dni;
     protected String nombre;
     protected int cant_viajes;
@@ -20,15 +23,12 @@ public abstract class Empleado implements Cloneable, Serializable {
     protected static int acum_calif = 0;
 
     /**
-     * Constructor que asigna al empleado un numero de dni y nombre
-     * <b>Pre: </b> El parametro dni no puede ser null ni estar vacio
-     * @param dni : El numero del dni del empleado
-     * <b>Pre: </b> El parametro nombre no puede ser null ni estar vacio
-     * @param nombre : El nombre del chofer
+     * Constructor que asigna al empleado un numero de dni y nombre ALEATORIOS
      */
-    public Empleado(String dni,String nombre) {
-        this.dni = dni;
-        this.nombre = nombre;
+    public Empleado() {
+        Utiles u = new Utiles();
+        this.dni = u.generaDNI();
+        this.nombre = u.generaNombre();
         this.puntaje_Empresa = 0;
         this.ocupado = false;
         this.cant_viajes = 0;
@@ -56,23 +56,9 @@ public abstract class Empleado implements Cloneable, Serializable {
         this.ocupado = ocupado;
     }
 
-    public double getCalificacion_clientes() {
-        return calificacion_clientes;
-    }
-
-    /**
-     *Metodo utilizado para setear el promedio de la calificacion del chofer segun los clientes
-     * <b>Pre: </b> La calificacion del cliente debe ser mayor a 0.
-     * @param calificacion_clientes : Es la calificacion que le da el cliente al chofer luego del viaje
-     */
-    public void setCalificacion_clientes(int calificacion_clientes) {
-        cant_calif++;
-        acum_calif += calificacion_clientes;
-        this.calificacion_clientes = acum_calif/cant_calif;
-    }
-
     /**
      *<br>Metodo que incrementa en uno la cantidad de viajes del empleado
+     * <b>Post:</b> La cantidad de viajes del chofer sera incrementada en uno
      */
     public void AumentarCant_viajes() {
         this.cant_viajes++;
@@ -82,18 +68,18 @@ public abstract class Empleado implements Cloneable, Serializable {
      * Metodo que incrementa el puntaje del empleado segun corresponda
      * <b>Pre: </b> El parametro debe ser mayor a cero
      * @param i : Es el valor a incrementar el puntaje del empleado por viaje
+     * <b>Post:</b> El puntaje del empleado se vera incrementado
      */
     public void setPuntaje(int i) {
         this.puntaje_Empresa += i;
     }
 
-    public void finalizarViaje() {
-        this.setOcupado(false);
-        this.AumentarCant_viajes();
-        IViaje viajeActivo = Sistema.getInstancia().getViajeActivoChofer(this);
-        Sistema.getInstancia().finalizarViaje(viajeActivo);
-    }
-
+    /**
+     * Metodo que crea una copia del empleado
+     * <b>Pre:</b> La clase empleado debe implementar la interfaz cloneable
+     * @return una nueva instancia que es una copia superficial del objeto empleado
+     * @throws AssertionError si el objeto no es cloneable, lo cual no debería ocurrir ya que Empleado implementa Cloneable
+     */
     @Override
     public Empleado clone() {
         try {

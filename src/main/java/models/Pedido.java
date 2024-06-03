@@ -33,6 +33,7 @@ public class Pedido implements Cloneable {
      * @param cliente : Parametro que se utiliza para almacenar la informacion del cliente que solicita el pedido
      * <b>Pre: </b> El parametro d debe ser mayor de cero
      * @param d : Indica la distancia del viaje
+     * <b>Post:</b> Quedaran definidos los requerrimientos del viaje con las especificaciones del usuario
      */
     public Pedido(GregorianCalendar fecha, String zona, boolean mascota, int cant_pasajeros, boolean equipaje, Cliente cliente, double d) {
         this.fecha = fecha;
@@ -106,6 +107,12 @@ public class Pedido implements Cloneable {
         return sb.toString();
     }
 
+    /**
+     * <b>Pre: </b> La clase pedido debe implementar cloneable
+     * <b>Post:</b> El metodo devolvera una instancia clonada de objeto original
+     * @return Devolvera una copia del objeto Pedido
+     * @throws AssertionError se lanzara la excepcion en caso de que la clase no implemente cloneable (lo cual no deberia suceder)
+     */
     @Override
     public Pedido clone() {
         try {

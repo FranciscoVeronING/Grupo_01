@@ -19,6 +19,7 @@ public abstract class Vehiculo implements IVehiculo, Cloneable {
      * @param cantPax : Representa la cantidad de pasajeros
      * @param PF : Indica si el viaje involucra mascota
      * @param baul : Indica si se necesita que el vehiculo tenga baul
+     *<b>Post: </b> Se habra inicializado el vehiculo con sus respectivos datos y capacidades
      */
     public Vehiculo(String patente, int cantPax, boolean PF, boolean baul) {
         this.patente = patente;
@@ -32,7 +33,8 @@ public abstract class Vehiculo implements IVehiculo, Cloneable {
      * Metodo utilizado para corrobar si el vehiculo cumple con el requisito de tener baul en caso de ser necesario
      * <b>Pre: </b>Pedido no puede ser null ni estar vacio
      * @param pedido : Tiene la informacion necesaria sobre los requisitos del pedido
-     * @return : Devuelve si el vehiculo es apto o no segun los requisitos del pedido
+     * @return : Devuelve si el vehiculo cuenta con baul o no
+     * <b>Post: </b> Sera verdadero o falso que el vehiculo cuenta con baul
      */
     public boolean validarBaul(Pedido pedido) {
         if (this.baul) return true;
@@ -43,7 +45,8 @@ public abstract class Vehiculo implements IVehiculo, Cloneable {
      * Metodo utilizado para corrobar si el vehiculo cumple con el requisito de ser pet friendly en caso de ser necesario
      * <b>Pre: </b>Pedido no puede ser null ni estar vacio
      * @param pedido : Tiene la informacion necesaria sobre los requisitos del pedido
-     * @return : Devuelve si el vehiculo es apto o no segun los requisitos del pedido
+     * @return : Devuelve si el vehiculo es pet friendly o no
+     * <b>Post: </b> Sera verdadero o falso que el vehiculo es pet friendly
      */
     public boolean validarPF(Pedido pedido) {
         if (this.petfriendly) return true;
@@ -53,7 +56,8 @@ public abstract class Vehiculo implements IVehiculo, Cloneable {
      * Metodo utilizado para corrobar si el vehiculo cumple con el requisito de la cantidad de pasajeros
      * <b>Pre: </b>Pedido no puede ser null ni estar vacio
      * @param pedido : Tiene la informacion necesaria sobre los requisitos del pedido
-     * @return : Devuelve si el vehiculo es apto o no segun los requisitos del pedido
+     * @return : Devuelve si el vehiculo cuenta con la capacidad para los pasajeros solicitados
+     * <b>Post: </b> Sera verdadero o falso que el vehiculo cuenta con la capacidad solicitada
      */
     public boolean validarPax(Pedido pedido) {
         return this.cant_max_pasajeros >= pedido.getCant_pasajeros();
@@ -62,6 +66,7 @@ public abstract class Vehiculo implements IVehiculo, Cloneable {
     /**
      * Este metodo verifica si el vehiculo cumple o no con todos los requisitos solicitados en el pedido
      * <b>Pre: </b>Pedido no puede ser null ni estar vacio
+     * <b>Pre:</b> Se habra verificado con anterioridad las caracteristicas del vehiculo
      * @param pedido : Tiene la informacion necesaria sobre los requisitos del pedido
      * @return : Devuelve si el vehiculo es apto o no segun los requisitos del pedido
      */
@@ -97,6 +102,13 @@ public abstract class Vehiculo implements IVehiculo, Cloneable {
         this.ocupado = x;
     }
 
+    /**
+     * Metodo utilizado para calcular la prioridad que tendra el vehiculo para ser utilizada ante los requisitos del usuario
+     * <b>Pre:</b> pedido no puede ser null ni estar vacio
+     * <b>Post:</b> Se le asignara una prioridad al vehiculo segun que tan adecuado sea ante la solicitud del usuario
+     * @param pedido : Parametro utilizado para almacenar las solicitud de viaje del usuario
+     * @return : Devuelve un puntaje que representa la prioridad del auto ante los otros vehiculos
+     */
     @Override
     public Integer getPrioridad(Pedido pedido) {
         int puntaje;
@@ -118,7 +130,12 @@ public abstract class Vehiculo implements IVehiculo, Cloneable {
                 ", baul=" + baul +
                 '}';
     }
-
+    /**
+     * <b>Pre: </b> La clase Vehiculo debe implementar cloneable
+     * <b>Post:</b> El metodo devolvera una instancia clonada de objeto original
+     * @return Devolvera una copia del objeto Vehiculo
+     * @throws AssertionError se lanzara la excepcion en caso de que la clase no implemente cloneable (lo cual no deberia suceder)
+     */
     @Override
     public Vehiculo clone() {
         try {

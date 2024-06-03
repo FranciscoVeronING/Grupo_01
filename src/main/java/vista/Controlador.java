@@ -5,7 +5,10 @@ import java.awt.event.ActionListener;
 import java.util.GregorianCalendar;
 
 import javax.swing.JOptionPane;
+import Exception.UsuarioIncorrectoException;
+import Exception.UsuarioRepetidoException;
 
+import models.Cliente;
 import models.Sistema;
 
 public class Controlador implements ActionListener {
@@ -15,64 +18,71 @@ public class Controlador implements ActionListener {
 	private IVistaAppCliente_Registrarse r;
 	private IVistaAppCliente_SituacionViaje sv;
 
-	
-	public Controlador() {
-        Sistema.getInstancia().setControlador(this);
-    }
+	private Cliente clienteVentana;
 
-    public void actualizarEstadoViaje(String nuevoEstado) {
-        this.sv.actualizarEstadoViaje(nuevoEstado);
+	public Controlador(IVistaAppCliente_formulario form,IVistaAppCliente_login login,IVistaAppCliente_inicio inicio,IVistaAppCliente_Registrarse r,IVistaAppCliente_SituacionViaje sv) {
+        this.form = form;
+		this.login = login;
+		this.inicio = inicio;
+		this.r = r;
+		this.sv = sv;
+		Sistema.getInstancia().setControlador(this); //preguntar si esto esta bien
+		this.form.setActionListener(this);
+		this.login.setActionListener(this);
+		this.inicio.setActionListener(this);
+		this.r.setActionListener(this);
+		this.sv.setActionListener(this);
     }
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equalsIgnoreCase("PEDIR")) {
-			Sistema.getInstancia().hacerPedido(new GregorianCalendar(), this.form.getZona(),this.form.hayMascota(),this.form.getCantidadPasajeros(),this.form.hayEquipaje(),/*ver como hacer para darle cliente*/, this.form.getDistancia());
-			this.form.setVisible(false);
-			this.sv.setVisible(true);
+			Sistema.getInstancia().hacerPedido(new GregorianCalendar(), this.form.getZona(),this.form.hayMascota(),this.form.getCantidadPasajeros(),this.form.hayEquipaje(),this.clienteVentana, this.form.getDistancia());
+			this.form.setVisibleVentana(false);
+			this.sv.setVisibleVentana(true);
 		}
 		else if (e.getActionCommand().equalsIgnoreCase("REGISTRAR")) {
-			this.login.setVisible(false);
-			this.r.setVisible(true);
+			this.login.setVisibleVentana(false);
+			this.r.setVisibleVentana(true);
 		}
 		else if (e.getActionCommand().equalsIgnoreCase("REGISTRARME")) {
-			this.r.setVisible(false);
-			this.login.setVisible(true);
+			this.r.setVisibleVentana(false);
+			this.login.setVisibleVentana(true);
 			try {
-				///Crear Funcion en sistema de crear cliente, esa funcion deberia llamar a añadir cliente.
-				///debe validar si el nombre de usuario existe
-				Sistema.getInstancia().creaCliente(r.getNombreUser(),r.getContrasenia(),r.getNombre(),r.getApellido(),r.getTelefono(),r.getMail(),r.getNombreCalle(),r.getAlturaCalle(),r.getPisoCalle(),r.getLetraCalle(),r.getFechaDeNacimiento());}
-			catch(Exception ex){
+				Sistema.getInstancia().crearCliente(r.getNombreUser(),r.getContrasenia(),r.getNombre(),r.getApellido(),r.getTelefono(),r.getMail(),r.getNombreCalle(),r.getAlturaCalle(),r.getPisoCalle(),r.getLetraCalle(),r.getFechaDeNacimiento());}
+			catch(UsuarioRepetidoException ex){
 				JOptionPane.showMessageDialog(null, "Usuario ya registrado");	
 			}
 		}
 		else if (e.getActionCommand().equalsIgnoreCase("INGRESAR")) {
 			try {
 				//funcion que debeverificar si existe o no el cliente para poder hacer el login
-				Sistema.getInstancia().verifica(this.login.getNombreUsuario(), this.login.getContrasenia());
-				this.login.setVisible(false);
-				this.inicio.setVisible(true);
+				Sistema.getInstancia().verificarExistenciaCliente(this.login.getNombreUsuario(), this.login.getContrasenia());
 				///aca se deben pedir los datos del cliente. hay que gardarlo en variables en el CONTROLADOR??
-			}catch(Exception ex) {//hay que hacer nueva excepcion
+				clienteVentana = Sistema.getInstancia().getCliente(this.login.getNombreUsuario());
+				this.login.setVisibleVentana(false);
+				this.inicio.setVisibleVentana(true);
+
+			}catch(UsuarioIncorrectoException ex) {//hay que hacer nueva excepcion
 				JOptionPane.showMessageDialog(null, "Usuario y/o contraseña incorrecta");	
 			}
 			
 		}
 		else if (e.getActionCommand().equalsIgnoreCase("LOGOUT")) {
-			this.login.setVisible(true);
-			this.inicio.setVisible(false);
+			this.login.setVisibleVentana(true);
+			this.inicio.setVisibleVentana(false);
 		}
 		else if (e.getActionCommand().equalsIgnoreCase("FORMULARIO_PEDIDOS")) {
-			this.form.setVisible(true);
-			this.inicio.setVisible(false);
+			this.form.setVisibleVentana(true);
+			this.inicio.setVisibleVentana(false);
 		}
 		else if (e.getActionCommand().equalsIgnoreCase("VOLVER")) {
-			this.form.setVisible(false);
-			this.inicio.setVisible(true);
+			this.form.setVisibleVentana(false);
+			this.inicio.setVisibleVentana(true);
 		}else if(e.getActionCommand().equalsIgnoreCase("PAGAR")) {
 			JOptionPane.showMessageDialog(null, "Viaje terminado");
-            this.inicio.setVisible(true);
-            this.sv.setVisible(false);
+            this.inicio.setVisibleVentana(true);
+            this.sv.setVisibleVentana(false);
 			
 		}
 		

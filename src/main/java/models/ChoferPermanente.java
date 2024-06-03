@@ -1,8 +1,8 @@
 package models;
 
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
+import java.util.Random;
 
 /**
  * Clase utilizada para representar al chofer permanente que se extiende de la clsae chofer
@@ -28,12 +28,16 @@ public class ChoferPermanente extends Chofer {
      * @param antiguedad : Antiguedad que tiene el chofer permanente trabajando
      * <b>Pre:</b> El parametro cant_Hijos debe ser cero o mayor
      * @param cant_Hijos : La cantidad de hijos que el chofer permanente
+     * @param b Recurso compartido
+     * <b>Post: </b> El chofer permanente fue inicializado con sus datos y ganancia correspondiente
      */
-    public ChoferPermanente(BolsaDeViajes b, String dni, String nombre, double aportes,GregorianCalendar fecha_ingreso, double antiguedad, double cant_Hijos) {
-        super(b, dni, nombre, aportes);
-        this.antiguedad = antiguedad;
-        this.cant_Hijos = cant_Hijos;
-        this.fecha_ingreso = fecha_ingreso;
+    public ChoferPermanente(BolsaDeViajes b) {
+        super(b);
+        Random r = new Random();
+        Utiles utiles = new Utiles();
+        this.antiguedad = r.nextDouble(25) + 1;
+        this.cant_Hijos = r.nextInt(4) + 1;
+        this.fecha_ingreso = utiles.generaFechaAleatoria();
     }
 
     /**
@@ -41,6 +45,7 @@ public class ChoferPermanente extends Chofer {
      * <b>Pre: </b> El parametro fecha_inicio_mes debe ser una fecha valida
      * @param fecha_inicio_mes : El parametro es utilizado para saber en que dia se quiere calcular el salario del chofer
      * @return Devuelve el salario del chofer permanente
+     * <b>Post: </b> El salario es calculado segun los viajes que realizo
      */
     @Override
     public double getSueldo(GregorianCalendar fecha_inicio_mes, Iterator<IViaje> viajes) {

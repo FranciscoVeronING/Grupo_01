@@ -14,10 +14,12 @@ import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import javax.swing.border.MatteBorder;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.border.TitledBorder;
 import javax.swing.JTextArea;
 
-public class VistaGeneral extends JFrame {
+public class VistaGeneral extends JFrame implements IVistaGeneral{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -29,26 +31,8 @@ public class VistaGeneral extends JFrame {
 	private JTextArea textAreaLogCliente;
 	private JTextArea textArea_LogGral;
 	private JTextArea textAreaLogChofer;
+	private JRadioButton rdbtnPersistidos;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VistaGeneral frame = new VistaGeneral();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public VistaGeneral() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -124,9 +108,6 @@ public class VistaGeneral extends JFrame {
 		JPanel panelComienz_Persist_rdbtn = new JPanel();
 		panelComienzo_Persist.add(panelComienz_Persist_rdbtn);
 
-		JRadioButton rdbtnPersistidos = new JRadioButton("Si");
-		panelComienz_Persist_rdbtn.add(rdbtnPersistidos);
-
 		JPanel panelComienzo_Inicio = new JPanel();
 		panel_Comienzo.add(panelComienzo_Inicio);
 
@@ -173,8 +154,89 @@ public class VistaGeneral extends JFrame {
 		this.btnFinalizar = new JButton("Finalizar Simulacion");
 		panelSurFin.add(this.btnFinalizar);
 
+		this.rdbtnPersistidos.setActionCommand("Persistir");
 		this.btnFinalizar.setActionCommand("Finalizar_Simulacion");
-		this.btnFinalizar.setActionCommand("Iniciar_Simulacion");
+		this.btnInicio.setActionCommand("Iniciar_Simulacion");
+
+		tf_cantChoferes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rdbtnPersistidos.setEnabled(false);
+				checkInicioButtonStatus();
+			}
+		});
+
+		tf_cantVehiculos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rdbtnPersistidos.setEnabled(false);
+				checkInicioButtonStatus();
+			}
+		});
+
+		tf_cantClientes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rdbtnPersistidos.setEnabled(false);
+				checkInicioButtonStatus();
+			}
+		});
+
+		rdbtnPersistidos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (rdbtnPersistidos.isSelected()) {
+					tf_cantChoferes.setEnabled(false);
+					tf_cantVehiculos.setEnabled(false);
+					tf_cantClientes.setEnabled(false);
+					btnInicio.setEnabled(true);
+				} else {
+					tf_cantChoferes.setEnabled(true);
+					tf_cantVehiculos.setEnabled(true);
+					tf_cantClientes.setEnabled(true);
+					checkInicioButtonStatus();
+				}
+			}
+		});
+	}
+	@Override
+	public void setActionListener(ActionListener actionListener) {
+		this.btnFinalizar.addActionListener(actionListener);
+		this.btnInicio.addActionListener(actionListener);
+		this.rdbtnPersistidos.addActionListener(actionListener);
+	}
+
+	@Override
+	public void appendLogGeneral(String cartel) {
+
+	}
+
+	@Override
+	public void appendLogCliente(String cartel) {
+
+	}
+
+	@Override
+	public void appendLogChofer(String cartel) {
+
+	}
+
+	@Override
+	public int getCantChoferes(){
+		return Integer.parseInt(this.tf_cantChoferes.getText());
+	}
+	@Override
+	public int getCantVehiculos(){
+		return Integer.parseInt(this.tf_cantVehiculos.getText());
+	}
+	@Override
+	public int getCantClientes(){
+		return Integer.parseInt(this.tf_cantClientes.getText());
+	}
+
+
+	private void checkInicioButtonStatus() {
+		if (!tf_cantChoferes.isEnabled() && !tf_cantVehiculos.isEnabled() && !tf_cantClientes.isEnabled()) {
+			btnInicio.setEnabled(true);
+		} else {
+			btnInicio.setEnabled(false);
+		}
 	}
 
 }

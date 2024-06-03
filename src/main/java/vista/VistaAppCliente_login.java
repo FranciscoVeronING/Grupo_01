@@ -116,7 +116,7 @@ public class VistaAppCliente_login extends JFrame implements IVistaAppCliente_lo
 		contentPane.add(panel_8, BorderLayout.NORTH);
 		
 		JLabel Title = new JLabel("SUBI QUE TE LLEVO");
-		Title.setIcon(new ImageIcon(VistaAppCliente_login.class.getResource("/vista/icon1.png")));
+		//Title.setIcon(new ImageIcon(VistaAppCliente_login.class.getResource("/vista/icon1.png")));
 		Title.setFont(new Font("Segoe Print", Font.BOLD, 20));
 		Title.setHorizontalAlignment(SwingConstants.TRAILING);
 		panel_8.add(Title);
@@ -135,7 +135,7 @@ public class VistaAppCliente_login extends JFrame implements IVistaAppCliente_lo
 
 	@Override
 	public String getContrasenia() {
-		return this.field_contrasenia.getPassword().toString();
+		return this.field_contrasenia.getText();
 	}
 
 	@Override
@@ -144,7 +144,7 @@ public class VistaAppCliente_login extends JFrame implements IVistaAppCliente_lo
 		this.btnRegistrar.addActionListener(actionListener);
 		
 	}
-	public void setVisible(boolean estado) {
+	public void setVisibleVentana(boolean estado) {
 		this.setVisible(estado);
 	}
 

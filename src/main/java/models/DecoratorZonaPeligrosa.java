@@ -10,6 +10,7 @@ public class DecoratorZonaPeligrosa extends DecoratorZonas {
 
     /**
      * Calcula el costo del viaje en el caso que el mismo sea en una zona peligrosa
+     * <b>Post:</b> El costo del viaje sera incrementado segun el costo de la zona peligrosa del viaje solictiado por el usuario
      */
     @Override
     public void calcularCostoViaje() {

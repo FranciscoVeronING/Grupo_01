@@ -80,6 +80,7 @@ public class DecoratorMascota implements IViaje {
 
     /***
      * Metodo utilizado para calcular el costo de viaje solicitado con el requerimiento de si llega a necesitar un vehiculo pet friendly
+     * <b>Post:</b> El costo del viaje sera incrementado segun la necesidad del vehiculo pet friendly solictiado por el usuario
      */
     @Override
     public void calcularCostoViaje() {

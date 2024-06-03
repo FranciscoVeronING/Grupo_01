@@ -94,6 +94,8 @@ public class VistaAppCliente_inicio extends JFrame implements IVistaAppCliente_i
 		this.btnLogOut.setActionCommand("LOGOUT");
 		this.btnViajes.setActionCommand("MISVIAJES");
 		this.btnIr_a_Pedido.setActionCommand("FORMULARIO_PEDIDOS");
+
+		this.setVisible(false);
 	}
 
 	@Override
@@ -104,7 +106,7 @@ public class VistaAppCliente_inicio extends JFrame implements IVistaAppCliente_i
 		this.btnViajes.addActionListener(actionListener);
 	}
 
-	public void setVisible(boolean estado) {
+	public void setVisibleVentana(boolean estado) {
 		this.setVisible(estado);
 	}
 

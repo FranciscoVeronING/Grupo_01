@@ -1,6 +1,8 @@
 package models;
 
 
+import java.util.Random;
+
 /**
  * Clase que se extiende de Empleado usada para agregar informacion de los choferes
  */
@@ -10,19 +12,14 @@ protected double sueldo_basico;
 protected double aportes;
 
     /**
-     * Constuctor utilizado para setear el dni,nombre,aportes,sueldo basico e incicializar la calificaion
-     * <b>Pre: </b> dni no puede ser null ni vacio
-     * @param dni : Parametro que es utilizado para setear el dni del chofer
-     * <b>Pre: </b> nombre no puede ser null ni vacio
-     * @param nombre : Parametro que es utilizado para setear el nombre del chofer
-     * <b>Pre: </b> dni no puede ser menor a cero
-     * @param aportes : Parametro que es utilizado para setear los aportes del chofer
+     * Constuctor utilizado para setear el dni,nombre,aportes ALEATORIOS e incicializar el sueldo basico
+     * <b>Post: </b> El chofer sera inicializado con sus datos
      */
-    public Chofer(BolsaDeViajes b, String dni, String nombre, double aportes) {
-        super(b, dni, nombre);
+    public Chofer(BolsaDeViajes b) {
+        super(b);
+        Random d = new Random();
         this.sueldo_basico = 1000;
-        this.aportes = aportes;
-        this.calificacion_clientes = 0;
+        this.aportes = d.nextDouble(70) + 1;
     }
 
     protected void setSueldo_basico(double sueldo_basico) {

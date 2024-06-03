@@ -9,7 +9,9 @@ public class DecoratorZonaEstandar extends DecoratorZonas {
     }
 
     /**
+     *
      * Calcula el costo del viaje en el caso que el mismo sea en una zona estandar
+     * <b>Post:</b> El costo del viaje sera incrementado segun el costo de la zona estandar del viaje solictiado por el usuario
      */
     @Override
     public void calcularCostoViaje() {

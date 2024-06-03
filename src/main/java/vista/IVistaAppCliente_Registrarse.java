@@ -5,7 +5,7 @@ import java.util.GregorianCalendar;
 
 public interface IVistaAppCliente_Registrarse {
 
-	 void setVisible(boolean estado);
+	 void setVisibleVentana(boolean estado);
 	 void setActionListener(ActionListener actionListener);
 	 String getNombre();
 	 String getApellido();

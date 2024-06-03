@@ -1,4 +1,6 @@
 package models;
+import com.sun.tools.jconsole.JConsoleContext;
+
 import java.util.GregorianCalendar;
 import java.util.Random;
 
@@ -16,8 +18,6 @@ public class Cliente extends Usuario implements Cloneable {
     private String mail;
     private Direccion direccion;
     private GregorianCalendar fecha_nacimiento;
-
-    //Lanzar excepcion si nombre de usuario ya existe
 
     /**
      * Constructor utilizado para setear nombre,apellido,telefono,mail,direccion y fecha de nacimiento al cliente
@@ -37,16 +37,36 @@ public class Cliente extends Usuario implements Cloneable {
      * El parametro direccion no puede ser null ni estar vacio
      * @param direccion : Parametro utilizado para almacenar la direccion del usuario
      * El parametro fecha_nacimiento no puede ser null ni estar vacio
-     * @param fecha_nacimiento : Parametro utilizado para almacenar la fecha de nacimiento del usuario
+     * @param fecha : Parametro utilizado para almacenar la fecha de nacimiento del usuario
+     *<b>Post: </b> El cliente sera inicializado con sus datos personales y nombre de usuario unico
+*/
+
+    public Cliente(String nombre_usuario, String contrasenia, String nombre, String apellido, String telefono, String mail, Direccion direccion, GregorianCalendar fecha){
+        super(nombre_usuario,contrasenia);
+        this.nombre = nombre;
+        //this.contrasenia = contrasenia;
+        this.apellido = apellido;
+        this.telefono = telefono;
+        this.mail = mail;
+        this.direccion = direccion;
+        this.fecha_nacimiento = fecha;
+    }
+
+    /**
+     * Constructor utilizado para setear nombre,apellido,telefono,mail,direccion y fecha de nacimiento al cliente de manera aleatoria
+     * Los datos del usuario seran generados mediante metodos
+     *<b>Post: </b> El cliente estara inicializado con sus datos personales y nombre de usuario unico generados de manera random
      */
+
     public Cliente(){
         super();
-        this.nombre = generaNombre();
-        this.apellido = generaApellido();
-        this.telefono = generaTelefono();
-        this.mail = generaMailAleatorio();
-        this.direccion = direccion;             //FALTA VER ESTO
-        this.fecha_nacimiento = fecha_nacimiento;
+        Utiles utiles = new Utiles();
+        this.nombre = utiles.generaNombre();
+        this.apellido = utiles.generaApellido();
+        this.telefono = utiles.generaTelefono();
+        this.mail = utiles.generaMail(this.nombre, this.apellido);
+        this.direccion =  utiles.generaDireccionAleatoria();
+        this.fecha_nacimiento = utiles.generaFechaNacimientoAleatoria();
         this.setNombre_usuario(this.nombre+this.apellido);
         this.setContrasenia("1234");
     }
@@ -100,29 +120,12 @@ public class Cliente extends Usuario implements Cloneable {
         this.fecha_nacimiento = fecha_nacimiento;
     }
 
-
-
     /**
-     * Metodo utilizado para que el usuario califique al chofer
-     * <b>Pre: </b> El parametro chofer debe existir, no puede ser null ni estar vacio
-     * @param chofer : Parametro que identifica al chofer que realizo el viaje solicitado por el usuario
+     * <b>Pre: </b> El cliente debe ser clonable
+     * <b>Post: </b> Se devolvera un clon a partir de la clonacion profunda
+     * @return Un clon del cliente actual
+     * @throws AssertionError En el caso que ocurra una excepción CloneNotSupportedException (lo que no debería suceder si Cliente implementa Cloneable correctamente)
      */
-    public void calificar_Chofer(Empleado chofer){
-        int calif, n = 11;
-        calif = (int) (Math.random() * n) + 1;
-        chofer.setCalificacion_clientes(calif);
-   }
-
-    /**
-     * Metodo que representa que el usuario pague el viaje realizado y califica al chofer.
-     */
-    public void pagar_viaje() {
-        Sistema e = Sistema.getInstancia();
-        IViaje v = e.getViajeActivoCliente(this);
-        Sistema.getInstancia().pagarViaje(v);
-        this.calificar_Chofer(v.getChofer());
-    }
-
     @Override
     public Cliente clone() {
         try {
@@ -141,39 +144,7 @@ public class Cliente extends Usuario implements Cloneable {
         return sb.toString();
     }
 
-    public String generaNombre(){
-        String[] nombres = {"Juan", "Pedro", "Pablo", "Maria", "Jose", "Ana", "Lucia", "Carlos", "Fernando", "Sofia", "Lionel", "Guille", "Ivonne", "Matias", "Maite", "Francisco", "Martin", "Dario", "Tomas", "Homero"};
-        Random rand = new Random();
-        return nombres[rand.nextInt(nombres.length)];
-    }
 
-    public String generaApellido(){
-        String[] apellidos = {"Gonzalez", "Rodriguez", "Perez", "Sanchez", "Ramirez", "Torres", "Dominguez", "Castillo", "Gutierrez", "Hernandez", "Lopez", "Martinez", "Rivera", "Mendoza", "Vasquez", "Castro", "Ortiz", "Ruiz", "Romero", "Alvarez"};
-        Random rand = new Random();
-        return apellidos[rand.nextInt(apellidos.length)];
-    }
-
-    public String generaTelefono() {
-        Random rand = new Random();
-        StringBuilder sb = new StringBuilder(7);
-        for (int i = 0; i < 7; i++) {
-            int num = rand.nextInt(10); // Genera un número aleatorio entre 0 y 9
-            sb.append(num);
-        }
-        return "223" + sb.toString();
-    }
-
-    public String generaMailAleatorio() {
-        String caracteres = "abcdefghijklmnopqrstuvwxyz";
-        Random rand = new Random();
-        StringBuilder sb = new StringBuilder(10);
-        for (int i = 0; i < 10; i++) {
-            int index = rand.nextInt(caracteres.length());
-            sb.append(caracteres.charAt(index));
-        }
-        sb.append("@gmail.com");
-        return sb.toString();
-    }
 
     @Override
     public String toString() {

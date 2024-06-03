@@ -10,6 +10,6 @@ public interface IVistaAppCliente_formulario{
 	public boolean hayEquipaje();
 	public double getDistancia();
 	public String getZona();
-	public void setVisible(boolean estado);
+	public void setVisibleVentana(boolean estado);
 	void setActionListener(ActionListener actionListener);
 }

@@ -8,10 +8,15 @@ public class BolsaDeViajes extends Observable implements Serializable {
     private ArrayList<IViaje> colaDeViajes = new ArrayList<IViaje>();
     private boolean simulacionActiva = true;
 
+    public BolsaDeViajes() {
+    }
+
     public void agregarViaje(Viaje viaje) {
         colaDeViajes.add(viaje);
         setChanged();
-        notifyObservers(new EventoSistema(viaje));
+        if (viaje.getVehiculo() == null)
+            notifyObservers(new EventoSistema(viaje, EventoSistema.NUEVOVIAJE));
+        else notifyObservers(new EventoSistema(viaje, EventoSistema.NUEVOVEHICULO));
     }
 
     public ArrayList<IViaje> getViajes() {
@@ -22,7 +27,7 @@ public class BolsaDeViajes extends Observable implements Serializable {
         this.simulacionActiva = false;
         notifyAll();
         setChanged();
-        notifyObservers();
+        notifyObservers(new EventoSistema(EventoSistema.STOP));
     }
 
     public boolean getSimulacionActiva() {
@@ -36,6 +41,19 @@ public class BolsaDeViajes extends Observable implements Serializable {
             if (colaDeViajes.get(i).getVehiculo() == null) v = (Viaje) colaDeViajes.get(i);
             else i++;
         }
+        colaDeViajes.remove(v);
         return v;
+    }
+
+    public void viajePagado(Viaje viaje) {
+        viaje.pagarse();
+        setChanged();
+        notifyObservers(new EventoSistema(viaje, EventoSistema.PAGADO));
+    }
+
+    public void viajeFinalizado(Viaje viaje) {
+        viaje.finalizarse();
+        setChanged();
+        notifyObservers(new EventoSistema(viaje, EventoSistema.FINALIZADO));
     }
 }
