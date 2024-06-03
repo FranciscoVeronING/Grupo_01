@@ -11,5 +11,6 @@ public interface IVistaAppCliente_formulario{
 	public double getDistancia();
 	public String getZona();
 	public void setVisibleVentana(boolean estado);
+	public void	limpiarcampos();
 	void setActionListener(ActionListener actionListener);
 }

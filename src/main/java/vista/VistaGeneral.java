@@ -1,25 +1,16 @@
 package vista;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.JRadioButton;
-import javax.swing.border.MatteBorder;
-import java.awt.Color;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
-import javax.swing.JTextArea;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
-public class VistaGeneral extends JFrame implements IVistaGeneral{
+public class VistaGeneral extends JFrame implements IVistaGeneral {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -38,8 +29,6 @@ public class VistaGeneral extends JFrame implements IVistaGeneral{
 		setBounds(100, 100, 450, 300);
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		// contentPane.setPreferredSize(new Dimension(900,900));
-
 		setContentPane(this.contentPane);
 		this.contentPane.setLayout(new BorderLayout(0, 0));
 
@@ -105,18 +94,21 @@ public class VistaGeneral extends JFrame implements IVistaGeneral{
 		JLabel lblNewLabel_3 = new JLabel("Empezar con datos persistidos : ");
 		panelComienz_Persist_lbl.add(lblNewLabel_3);
 
+		this.rdbtnPersistidos = new JRadioButton();
+
 		JPanel panelComienz_Persist_rdbtn = new JPanel();
 		panelComienzo_Persist.add(panelComienz_Persist_rdbtn);
+		panelComienz_Persist_rdbtn.add(this.rdbtnPersistidos);
 
 		JPanel panelComienzo_Inicio = new JPanel();
 		panel_Comienzo.add(panelComienzo_Inicio);
 
 		this.btnInicio = new JButton("Comenzar");
 		panelComienzo_Inicio.add(this.btnInicio);
+		this.btnInicio.setEnabled(false);
 
 		JPanel LogGeneral = new JPanel();
-		LogGeneral
-				.setBorder(new TitledBorder(null, "Log General:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		LogGeneral.setBorder(new TitledBorder(null, "Log General:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		this.contentPane.add(LogGeneral, BorderLayout.CENTER);
 		LogGeneral.setPreferredSize(new Dimension(500, 400));
 		LogGeneral.setLayout(new BorderLayout(0, 0));
@@ -129,8 +121,7 @@ public class VistaGeneral extends JFrame implements IVistaGeneral{
 		panelCCH.setLayout(new GridLayout(2, 0, 0, 0));
 
 		JPanel panel_LogCliente = new JPanel();
-		panel_LogCliente
-				.setBorder(new TitledBorder(null, "Log Cliente:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_LogCliente.setBorder(new TitledBorder(null, "Log Cliente:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelCCH.add(panel_LogCliente);
 		panel_LogCliente.setLayout(new BorderLayout(0, 0));
 
@@ -138,8 +129,7 @@ public class VistaGeneral extends JFrame implements IVistaGeneral{
 		panel_LogCliente.add(this.textAreaLogCliente);
 
 		JPanel panel_LogChofer = new JPanel();
-		panel_LogChofer
-				.setBorder(new TitledBorder(null, "Log Chofer :", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_LogChofer.setBorder(new TitledBorder(null, "Log Chofer :", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelCCH.add(panel_LogChofer);
 		panel_LogChofer.setPreferredSize(new Dimension(300, 300));
 		panel_LogChofer.setLayout(new BorderLayout(0, 0));
@@ -153,31 +143,24 @@ public class VistaGeneral extends JFrame implements IVistaGeneral{
 
 		this.btnFinalizar = new JButton("Finalizar Simulacion");
 		panelSurFin.add(this.btnFinalizar);
+		this.btnFinalizar.setEnabled(false);
 
 		this.rdbtnPersistidos.setActionCommand("Persistir");
 		this.btnFinalizar.setActionCommand("Finalizar_Simulacion");
 		this.btnInicio.setActionCommand("Iniciar_Simulacion");
 
-		tf_cantChoferes.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		// Añadir listeners a los campos de texto y al radio button
+		KeyAdapter keyAdapter = new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
 				rdbtnPersistidos.setEnabled(false);
 				checkInicioButtonStatus();
 			}
-		});
+		};
 
-		tf_cantVehiculos.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				rdbtnPersistidos.setEnabled(false);
-				checkInicioButtonStatus();
-			}
-		});
-
-		tf_cantClientes.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				rdbtnPersistidos.setEnabled(false);
-				checkInicioButtonStatus();
-			}
-		});
+		tf_cantChoferes.addKeyListener(keyAdapter);
+		tf_cantVehiculos.addKeyListener(keyAdapter);
+		tf_cantClientes.addKeyListener(keyAdapter);
 
 		rdbtnPersistidos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -194,7 +177,32 @@ public class VistaGeneral extends JFrame implements IVistaGeneral{
 				}
 			}
 		});
+
+		btnInicio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnFinalizar.setEnabled(true);
+				rdbtnPersistidos.setEnabled(false);
+			}
+		});
+
+		this.setVisible(true);
 	}
+
+	private void checkInicioButtonStatus() {
+		if (isNumeric(tf_cantChoferes.getText()) && isNumeric(tf_cantVehiculos.getText()) && isNumeric(tf_cantClientes.getText())
+				&& !tf_cantChoferes.getText().isEmpty() && !tf_cantVehiculos.getText().isEmpty() && !tf_cantClientes.getText().isEmpty()) {
+			btnInicio.setEnabled(true);
+			rdbtnPersistidos.setEnabled(false);
+		} else {
+			btnInicio.setEnabled(false);
+			rdbtnPersistidos.setEnabled(true);
+		}
+	}
+
+	private boolean isNumeric(String str) {
+		return str.matches("\\d+");  // Sólo números
+	}
+
 	@Override
 	public void setActionListener(ActionListener actionListener) {
 		this.btnFinalizar.addActionListener(actionListener);
@@ -204,39 +212,31 @@ public class VistaGeneral extends JFrame implements IVistaGeneral{
 
 	@Override
 	public void appendLogGeneral(String cartel) {
-
+		textArea_LogGral.append(cartel + "\n");
 	}
 
 	@Override
 	public void appendLogCliente(String cartel) {
-
+		textAreaLogCliente.append(cartel + "\n");
 	}
 
 	@Override
 	public void appendLogChofer(String cartel) {
-
+		textAreaLogChofer.append(cartel + "\n");
 	}
 
 	@Override
-	public int getCantChoferes(){
+	public int getCantChoferes() {
 		return Integer.parseInt(this.tf_cantChoferes.getText());
 	}
+
 	@Override
-	public int getCantVehiculos(){
+	public int getCantVehiculos() {
 		return Integer.parseInt(this.tf_cantVehiculos.getText());
 	}
+
 	@Override
-	public int getCantClientes(){
+	public int getCantClientes() {
 		return Integer.parseInt(this.tf_cantClientes.getText());
 	}
-
-
-	private void checkInicioButtonStatus() {
-		if (!tf_cantChoferes.isEnabled() && !tf_cantVehiculos.isEnabled() && !tf_cantClientes.isEnabled()) {
-			btnInicio.setEnabled(true);
-		} else {
-			btnInicio.setEnabled(false);
-		}
-	}
-
 }

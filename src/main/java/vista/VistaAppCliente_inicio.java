@@ -1,20 +1,13 @@
 package vista;
 
-import java.awt.EventQueue;
+import java.awt.*;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
 
 import javax.swing.JLabel;
-import java.awt.Font;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import javax.swing.JButton;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import java.awt.event.ActionListener;
 
 public class VistaAppCliente_inicio extends JFrame implements IVistaAppCliente_inicio{
@@ -28,6 +21,8 @@ public class VistaAppCliente_inicio extends JFrame implements IVistaAppCliente_i
 	private JLabel lbl_NombreUsuario;
 
 	public VistaAppCliente_inicio() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icon1.png")));
+		setTitle("Subi que te Llevo");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -44,6 +39,7 @@ public class VistaAppCliente_inicio extends JFrame implements IVistaAppCliente_i
 		panelNorth.add(lblNewLabel);
 		
 		this.lbl_NombreUsuario = new JLabel("");
+
 		panelNorth.add(lbl_NombreUsuario);
 		
 		JPanel panelCenter = new JPanel();
@@ -111,8 +107,19 @@ public class VistaAppCliente_inicio extends JFrame implements IVistaAppCliente_i
 	}
 
 	@Override
+	public void setTitleUser(String nombre) {
+		this.lbl_NombreUsuario.setText(nombre);
+	}
+
+	@Override
 	public void setNombre(String nombre) {
 		this.lbl_NombreUsuario.setText(nombre);
+		this.lbl_NombreUsuario.setFont(new Font("Tahoma", Font.BOLD, 16));
+	}
+
+	@Override
+	public void limpiarcampos() {
+		//TODO
 	}
 
 

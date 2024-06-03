@@ -18,4 +18,5 @@ public interface IVistaAppCliente_Registrarse {
 	 String getPisoCalle();
 	 String getLetraCalle();
 	 GregorianCalendar getFechaDeNacimiento();
+	 public void	limpiarcampos();
 }

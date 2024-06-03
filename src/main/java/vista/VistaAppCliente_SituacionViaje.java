@@ -3,8 +3,7 @@ package vista;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
@@ -23,6 +22,8 @@ public class VistaAppCliente_SituacionViaje extends JFrame implements IVistaAppC
 	private JButton btnPagar;
 
 	public VistaAppCliente_SituacionViaje() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icon1.png")));
+		setTitle("Subi que te Llevo");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		this.contentPane = new JPanel();
@@ -72,6 +73,11 @@ public class VistaAppCliente_SituacionViaje extends JFrame implements IVistaAppC
 	@Override
 	public void actualizarEstadoViaje(String nuevoEstado) {
 	    this.lblEstadoViaje.setText(nuevoEstado);
+	}
+
+	@Override
+	public void limpiarcampos() {
+		//TODO
 	}
 
 }

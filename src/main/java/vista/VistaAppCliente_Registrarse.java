@@ -1,20 +1,16 @@
 package vista;
 
-import java.awt.EventQueue;
+import java.awt.*;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
 
 import javax.swing.JLabel;
-import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import java.awt.FlowLayout;
 import java.util.GregorianCalendar;
 import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDayChooser;
@@ -38,6 +34,8 @@ public class VistaAppCliente_Registrarse extends JFrame implements IVistaAppClie
 	private JDateChooser dateChooser;
 	
 	public VistaAppCliente_Registrarse() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icon1.png")));
+		setTitle("Subi que te Llevo");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -297,5 +295,20 @@ public class VistaAppCliente_Registrarse extends JFrame implements IVistaAppClie
 		GregorianCalendar date = new GregorianCalendar();
 		date.setTime(this.dateChooser.getDate());
 		return date;
+	}
+
+	@Override
+	public void limpiarcampos() {
+		this.dateChooser.cleanup();
+		this.tf_alturaCalle.setText("");
+		this.tf_letraCalle.setText("");
+		this.tf_PisoCalle.setText("");
+		this.tf_nombreCalle.setText("");
+		this.tl_apellidonuevo.setText("");
+		this.tl_telefononuevo.setText("");
+		this.tl_nombrenuevo.setText("");
+		this.tl_mailnuevo.setText("");
+		this.tl_contrasenianuevo.setText("");
+		this.tl_Usuarionuevo.setText("");
 	}
 }

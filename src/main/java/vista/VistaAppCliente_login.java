@@ -1,22 +1,18 @@
 package vista;
 
-import java.awt.EventQueue;
+import java.awt.*;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import java.awt.GridLayout;
 import java.awt.event.ActionListener;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
-import java.awt.FlowLayout;
 import javax.swing.SwingConstants;
-import java.awt.Font;
+import java.util.Objects;
 import javax.swing.ImageIcon;
 
 public class VistaAppCliente_login extends JFrame implements IVistaAppCliente_login {
@@ -30,7 +26,8 @@ public class VistaAppCliente_login extends JFrame implements IVistaAppCliente_lo
 
 
 	public VistaAppCliente_login() {
-
+		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icon1.png")));
+		setTitle("Subi que te Llevo");
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -116,7 +113,7 @@ public class VistaAppCliente_login extends JFrame implements IVistaAppCliente_lo
 		contentPane.add(panel_8, BorderLayout.NORTH);
 		
 		JLabel Title = new JLabel("SUBI QUE TE LLEVO");
-		//Title.setIcon(new ImageIcon(VistaAppCliente_login.class.getResource("/vista/icon1.png")));
+		Title.setIcon(new ImageIcon(Objects.requireNonNull(VistaAppCliente_login.class.getResource("/icon1.png"))));
 		Title.setFont(new Font("Segoe Print", Font.BOLD, 20));
 		Title.setHorizontalAlignment(SwingConstants.TRAILING);
 		panel_8.add(Title);
@@ -146,6 +143,12 @@ public class VistaAppCliente_login extends JFrame implements IVistaAppCliente_lo
 	}
 	public void setVisibleVentana(boolean estado) {
 		this.setVisible(estado);
+	}
+
+	@Override
+	public void limpiarcampos() {
+		this.tf_nombre_usuario.setText("");
+		this.field_contrasenia.setText("");
 	}
 
 }

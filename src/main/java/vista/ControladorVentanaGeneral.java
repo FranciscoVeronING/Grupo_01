@@ -9,6 +9,7 @@ public class ControladorVentanaGeneral implements ActionListener {
 	private IVistaGeneral vista;
 	public ControladorVentanaGeneral(IVistaGeneral vista) {
 		this.vista = vista;
+		this.vista.setActionListener(this);
 	}
 
 	@Override

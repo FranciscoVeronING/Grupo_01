@@ -33,7 +33,7 @@ public class VistaAppCliente_formulario extends JFrame implements IVistaAppClien
 	private JButton btnVolver;
 	
 	public VistaAppCliente_formulario() {
-		//setIconImage(Toolkit.getDefaultToolkit().getImage(VistaAppCliente_formulario.class.getResource("/vista/icon1.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icon1.png")));
 		setTitle("Subi que te Llevo");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 398, 423);
@@ -99,7 +99,12 @@ public class VistaAppCliente_formulario extends JFrame implements IVistaAppClien
 		this.choice_zona = new Choice();
 		choice_zona.setPreferredSize(new Dimension(90, 20));
 		panel_choice_zona_1.add(choice_zona);
-		
+		this.choice_zona.add("");
+		this.choice_zona.add("Zona Peligrosa");
+		this.choice_zona.add("Calle sin asfaltar");
+		this.choice_zona.add("Zona estándar");
+
+
 		JPanel panel_lbl_Dist_1 = new JPanel();
 		pDP_centro.add(panel_lbl_Dist_1);
 		
@@ -138,6 +143,15 @@ public class VistaAppCliente_formulario extends JFrame implements IVistaAppClien
 	public void setVisibleVentana(boolean estado) {
 		this.setVisible(estado);
 	}
+
+	@Override
+	public void limpiarcampos() {
+		this.textField_CantidadPersonas.setText("");
+		this.textField_Distancia.setText("");
+		this.choice_zona.select("");
+
+	}
+
 	@Override
 	public int getCantidadPasajeros() {
 		return Integer.parseInt(textField_CantidadPersonas.getText());

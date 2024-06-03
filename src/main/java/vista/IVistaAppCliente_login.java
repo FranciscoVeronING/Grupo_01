@@ -7,4 +7,5 @@ public interface IVistaAppCliente_login {
 	String getContrasenia();
 	void setActionListener(ActionListener actionListener);
 	public void setVisibleVentana(boolean estado);
+	public void	limpiarcampos();
 }
