@@ -5,17 +5,17 @@ import vista.ObservadorAbstracto;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Observable;
+import java.util.Observer;
 
 
-class SistemaRunnable extends ObservadorAbstracto implements Runnable {
+class SistemaRunnable extends Thread implements Observer {
     private ArrayList<Vehiculo> vehiculosDisponibles;
     private EventoSistema evento = null;
     private BolsaDeViajes bolsaViajes;
 
     public SistemaRunnable(BolsaDeViajes bolsa, ArrayList<Vehiculo> vehiculosDisponibles) {
-        super(bolsa);
         this.vehiculosDisponibles = vehiculosDisponibles;
-        this.bolsaViajes = bolsa; // medio raro
+        this.bolsaViajes = bolsa;
     }
 
     public void run() {
@@ -63,7 +63,9 @@ class SistemaRunnable extends ObservadorAbstracto implements Runnable {
 
     @Override
     public void update(Observable obs, Object arg) {
-        super.update(obs, arg);
+        if(obs!= this.bolsaViajes) {
+            throw new IllegalArgumentException();
+        }
         EventoSistema evento = (EventoSistema) arg;
         // 'activa' el thread para que le asigne un vehiculo al nuevo viaje o para que pare la simulacion
         if (evento.getMensaje().equalsIgnoreCase(EventoSistema.NUEVOVIAJE) || evento.getMensaje().equalsIgnoreCase(EventoSistema.STOP)) this.evento = evento;
