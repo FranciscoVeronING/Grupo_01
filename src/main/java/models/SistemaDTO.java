@@ -2,12 +2,13 @@ package models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SistemaDTO implements Serializable {
 
     private ArrayList<Empleado> choferes;
     private ArrayList<IVehiculo> vehiculos;
-    private ArrayList<Cliente> clientes;
+    private HashMap<String, Cliente> clientes;
     private ArrayList<IViaje> viajes;
 
     public SistemaDTO() {
@@ -25,11 +26,11 @@ public class SistemaDTO implements Serializable {
         this.vehiculos = vehiculos;
     }
 
-    public void setClientes(ArrayList<Cliente> clientes) {
+    public void setClientes(HashMap<String, Cliente> clientes) {
         this.clientes = clientes;
     }
 
-   // public void setViajes(ArrayList<IViaje> viajes) {
+// public void setViajes(ArrayList<IViaje> viajes) {
   //      this.viajes = viajes;
    // }
 
@@ -45,8 +46,7 @@ public class SistemaDTO implements Serializable {
    //     return viajes;
    // }
 
-    public ArrayList<Cliente> getClientes() {
+    public HashMap<String, Cliente> getClientes() {
         return clientes;
     }
-
 }

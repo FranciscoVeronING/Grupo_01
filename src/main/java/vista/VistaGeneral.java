@@ -26,7 +26,7 @@ public class VistaGeneral extends JFrame implements IVistaGeneral {
 
 	public VistaGeneral() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(150, 50, 800, 600);
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(this.contentPane);

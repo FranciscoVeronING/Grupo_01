@@ -49,13 +49,13 @@ public class Controlador implements ActionListener {
 		}
 		else if (e.getActionCommand().equalsIgnoreCase("REGISTRARME")) {
 			this.r.setVisibleVentana(false);
-			this.r.limpiarcampos();
 			this.login.setVisibleVentana(true);
 			try {
 				Sistema.getInstancia().crearCliente(r.getNombreUser(),r.getContrasenia(),r.getNombre(),r.getApellido(),r.getTelefono(),r.getMail(),r.getNombreCalle(),r.getAlturaCalle(),r.getPisoCalle(),r.getLetraCalle(),r.getFechaDeNacimiento());}
 			catch(UsuarioRepetidoException ex){
 				JOptionPane.showMessageDialog(null, "Usuario ya registrado");	
 			}
+			this.r.limpiarcampos();
 		}
 		else if (e.getActionCommand().equalsIgnoreCase("INGRESAR")) {
 			try {

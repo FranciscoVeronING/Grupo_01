@@ -23,7 +23,7 @@ public class Sistema {
 
     private ArrayList<Empleado> choferes;
     private ArrayList<IVehiculo> vehiculos;
-    private ArrayList<Cliente> clientes;
+    private HashMap<String, Cliente> clientes;
     private BolsaDeViajes viajes;
 
     private Controlador controlador;
@@ -31,7 +31,7 @@ public class Sistema {
     private Sistema() {
         this.choferes = new ArrayList<>();
         this.vehiculos = new ArrayList<>();
-        this.clientes = new ArrayList<>();
+        this.clientes = new HashMap<>();
         this.viajes = new BolsaDeViajes();
     }
 
@@ -55,9 +55,9 @@ public class Sistema {
      * <b>Post:</b> El cliente habra sido creado con sus datos correspondientes de manera valida
      */
     public Cliente crearCliente(String nombre_usuario, String contrasenia,String nombre, String apellido, String telefono, String mail, String NombreCalle, String AlturaCalle, String PisoCalle, String LetraCalle, GregorianCalendar fecha_nacimiento) throws UsuarioRepetidoException {
+        verificarClienteRepetido(nombre_usuario);
         Cliente c = new Cliente(nombre_usuario, contrasenia, nombre, apellido, telefono, mail, new Direccion(NombreCalle, AlturaCalle, PisoCalle, LetraCalle), fecha_nacimiento);
-        verificarClienteRepetido(c);
-        this.clientes.add(c);
+        this.clientes.put(nombre_usuario, c);
         return c;
     }
     /**
@@ -108,7 +108,8 @@ public class Sistema {
      */
     public void crearCientesRandom(int cantidad) {
         for (int i = 0; i < cantidad ; i++) {
-            clientes.add(new ClienteRunnable(viajes));
+            ClienteRunnable cliente = new ClienteRunnable(viajes);
+            this.clientes.put(cliente.getNombre_usuario(), cliente);
         }
     }
 
@@ -156,13 +157,10 @@ public class Sistema {
      * <b>Post</b> El usuario tendra su nombre de usuario verificado
      * @throws UsuarioRepetidoException Excepcion lanzada en caso de que el nombre de usuario ya sea utilizado por otro usuario
      */
-    public void verificarClienteRepetido(Cliente cliente) throws UsuarioRepetidoException {
-        Iterator <Cliente> clientes = this.clientes.iterator();
-        boolean repetido = false;
-        while (clientes.hasNext() && !repetido)
-            if (clientes.next().getNombre_usuario().equalsIgnoreCase(cliente.getNombre_usuario()))
-                repetido = true;
-        if (repetido) throw new UsuarioRepetidoException(cliente.nombre_usuario);
+    public void verificarClienteRepetido(String nombre_usuario) throws UsuarioRepetidoException {
+        if (this.clientes.containsKey(nombre_usuario)) {
+            throw new UsuarioRepetidoException(nombre_usuario);
+        }
     }
 
     /**
@@ -171,19 +169,12 @@ public class Sistema {
      * @throws UsuarioIncorrectoException Excepcion lanzada en caso de que el usuario no exista
      * <b>Post:</b> Se verificara si un usuario existe o no, devolviendo verdadero o falso
      */
+
     public void verificarExistenciaCliente(String u, String c) throws UsuarioIncorrectoException {
-        Iterator <Cliente> clientes = this.clientes.iterator();
-        boolean existe = false;
-        Cliente cliente = null;
-        while (clientes.hasNext() && !existe) {
-            cliente = clientes.next();
-            if (cliente.getNombre_usuario().equalsIgnoreCase(u))
-                existe = true;
-        }
-        System.out.println(u);
-        System.out.println(c);
-        if (!existe || !cliente.getContrasenia().equalsIgnoreCase(c))
+        Cliente cliente = this.clientes.get(u);
+        if (cliente == null || !cliente.getContrasenia().equalsIgnoreCase(c)) {
             throw new UsuarioIncorrectoException(u, c);
+        }
     }
 
     // Getters y Setters basicos
@@ -196,7 +187,7 @@ public class Sistema {
         this.viajes = viajes;
     }
 
-    public void setClientes(ArrayList<Cliente> clientes) {
+    public void setClientes(HashMap<String, Cliente> clientes) {
         this.clientes = clientes;
     }
 
@@ -246,21 +237,13 @@ public class Sistema {
         return vehiculos;
     }
 
-    public Iterator<Cliente> getIteratorClientes() {
-        return clientes.iterator();
+
+    public HashMap<String, Cliente> getClientes() {
+        return this.clientes;
     }
 
-    public ArrayList<Cliente> getClientes() {
-        return clientes;
-    }
-
-    public Cliente getCliente(String nombre) {
-        for (Cliente cliente : this.clientes) {
-            if (cliente.getNombre().equals(nombre)) {
-                return cliente;
-            }
-        }
-        return null;
+    public Cliente getCliente(String nombre_usuario) {
+        return this.clientes.get(nombre_usuario);
     }
 
     public Iterator<IViaje> getIteratorViajes() {
@@ -550,7 +533,7 @@ public class Sistema {
      */
     public String listado_clientes(){
         StringBuilder reporte = new StringBuilder();
-        Iterator<Cliente> clientes = this.getIteratorClientes();
+        Iterator<Cliente> clientes = this.clientes.values().iterator();
         while (clientes.hasNext()){
             reporte.append("\n").append(clientes.next().toString());
         }

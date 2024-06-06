@@ -35,7 +35,7 @@ public class ChoferPermanente extends Chofer {
         super(b);
         Random r = new Random();
         Utiles utiles = new Utiles();
-        this.antiguedad = r.nextDouble(25) + 1;
+        this.antiguedad = r.nextDouble() *25 + 1;
         this.cant_Hijos = r.nextInt(4) + 1;
         this.fecha_ingreso = utiles.generaFechaAleatoria();
     }

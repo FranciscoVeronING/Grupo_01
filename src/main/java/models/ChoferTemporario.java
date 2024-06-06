@@ -27,7 +27,7 @@ public class ChoferTemporario extends Chofer {
     public ChoferTemporario(BolsaDeViajes b) {
         super(b);
         Random r = new Random();
-        this.plus_x_cant_viajes = r.nextDouble(50) + 1;
+        this.plus_x_cant_viajes = r.nextDouble()*50 + 1;
     }
 
  /**

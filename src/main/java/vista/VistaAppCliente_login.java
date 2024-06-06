@@ -28,7 +28,7 @@ public class VistaAppCliente_login extends JFrame implements IVistaAppCliente_lo
 	public VistaAppCliente_login() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icon1.png")));
 		setTitle("Subi que te Llevo");
-		setBounds(100, 100, 450, 300);
+		setBounds(0, 100, 450, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 

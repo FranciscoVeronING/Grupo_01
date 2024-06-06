@@ -19,7 +19,7 @@ protected double aportes;
         super(b);
         Random d = new Random();
         this.sueldo_basico = 1000;
-        this.aportes = d.nextDouble(70) + 1;
+        this.aportes = d.nextDouble() *70 + 1;
     }
 
     protected void setSueldo_basico(double sueldo_basico) {
