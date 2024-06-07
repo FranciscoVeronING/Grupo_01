@@ -26,7 +26,6 @@ public class Controlador implements ActionListener {
 		this.inicio = inicio;
 		this.r = r;
 		this.sv = sv;
-		Sistema.getInstancia().setControlador(this); //preguntar si esto esta bien
 		this.form.setActionListener(this);
 		this.login.setActionListener(this);
 		this.inicio.setActionListener(this);
