@@ -32,7 +32,7 @@ public class BolsaDeViajes extends Observable implements Serializable {
         return simulacionActiva;
     }
 
-    public synchronized IViaje asignarseAViaje(Empleado chofer) {
+    public synchronized IViaje viajeSinChofer() {
         // Busca viaje
         IViaje v = null;
         int i = 0;
@@ -42,11 +42,6 @@ public class BolsaDeViajes extends Observable implements Serializable {
             } else {
                 i++;
             }
-        }
-
-        // Si encontro se le asigna chofer
-        if (v != null) {
-            asignarChofer(v, chofer);
         }
         return v;
     }

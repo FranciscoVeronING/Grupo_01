@@ -10,8 +10,12 @@ abstract class EmpleadoRunnable extends Empleado implements Runnable {
 
     public void run() {
         while (bolsa.getSimulacionActiva()) {
-            IViaje viaje = bolsa.asignarseAViaje(this);
-            if (viaje != null) bolsa.viajeFinalizado(viaje);
+            IViaje v = null;
+            synchronized (bolsa) {
+                v = bolsa.viajeSinChofer();
+                if (v != null) bolsa.asignarChofer(v, this);
+            }
+            if (v != null) bolsa.viajeFinalizado(v);
             try {
                 Thread.sleep(1000); // Espera un segundo antes de buscar otro viaje
                 } catch (InterruptedException e) {

@@ -6,23 +6,28 @@ import Exception.PedidoIncoherenteException;
 
 class ClienteRunnable extends Cliente implements Runnable {
     private BolsaDeViajes bolsa;
+    private int cantViajes;
 
     public ClienteRunnable(BolsaDeViajes bolsa) {
         super();
+        Random r = new Random();
         this.bolsa = bolsa;
+        cantViajes = r.nextInt(4);
     }
 
     public void run() {
-        Pedido pedido = crearPedido();
-        try {
-            Sistema.getInstancia().solicitarAceptacion(pedido);
-        } catch (PedidoIncoherenteException ex) {
-            Thread.currentThread().interrupt();
+        for (int i = 0; i < cantViajes; i++) {
+            Pedido pedido = crearPedido();
+            try {
+                Sistema.getInstancia().solicitarAceptacion(pedido);
+            } catch (PedidoIncoherenteException ex) {
+                Thread.currentThread().interrupt();
+            }
+            // Solicitar un viaje sobre el pedido aceptado
+            IViaje viaje = Sistema.getInstancia().solicitarViaje(pedido);
+            // Pagar un viaje
+            bolsa.viajePagado(viaje);
         }
-        // Solicitar un viaje sobre el pedido aceptado
-        IViaje viaje = Sistema.getInstancia().solicitarViaje(pedido);
-        // Pagar un viaje
-        bolsa.viajePagado(viaje);
     }
 
     private Pedido crearPedido() {
