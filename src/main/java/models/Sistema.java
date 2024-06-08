@@ -317,8 +317,8 @@ public class Sistema {
      * <b>Post:</b> Se guardaran todos los viajes realizados por el cliente en una fecha concreta
      */
     public String viajesClienteFecha(Cliente cliente, GregorianCalendar fechai, GregorianCalendar fechaf){
-        final StringBuilder sb = new StringBuilder("Viajes de ");
-        sb.append(cliente.getNombre_usuario()).append(": \n");
+        final StringBuilder sb = new StringBuilder();
+        sb.append("\n");
         Iterator<IViaje> viajes = this.getViajesCliente(cliente);
         while (viajes.hasNext()) {
             IViaje viaje = viajes.next();

@@ -140,16 +140,17 @@ public class Cliente extends Usuario implements Cloneable {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Cliente{");
-        sb.append("nombre='").append(nombre).append('\'');
-        sb.append(", apellido='").append(apellido).append('\'');
-        sb.append(", contrasenia='").append(contrasenia).append('\'');
-        sb.append(", nombre_usuario='").append(nombre_usuario).append('\'');
-        sb.append(", telefono='").append(telefono).append('\'');
-        sb.append(", mail='").append(mail).append('\'');
-        sb.append(", direccion=").append(direccion);
-        sb.append(", fecha_nacimiento=").append(Utiles.formatFecha(fecha_nacimiento));
+        final StringBuilder sb = new StringBuilder("Cliente{\n");
+        sb.append("  nombre='").append(nombre).append("',\n");
+        sb.append("  apellido='").append(apellido).append("',\n");
+        sb.append("  contrasenia='").append(contrasenia).append("',\n");
+        sb.append("  nombre_usuario='").append(nombre_usuario).append("',\n");
+        sb.append("  telefono='").append(telefono).append("',\n");
+        sb.append("  mail='").append(mail).append("',\n");
+        sb.append("  direccion=").append(direccion).append(",\n");
+        sb.append("  fecha_nacimiento=").append(Utiles.formatFecha(fecha_nacimiento)).append("\n");
         sb.append('}');
+
         return sb.toString();
     }
 }

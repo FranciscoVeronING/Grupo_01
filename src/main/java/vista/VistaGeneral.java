@@ -113,8 +113,12 @@ public class VistaGeneral extends JFrame implements IVistaGeneral {
 		LogGeneral.setPreferredSize(new Dimension(500, 400));
 		LogGeneral.setLayout(new BorderLayout(0, 0));
 
+		/*this.textArea_LogGral = new JTextArea();
+		LogGeneral.add(this.textArea_LogGral);*/
+		JScrollPane scrollPaneLogGral = new JScrollPane();
 		this.textArea_LogGral = new JTextArea();
-		LogGeneral.add(this.textArea_LogGral);
+		scrollPaneLogGral.setViewportView(this.textArea_LogGral);
+		LogGeneral.add(scrollPaneLogGral);
 
 		JPanel panelCCH = new JPanel();
 		this.contentPane.add(panelCCH, BorderLayout.EAST);
@@ -125,8 +129,12 @@ public class VistaGeneral extends JFrame implements IVistaGeneral {
 		panelCCH.add(panel_LogCliente);
 		panel_LogCliente.setLayout(new BorderLayout(0, 0));
 
+		/*this.textAreaLogCliente = new JTextArea();
+		panel_LogCliente.add(this.textAreaLogCliente);*/
+		JScrollPane scrollPaneLogCliente = new JScrollPane();
 		this.textAreaLogCliente = new JTextArea();
-		panel_LogCliente.add(this.textAreaLogCliente);
+		scrollPaneLogCliente.setViewportView(this.textAreaLogCliente);
+		panel_LogCliente.add(scrollPaneLogCliente);
 
 		JPanel panel_LogChofer = new JPanel();
 		panel_LogChofer.setBorder(new TitledBorder(null, "Log Chofer :", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -134,8 +142,12 @@ public class VistaGeneral extends JFrame implements IVistaGeneral {
 		panel_LogChofer.setPreferredSize(new Dimension(300, 300));
 		panel_LogChofer.setLayout(new BorderLayout(0, 0));
 
+		/*this.textAreaLogChofer = new JTextArea();
+		panel_LogChofer.add(this.textAreaLogChofer);*/
+		JScrollPane scrollPaneLogChofer = new JScrollPane();
 		this.textAreaLogChofer = new JTextArea();
-		panel_LogChofer.add(this.textAreaLogChofer);
+		scrollPaneLogChofer.setViewportView(this.textAreaLogChofer);
+		panel_LogChofer.add(scrollPaneLogChofer);
 
 		JPanel panelSurFin = new JPanel();
 		this.contentPane.add(panelSurFin, BorderLayout.SOUTH);

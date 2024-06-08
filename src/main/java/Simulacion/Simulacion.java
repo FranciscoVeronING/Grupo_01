@@ -12,8 +12,9 @@ public class Simulacion {
         VistaAppCliente_Registrarse vistaRegistrarse = new VistaAppCliente_Registrarse();
         VistaGeneral vistaGeneral = new VistaGeneral();
         VistaAppCliente_MisDatos vistaMisDatos = new VistaAppCliente_MisDatos();
+        VistaAppCliente_MisViajes vistaMisViajes = new VistaAppCliente_MisViajes();
 
-        Controlador controlador = new Controlador(vistaFormulario, vistaLogin, vistaInicio, vistaRegistrarse, vistaSituacionViaje, vistaMisDatos);
+        Controlador controlador = new Controlador(vistaFormulario, vistaLogin, vistaInicio, vistaRegistrarse, vistaSituacionViaje, vistaMisDatos, vistaMisViajes);
         ControladorVentanaGeneral controladorGeneral = new ControladorVentanaGeneral(vistaGeneral);
         ObservadorVentanaGral observadorGeneral = new ObservadorVentanaGral(Sistema.getInstancia().getBolsaDeViajes(), vistaGeneral);
         ObservadorChofer observadorChofer;

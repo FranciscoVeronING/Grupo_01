@@ -164,6 +164,13 @@ public class VistaAppCliente_Registrarse extends JFrame implements IVistaAppClie
 		tf_PisoCalle = new JTextField();
 		panel_22.add(tf_PisoCalle);
 		tf_PisoCalle.setColumns(2);
+		tf_PisoCalle.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (!Character.isDigit(e.getKeyChar())) {
+					e.consume();
+				}
+			}
+		});
 
 		JPanel panel_23 = new JPanel();
 		panel_2.add(panel_23);

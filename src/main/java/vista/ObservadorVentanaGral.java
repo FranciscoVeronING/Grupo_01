@@ -19,17 +19,17 @@ public class ObservadorVentanaGral extends ObservadorAbstracto {
 		String mensaje = evento.getMensaje();
 
 		if (mensaje.equalsIgnoreCase(EventoSistema.NUEVOPEDIDO)) {
-			vista.appendLogGeneral(evento.getPedido().getCliente().toString() + " creo un pedido");
+			vista.appendLogGeneral("Usuario "+ evento.getPedido().getCliente().getNombre_usuario() + " creo un pedido\n");
 		} else if (mensaje.equalsIgnoreCase(EventoSistema.NUEVOVIAJE)) {
-			vista.appendLogGeneral("++++ " + evento.getPedido().getCliente().toString() + " esta en Situacion de viaje Confirmado");
+			vista.appendLogGeneral("++++ Usuario "+ evento.getPedido().getCliente().getNombre_usuario() + " esta en Situacion de viaje Confirmado\n");
 		} else if (mensaje.equalsIgnoreCase(EventoSistema.NUEVOVEHICULO)) {
-			vista.appendLogGeneral("**** " + evento.getViaje().getPedido().getCliente().toString() + " Le asignaron el vehiculo "+ evento.getViaje().getVehiculo().toString());
+			vista.appendLogGeneral("**** Usuario "+ evento.getPedido().getCliente().getNombre_usuario() + " Le asignaron el vehiculo "+ evento.getViaje().getVehiculo().toString()+"\n");
 		} else if (mensaje.equalsIgnoreCase(EventoSistema.NUEVOCHOFER)) {
-			vista.appendLogGeneral("☺☺☺☺ " + evento.getViaje().getPedido().getCliente().toString() + " Le asignaron el chofer "+ evento.getViaje().getChofer().getNombre());
+			vista.appendLogGeneral("☺☺☺☺ Usuario "+ evento.getPedido().getCliente().getNombre_usuario() +" Le asignaron el chofer "+ evento.getViaje().getChofer().getNombre()+"\n");
 		} else if (mensaje.equalsIgnoreCase(EventoSistema.PAGADO)) {
-			vista.appendLogGeneral("$$$$ " + evento.getViaje().getPedido().getCliente().toString() + " Pago el viaje ");
+			vista.appendLogGeneral("$$$$ Usuario "+ evento.getPedido().getCliente().getNombre_usuario() + " Pago el viaje \n");
 		} else if (mensaje.equalsIgnoreCase(EventoSistema.FINALIZADO)) {
-			vista.appendLogGeneral("•••• " + "El chofer "+evento.getViaje().getChofer().getNombre() + " Finalizo el viaje con el pasajero "+evento.getViaje().getPedido().getCliente().toString());
+			vista.appendLogGeneral("•••• " + "El chofer "+evento.getViaje().getChofer().getNombre() + " Finalizo el viaje con el  Usuario "+ evento.getPedido().getCliente().getNombre_usuario()+"\n");
 		}
 	}
 }

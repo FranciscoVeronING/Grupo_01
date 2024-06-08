@@ -2,6 +2,7 @@ package vista;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import javax.swing.JOptionPane;
@@ -18,16 +19,18 @@ public class Controlador implements ActionListener {
 	private IVistaAppCliente_Registrarse r;
 	private IVistaAppCliente_SituacionViaje sv;
 	private IVistaAppCliente_MisDatos md;
+	private IVistaAppCliente_MisViajes mv;
 
 	private Cliente clienteVentana;
 
-	public Controlador(IVistaAppCliente_formulario form,IVistaAppCliente_login login,IVistaAppCliente_inicio inicio,IVistaAppCliente_Registrarse r,IVistaAppCliente_SituacionViaje sv, IVistaAppCliente_MisDatos md) {
+	public Controlador(IVistaAppCliente_formulario form,IVistaAppCliente_login login,IVistaAppCliente_inicio inicio,IVistaAppCliente_Registrarse r,IVistaAppCliente_SituacionViaje sv, IVistaAppCliente_MisDatos md, IVistaAppCliente_MisViajes mv) {
         this.form = form;
 		this.login = login;
 		this.inicio = inicio;
 		this.r = r;
 		this.sv = sv;
 		this.md =md;
+		this.mv = mv;
 
 		this.form.setActionListener(this);
 		this.login.setActionListener(this);
@@ -35,6 +38,7 @@ public class Controlador implements ActionListener {
 		this.r.setActionListener(this);
 		this.sv.setActionListener(this);
 		this.md.setActionListener(this);
+		this.mv.setActionListener(this);
 
     }
 	
@@ -117,6 +121,14 @@ public class Controlador implements ActionListener {
 			this.md.setPisoCalle(clienteVentana.getDireccion().getPiso());
 			this.md.setLetraCalle(clienteVentana.getDireccion().getLetra());
 			this.inicio.setVisibleVentana(false);
+		} else if (e.getActionCommand().equalsIgnoreCase("VOLVER_MV")) {
+			this.mv.limpiarVentana();
+			this.mv.setVisibleVentana(false);
+			this.inicio.setVisibleVentana(true);
+		}else if (e.getActionCommand().equalsIgnoreCase("MISVIAJES")) {
+			this.inicio.setVisibleVentana(false);
+			this.mv.setVisibleVentana(true);
+			this.mv.appendText(Sistema.getInstancia().viajesClienteFecha(clienteVentana,new GregorianCalendar(2000, Calendar.JANUARY,1),new GregorianCalendar()));
 		}
 
 	}
