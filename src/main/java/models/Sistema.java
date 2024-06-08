@@ -380,7 +380,7 @@ public class Sistema {
      */
     public Pedido hacerPedido(GregorianCalendar fecha, String zona, boolean mascota, int cant_pasajeros, boolean equipaje, Cliente c, double d) {
         Pedido p = new Pedido(fecha, zona, mascota, cant_pasajeros, equipaje, c, d);
-        viajes.agregarPedido(p);
+        viajes.lanzarPedido(p);
         return p;
     }
 

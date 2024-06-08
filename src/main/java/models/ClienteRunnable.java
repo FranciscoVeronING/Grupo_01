@@ -13,29 +13,16 @@ class ClienteRunnable extends Cliente implements Runnable {
     }
 
     public void run() {
-        // Crear pedido y solicitar aceptación
         Pedido pedido = crearPedido();
         try {
             Sistema.getInstancia().solicitarAceptacion(pedido);
         } catch (PedidoIncoherenteException ex) {
             Thread.currentThread().interrupt();
         }
-
         // Solicitar un viaje sobre el pedido aceptado
         IViaje viaje = Sistema.getInstancia().solicitarViaje(pedido);
-        synchronized (viaje) {
-            // Espera a que le hayan asignado un vehiculo
-            while(!viaje.getEstado_de_viaje().equalsIgnoreCase("INICIADO")) {
-                try {
-                    viaje.wait();
-                } catch (InterruptedException ex) {
-                    Thread.currentThread().interrupt();
-                }
-            }
-            // Pagar un viaje
-            bolsa.viajePagado((Viaje) viaje);
-            viaje.notifyAll(); // Notifica a todos los hilos que están esperando en este objeto
-        }
+        // Pagar un viaje
+        bolsa.viajePagado(viaje);
     }
 
     private Pedido crearPedido() {
@@ -64,8 +51,9 @@ class ClienteRunnable extends Cliente implements Runnable {
             cantPax = random.nextInt(6) + 5; // Entre 5 y 10 pasajeros
             mascotas = false;
         }
-
-        return new Pedido(new GregorianCalendar(), zona, mascotas, cantPax, equipaje, this, distancia);
+        Pedido p = new Pedido(new GregorianCalendar(), zona, mascotas, cantPax, equipaje, this, distancia);
+        bolsa.lanzarPedido(p);
+        return p;
     }
 
 

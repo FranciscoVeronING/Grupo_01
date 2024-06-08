@@ -1,6 +1,7 @@
 package vista;
 
 import models.Sistema;
+import models.SistemaRunnable;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,6 +23,8 @@ public class ControladorVentanaGeneral implements ActionListener {
 				Sistema.getInstancia().crearCientesRandom(this.vista.getCantClientes());
 				Sistema.getInstancia().crearChoferesRandom(this.vista.getCantChoferes());
 				Sistema.getInstancia().crearVehiculosRandom(this.vista.getCantVehiculos());
+				SistemaRunnable s = new SistemaRunnable(Sistema.getInstancia().getBolsaDeViajes(), Sistema.getInstancia().getVehiculos());
+				s.start();
 			}
 
 	}else if(e.getActionCommand().equalsIgnoreCase("Finalizar_Simulacion")) {

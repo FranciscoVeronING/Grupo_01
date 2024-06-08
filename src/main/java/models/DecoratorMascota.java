@@ -111,11 +111,6 @@ public class DecoratorMascota implements IViaje {
     }
 
     @Override
-    public Viaje getViaje() {
-        return null;
-    }
-
-    @Override
     public IViaje clone() throws CloneNotSupportedException {
         DecoratorMascota clon = (DecoratorMascota) super.clone();
         if (encapsulado != null) clon.encapsulado.clone();

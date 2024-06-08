@@ -2,52 +2,45 @@ package models;
 
 import vista.ObservadorAbstracto;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.*;
 
-class SistemaRunnable extends Thread implements Observer {
-    private ArrayList<Vehiculo> vehiculosDisponibles;
-    private EventoSistema evento = null;
+public class SistemaRunnable extends Thread implements Observer {
+    private ArrayList<IVehiculo> vehiculosDisponibles;
+    private Queue<EventoSistema> eventos;
     private BolsaDeViajes bolsaViajes;
 
-    public SistemaRunnable(BolsaDeViajes bolsa, ArrayList<Vehiculo> vehiculosDisponibles) {
+    public SistemaRunnable(BolsaDeViajes bolsa, ArrayList<IVehiculo> vehiculosDisponibles) {
         this.vehiculosDisponibles = vehiculosDisponibles;
         this.bolsaViajes = bolsa;
+        bolsa.addObserver(this);
+        this.eventos = new LinkedList<>();
     }
 
     public void run() {
-        while (evento == null || (evento != null && !evento.getMensaje().equalsIgnoreCase(EventoSistema.STOP))) {
-            synchronized (this) {
-                if (evento != null) {
-                    Viaje viaje = evento.getViaje();
-                    if (viaje != null && !vehiculosDisponibles.isEmpty()) {
-                        Vehiculo vehiculoAsignado = getVehiculoValido(viaje);
+        while (bolsaViajes.getSimulacionActiva()) { // Hasta q se pare la simulacion
+            if (!eventos.isEmpty()) { // Cuando recibe un evento de nuevo viaje
+                IViaje viaje = eventos.poll().getViaje();
+                if (viaje != null && !vehiculosDisponibles.isEmpty()) {
+                    IVehiculo vehiculoAsignado = getVehiculoValido(viaje);
+                    if (vehiculoAsignado != null) {
+                        bolsaViajes.asignarVehiculo(viaje, vehiculoAsignado);
                         viaje.setVehiculo(vehiculoAsignado);
-                        viaje.setEstado_de_viaje("CON VEHICULO");
-                        vehiculosDisponibles.remove(vehiculoAsignado);
-                        vehiculosDisponibles.add(vehiculoAsignado);
-                        bolsaViajes.agregarViaje(viaje);
                     }
-                    evento = null;
-                } else {
-                    try {
-                        wait();
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
+                    else {
+                        viaje.setEstado_de_viaje("RECHAZADO");
+                        bolsaViajes.rechazarViaje(viaje);
                     }
                 }
             }
         }
     }
 
-    private Vehiculo getVehiculoValido(Viaje viaje) {
-        Vehiculo mejor = null;
-        Iterator<Vehiculo> it = this.vehiculosDisponibles.iterator();
+    private IVehiculo getVehiculoValido(IViaje viaje) {
+        IVehiculo mejor = null;
+        Iterator<IVehiculo> it = this.vehiculosDisponibles.iterator();
         int maxP = 0;
         while (it.hasNext()) {
-            Vehiculo v = it.next();
+            IVehiculo v = it.next();
             if (!v.isOcupado()) {
                 Integer prioridad = v.getPrioridad(viaje.getPedido());
                 if (prioridad != null && prioridad > maxP) {
@@ -67,8 +60,7 @@ class SistemaRunnable extends Thread implements Observer {
         synchronized (this) {
             EventoSistema evento = (EventoSistema) arg;
             if (evento.getMensaje().equalsIgnoreCase(EventoSistema.NUEVOVIAJE) || evento.getMensaje().equalsIgnoreCase(EventoSistema.STOP)) {
-                this.evento = evento;
-                notifyAll();
+                this.eventos.add(evento);
             }
         }
     }

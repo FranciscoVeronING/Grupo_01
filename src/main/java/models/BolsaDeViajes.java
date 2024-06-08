@@ -6,7 +6,6 @@ import java.util.Observable;
 
 public class BolsaDeViajes extends Observable implements Serializable {
     private ArrayList<IViaje> colaDeViajes = new ArrayList<IViaje>();
-    private ArrayList<Pedido> colaDePedidos = new ArrayList<>();
     private boolean simulacionActiva = true;
 
     public BolsaDeViajes() {
@@ -15,9 +14,7 @@ public class BolsaDeViajes extends Observable implements Serializable {
     public synchronized void agregarViaje(IViaje viaje) {
         colaDeViajes.add(viaje);
         setChanged();
-        if (viaje.getVehiculo() == null)
-            notifyObservers(new EventoSistema(viaje.getViaje(), EventoSistema.NUEVOVIAJE));
-        else notifyObservers(new EventoSistema(viaje.getViaje(), EventoSistema.NUEVOVEHICULO));
+        notifyObservers(new EventoSistema(viaje, EventoSistema.NUEVOVIAJE));
     }
 
     public synchronized ArrayList<IViaje> getViajes() {
@@ -35,48 +32,78 @@ public class BolsaDeViajes extends Observable implements Serializable {
         return simulacionActiva;
     }
 
-    public synchronized IViaje obtenerViajeSinChofer() {
+    public synchronized IViaje asignarseAViaje(Empleado chofer) {
+        // Busca viaje
         IViaje v = null;
         int i = 0;
         while (v == null && i < colaDeViajes.size()) {
-            if (colaDeViajes.get(i).getVehiculo() == null) {
+            if (colaDeViajes.get(i).getEstado_de_viaje().equalsIgnoreCase("CON VEHICULO")) {
                 v = colaDeViajes.get(i);
             } else {
                 i++;
             }
         }
+
+        // Si encontro se le asigna chofer
         if (v != null) {
-            colaDeViajes.remove(v);
+            asignarChofer(v, chofer);
         }
         return v;
     }
 
 
-    public synchronized void viajePagado(Viaje viaje) {
-        viaje.pagarse();
+    public synchronized void viajePagado(IViaje viaje) {
+        while (!(viaje.getEstado_de_viaje().equalsIgnoreCase("INICIADO") || viaje.getEstado_de_viaje().equalsIgnoreCase("RECHAZADO")))
+            try {
+                wait();
+            } catch (InterruptedException e) {}
+        if (viaje.getEstado_de_viaje().equalsIgnoreCase("INICIADO")) {
+            viaje.pagarse();
+            setChanged();
+            notifyObservers(new EventoSistema(viaje, EventoSistema.PAGADO));
+            notifyAll();
+        }
+    }
+
+    public synchronized void viajeFinalizado(IViaje viaje) {
+        while (!(viaje.getEstado_de_viaje().equalsIgnoreCase("PAGADO") || viaje.getEstado_de_viaje().equalsIgnoreCase("RECHAZADO"))) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+            }
+        }
+        System.out.println("Salgo del while");
+        if (viaje.getEstado_de_viaje().equalsIgnoreCase("PAGADO")) {
+            viaje.finalizarse();
+            setChanged();
+            notifyObservers(new EventoSistema(viaje, EventoSistema.FINALIZADO));
+            notifyAll();
+        }
+    }
+
+    public synchronized void asignarVehiculo(IViaje viaje, IVehiculo vehiculo) {
+        viaje.setVehiculo(vehiculo);
         setChanged();
-        notifyObservers(new EventoSistema(viaje, EventoSistema.PAGADO));
+        notifyObservers(new EventoSistema(viaje, EventoSistema.NUEVOVEHICULO));
+        notifyAll();
     }
 
-    public synchronized void viajeFinalizado(Viaje viaje) {
-        viaje.finalizarse();
+    public synchronized void asignarChofer(IViaje viaje, Empleado e) {
+        viaje.setChofer(e);
         setChanged();
-        notifyObservers(new EventoSistema(viaje, EventoSistema.FINALIZADO));
+        notifyObservers(new EventoSistema(viaje, EventoSistema.NUEVOCHOFER));
+        notifyAll();
     }
 
-    // Manejo de pedidos
-
-    public synchronized ArrayList<Pedido> getPedidos() {
-        return new ArrayList<>(colaDePedidos);
-    }
-
-    public synchronized void agregarPedido(Pedido pedido) {
-        colaDePedidos.add(pedido);
+    public synchronized void lanzarPedido(Pedido p) {
         setChanged();
-        notifyObservers(new EventoSistema(pedido, EventoSistema.NUEVOPEDIDO));
+        notifyObservers(new EventoSistema(p, EventoSistema.NUEVOPEDIDO));
+        notifyAll(); // si le saco el synchronized y el notifyall no funciona :)
     }
 
-    public synchronized Pedido getPedido(int i) {
-        return colaDePedidos.remove(i);
+    public synchronized void rechazarViaje(IViaje viaje) {
+        colaDeViajes.remove(viaje);
+        setChanged();
+        notifyObservers(new EventoSistema(viaje, EventoSistema.RECHAZADO));
     }
 }

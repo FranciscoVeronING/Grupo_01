@@ -23,11 +23,6 @@ public class DecoratorZonaSinAsfaltar extends DecoratorZonas {
     }
 
     @Override
-    public Viaje getViaje() {
-        return null;
-    }
-
-    @Override
     public String toString() {
         return encapsulado.toString() + " en zona sin asfaltar ";
     }

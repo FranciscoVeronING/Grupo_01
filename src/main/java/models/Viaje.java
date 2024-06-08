@@ -65,7 +65,9 @@ public final class Viaje implements IViaje,Cloneable {
      * <b>Post:</b>El viaje tendra un chofer asignado
      */
     public void setChofer(Empleado chofer) {
+        this.setEstado_de_viaje("INICIADO");
         this.chofer = chofer;
+        this.chofer.setOcupado(true);
     }
 
     public IVehiculo getVehiculo() {
@@ -79,6 +81,7 @@ public final class Viaje implements IViaje,Cloneable {
      */
     public void setVehiculo(IVehiculo vehiculo) {
         this.vehiculo = vehiculo;
+        this.setEstado_de_viaje("CON VEHICULO");
         vehiculo.setOcupado(true);
     }
 
@@ -142,11 +145,6 @@ public final class Viaje implements IViaje,Cloneable {
     public int compareTo(Object o) {
         Viaje v = (Viaje) o;
         return Double.compare(this.getCosto_viaje(), v.getCosto_viaje()) * -1;
-    }
-
-    @Override
-    public Viaje getViaje() {
-        return this;
     }
 
     @Override

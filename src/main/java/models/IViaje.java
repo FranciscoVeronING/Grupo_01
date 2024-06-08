@@ -25,5 +25,4 @@ public interface IViaje extends Cloneable, Serializable {
   IViaje clone() throws CloneNotSupportedException;
   int compareTo(Object o);
 
-  Viaje getViaje();
 }

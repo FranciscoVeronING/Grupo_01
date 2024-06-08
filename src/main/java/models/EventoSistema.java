@@ -13,13 +13,14 @@ public class EventoSistema {
     public static final String NUEVOVIAJE = "NUEVO_VIAJE";
     public static final String NUEVOPEDIDO = "NUEVO PEDIDO";
     public static final String STOP = "STOP";
+    public static final String RECHAZADO = "RECHAZADO";
 
-    private Viaje v;
+    private IViaje v;
     private Pedido p;
     private String mensaje = null;
 
 
-    public EventoSistema(Viaje v, String mensaje) {
+    public EventoSistema(IViaje v, String mensaje) {
         this.v = v;
         this.p = null;
         this.mensaje = mensaje;
@@ -37,7 +38,7 @@ public class EventoSistema {
         this.mensaje = m;
     }
 
-    public Viaje getViaje() {
+    public IViaje getViaje() {
         return this.v;
     }
 
