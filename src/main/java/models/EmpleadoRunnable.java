@@ -10,14 +10,13 @@ abstract class EmpleadoRunnable extends Empleado implements Runnable {
 
     public void run() {
         while (!Thread.currentThread().isInterrupted() && bolsa.getSimulacionActiva()) {
-            Viaje viaje = bolsa.obtenerViajeSinChofer(); // Método ficticio para obtener un viaje sin chofer
+            IViaje viaje = bolsa.obtenerViajeSinChofer();
             this.ocupado = true;
             if (viaje != null) {
-                // Esperar a que el cliente pague el viaje
                 synchronized (viaje) {
                     while (!viaje.getEstado_de_viaje().equalsIgnoreCase("PAGADO")) {
                         try {
-                            viaje.wait(); // Espera a que el cliente notifique que el pago se ha realizado
+                            viaje.wait();
                         } catch (InterruptedException e) {
                             Thread.currentThread().interrupt();
                             return;
@@ -25,8 +24,8 @@ abstract class EmpleadoRunnable extends Empleado implements Runnable {
                     }
                     // Finalizar el viaje
                     this.ocupado = false;
-                    bolsa.viajeFinalizado(viaje);
-                    notifyAll();
+                    bolsa.viajeFinalizado(viaje.getViaje());
+                    viaje.notifyAll(); // Notifica a todos los hilos que están esperando en este objeto
                 }
             }
 

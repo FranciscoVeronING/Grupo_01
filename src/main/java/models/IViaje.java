@@ -24,4 +24,6 @@ public interface IViaje extends Cloneable, Serializable {
   void  finalizarse();
   IViaje clone() throws CloneNotSupportedException;
   int compareTo(Object o);
+
+  Viaje getViaje();
 }

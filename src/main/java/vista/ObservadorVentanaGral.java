@@ -5,7 +5,8 @@ import models.EventoSistema;
 import java.util.Observable;
 
 public class ObservadorVentanaGral extends ObservadorAbstracto {
-	IVistaGeneral vista;
+	private IVistaGeneral vista;
+
 	public ObservadorVentanaGral(Observable observado, IVistaGeneral vista) {
 		super(observado);
 		this.vista = vista;
@@ -15,21 +16,35 @@ public class ObservadorVentanaGral extends ObservadorAbstracto {
 	public void update(Observable obs, Object arg) {
 		super.update(obs, arg);
 
-		EventoSistema evento = (EventoSistema) arg;
-		String mensaje = evento.getMensaje();
+		if (arg instanceof EventoSistema) {
+			EventoSistema evento = (EventoSistema) arg;
+			String mensaje = evento.getMensaje();
+			String nombreUsuario = evento.getPedido().getCliente().getNombre_usuario();
 
-		if (mensaje.equalsIgnoreCase(EventoSistema.NUEVOPEDIDO)) {
-			vista.appendLogGeneral("Usuario "+ evento.getPedido().getCliente().getNombre_usuario() + " creo un pedido\n");
-		} else if (mensaje.equalsIgnoreCase(EventoSistema.NUEVOVIAJE)) {
-			vista.appendLogGeneral("++++ Usuario "+ evento.getPedido().getCliente().getNombre_usuario() + " esta en Situacion de viaje Confirmado\n");
-		} else if (mensaje.equalsIgnoreCase(EventoSistema.NUEVOVEHICULO)) {
-			vista.appendLogGeneral("**** Usuario "+ evento.getPedido().getCliente().getNombre_usuario() + " Le asignaron el vehiculo "+ evento.getViaje().getVehiculo().toString()+"\n");
-		} else if (mensaje.equalsIgnoreCase(EventoSistema.NUEVOCHOFER)) {
-			vista.appendLogGeneral("☺☺☺☺ Usuario "+ evento.getPedido().getCliente().getNombre_usuario() +" Le asignaron el chofer "+ evento.getViaje().getChofer().getNombre()+"\n");
-		} else if (mensaje.equalsIgnoreCase(EventoSistema.PAGADO)) {
-			vista.appendLogGeneral("$$$$ Usuario "+ evento.getPedido().getCliente().getNombre_usuario() + " Pago el viaje \n");
-		} else if (mensaje.equalsIgnoreCase(EventoSistema.FINALIZADO)) {
-			vista.appendLogGeneral("•••• " + "El chofer "+evento.getViaje().getChofer().getNombre() + " Finalizo el viaje con el  Usuario "+ evento.getPedido().getCliente().getNombre_usuario()+"\n");
+			switch (mensaje) {
+				case EventoSistema.NUEVOPEDIDO:
+					vista.appendLogGeneral("Usuario " + nombreUsuario + " creó un pedido\n");
+					break;
+				case EventoSistema.NUEVOVIAJE:
+					vista.appendLogGeneral("++++ Usuario " + nombreUsuario + " está en Situación de viaje Confirmado\n");
+					break;
+				case EventoSistema.NUEVOVEHICULO:
+					vista.appendLogGeneral("**** Usuario " + nombreUsuario + " le asignaron el vehículo " + evento.getViaje().getVehiculo().toString() + "\n");
+					break;
+				case EventoSistema.NUEVOCHOFER:
+					vista.appendLogGeneral("☺☺☺☺ Usuario " + nombreUsuario + " le asignaron el chofer " + evento.getViaje().getChofer().getNombre() + "\n");
+					break;
+				case EventoSistema.PAGADO:
+					vista.appendLogGeneral("$$$$ Usuario " + nombreUsuario + " pagó el viaje\n");
+					break;
+				case EventoSistema.FINALIZADO:
+					vista.appendLogGeneral("•••• El chofer " + evento.getViaje().getChofer().getNombre() + " finalizó el viaje con el usuario " + nombreUsuario + "\n");
+					break;
+				default:
+					// Evento desconocido
+					break;
+			}
 		}
 	}
 }
+

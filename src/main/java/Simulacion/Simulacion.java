@@ -20,5 +20,7 @@ public class Simulacion {
         ObservadorChofer observadorChofer;
         ObservadorClienteRobot observadorClienteRobot;
         ObservadorClienteApp observadorClienteApp;
+
+
     }
 }

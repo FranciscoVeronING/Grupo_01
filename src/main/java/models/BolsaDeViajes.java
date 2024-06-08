@@ -12,47 +12,53 @@ public class BolsaDeViajes extends Observable implements Serializable {
     public BolsaDeViajes() {
     }
 
-    public void agregarViaje(Viaje viaje) {
+    public synchronized void agregarViaje(IViaje viaje) {
         colaDeViajes.add(viaje);
         setChanged();
         if (viaje.getVehiculo() == null)
-            notifyObservers(new EventoSistema(viaje, EventoSistema.NUEVOVIAJE));
-        else notifyObservers(new EventoSistema(viaje, EventoSistema.NUEVOVEHICULO));
+            notifyObservers(new EventoSistema(viaje.getViaje(), EventoSistema.NUEVOVIAJE));
+        else notifyObservers(new EventoSistema(viaje.getViaje(), EventoSistema.NUEVOVEHICULO));
     }
 
-    public ArrayList<IViaje> getViajes() {
-        return colaDeViajes;
+    public synchronized ArrayList<IViaje> getViajes() {
+        return new ArrayList<>(colaDeViajes);
     }
 
-    public void detenerSimulacion() {
+    public synchronized void detenerSimulacion() {
         this.simulacionActiva = false;
         notifyAll();
         setChanged();
         notifyObservers(new EventoSistema(EventoSistema.STOP));
     }
 
-    public boolean getSimulacionActiva() {
+    public synchronized boolean getSimulacionActiva() {
         return simulacionActiva;
     }
 
-    public Viaje obtenerViajeSinChofer() {
-        Viaje v = null;
+    public synchronized IViaje obtenerViajeSinChofer() {
+        IViaje v = null;
         int i = 0;
         while (v == null && i < colaDeViajes.size()) {
-            if (colaDeViajes.get(i).getVehiculo() == null) v = (Viaje) colaDeViajes.get(i);
-            else i++;
+            if (colaDeViajes.get(i).getVehiculo() == null) {
+                v = colaDeViajes.get(i);
+            } else {
+                i++;
+            }
         }
-        colaDeViajes.remove(v);
+        if (v != null) {
+            colaDeViajes.remove(v);
+        }
         return v;
     }
 
-    public void viajePagado(Viaje viaje) {
+
+    public synchronized void viajePagado(Viaje viaje) {
         viaje.pagarse();
         setChanged();
         notifyObservers(new EventoSistema(viaje, EventoSistema.PAGADO));
     }
 
-    public void viajeFinalizado(Viaje viaje) {
+    public synchronized void viajeFinalizado(Viaje viaje) {
         viaje.finalizarse();
         setChanged();
         notifyObservers(new EventoSistema(viaje, EventoSistema.FINALIZADO));
@@ -60,18 +66,17 @@ public class BolsaDeViajes extends Observable implements Serializable {
 
     // Manejo de pedidos
 
-    public ArrayList<Pedido> getPedidos() {
-        return colaDePedidos;
+    public synchronized ArrayList<Pedido> getPedidos() {
+        return new ArrayList<>(colaDePedidos);
     }
 
-    public void agregarPedido(Pedido pedido) {
+    public synchronized void agregarPedido(Pedido pedido) {
         colaDePedidos.add(pedido);
         setChanged();
         notifyObservers(new EventoSistema(pedido, EventoSistema.NUEVOPEDIDO));
     }
 
-    public Pedido getPedido(int i) {
+    public synchronized Pedido getPedido(int i) {
         return colaDePedidos.remove(i);
     }
-
 }

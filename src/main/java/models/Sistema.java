@@ -108,6 +108,8 @@ public class Sistema {
         for (int i = 0; i < cantidad ; i++) {
             ClienteRunnable cliente = new ClienteRunnable(viajes);
             this.clientes.put(cliente.getNombre_usuario(), cliente);
+            Thread thread = new Thread(cliente);
+            thread.start();
         }
     }
 
@@ -121,12 +123,28 @@ public class Sistema {
             Random r = new Random();
             int tipo = r.nextInt(3);
             switch (tipo) {
-                case(0) : choferes.add(new ChoferContratado(viajes));
-                case(1) : choferes.add(new ChoferPermanente(viajes));
-                case(2) : choferes.add((new ChoferTemporario(viajes)));
+                case 0:
+                    ChoferContratado choferContratado = new ChoferContratado(viajes);
+                    Thread hiloChoferContratado = new Thread(choferContratado);
+                    choferes.add(choferContratado);
+                    hiloChoferContratado.start();
+                    break;
+                case 1:
+                    ChoferPermanente choferPermanente = new ChoferPermanente(viajes);
+                    Thread hiloChoferPermanente = new Thread(choferPermanente);
+                    choferes.add(choferPermanente);
+                    hiloChoferPermanente.start();
+                    break;
+                case 2:
+                    ChoferTemporario choferTemporario = new ChoferTemporario(viajes);
+                    Thread hiloChoferTemporario = new Thread(choferTemporario);
+                    choferes.add(choferTemporario);
+                    hiloChoferTemporario.start();
+                    break;
             }
         }
     }
+
 
     /**
      * Metodo que crea y agrega una cantidad de vehiculos ALEATORIOS a la lista de vehiculos de la empresa.
@@ -418,9 +436,10 @@ public class Sistema {
     public IViaje solicitarViaje(Pedido pedido) {
         IViaje v = ViajeFactory.getViaje(pedido);
         v.setEstado_de_viaje("SOLICITADO");
-        viajes.agregarViaje((Viaje) v);
+        viajes.agregarViaje(v);
         return v;
     }
+
 
     /**
      * Valida la coherencia del pedido verificando ciertos criterios

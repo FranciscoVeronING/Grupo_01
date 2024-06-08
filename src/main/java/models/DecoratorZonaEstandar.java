@@ -23,6 +23,11 @@ public class DecoratorZonaEstandar extends DecoratorZonas {
     }
 
     @Override
+    public Viaje getViaje() {
+        return null;
+    }
+
+    @Override
     public String toString() {
         return encapsulado.toString() + " en zona estandar ";
     }
