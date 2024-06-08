@@ -38,6 +38,7 @@ protected double aportes;
         return aportes;
     }
 
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder(super.toString());

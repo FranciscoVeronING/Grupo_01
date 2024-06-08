@@ -12,6 +12,7 @@ public class EventoSistema {
     public static final String FINALIZADO = "FINALIZADO";
     public static final String NUEVOVIAJE = "NUEVO_VIAJE";
     public static final String NUEVOPEDIDO = "NUEVO PEDIDO";
+    public static final String PEDIDORECHAZADO = "PEDIDO RECHAZADO";
     public static final String STOP = "STOP";
     public static final String RECHAZADO = "RECHAZADO";
 
