@@ -44,7 +44,6 @@ public class Cliente extends Usuario implements Cloneable {
     public Cliente(String nombre_usuario, String contrasenia, String nombre, String apellido, String telefono, String mail, Direccion direccion, GregorianCalendar fecha){
         super(nombre_usuario,contrasenia);
         this.nombre = nombre;
-        //this.contrasenia = contrasenia;
         this.apellido = apellido;
         this.telefono = telefono;
         this.mail = mail;
@@ -60,13 +59,12 @@ public class Cliente extends Usuario implements Cloneable {
 
     public Cliente(){
         super();
-        Utiles utiles = new Utiles();
-        this.nombre = utiles.generaNombre();
-        this.apellido = utiles.generaApellido();
-        this.telefono = utiles.generaTelefono();
-        this.mail = utiles.generaMail(this.nombre, this.apellido);
-        this.direccion =  utiles.generaDireccionAleatoria();
-        this.fecha_nacimiento = utiles.generaFechaNacimientoAleatoria();
+        this.nombre = Utiles.generaNombre();
+        this.apellido = Utiles.generaApellido();
+        this.telefono = Utiles.generaTelefono();
+        this.mail = Utiles.generaMail(this.nombre, this.apellido);
+        this.direccion =  Utiles.generaDireccionAleatoria();
+        this.fecha_nacimiento = Utiles.generaFechaNacimientoAleatoria();
         this.setNombre_usuario(this.nombre+this.apellido);
         this.setContrasenia("1234");
     }
@@ -138,12 +136,6 @@ public class Cliente extends Usuario implements Cloneable {
         }
     }
 
-    public String formatFecha(GregorianCalendar fecha){
-        final StringBuilder sb = new StringBuilder("(");
-        sb.append(fecha.get(YEAR)).append("/").append(fecha.get(MONTH) + 1).append("/").append(fecha.get(DAY_OF_MONTH)).append(")");
-        return sb.toString();
-    }
-
 
 
     @Override
@@ -156,7 +148,7 @@ public class Cliente extends Usuario implements Cloneable {
         sb.append(", telefono='").append(telefono).append('\'');
         sb.append(", mail='").append(mail).append('\'');
         sb.append(", direccion=").append(direccion);
-        sb.append(", fecha_nacimiento=").append(formatFecha(fecha_nacimiento));
+        sb.append(", fecha_nacimiento=").append(Utiles.formatFecha(fecha_nacimiento));
         sb.append('}');
         return sb.toString();
     }

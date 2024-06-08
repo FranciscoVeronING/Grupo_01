@@ -20,7 +20,6 @@ public abstract class Usuario {
     public Usuario (String nombre_usuario, String contrasenia) {
         this.contrasenia = contrasenia;
         this.setNombre_usuario(nombre_usuario);
-        System.out.printf(this.contrasenia);
     }
 
     public Usuario() {

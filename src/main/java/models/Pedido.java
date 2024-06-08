@@ -101,12 +101,6 @@ public class Pedido implements Cloneable {
         this.cliente = cliente;
     }
 
-    public String formatFecha(GregorianCalendar fecha){
-        final StringBuilder sb = new StringBuilder("(");
-        sb.append(fecha.get(YEAR)).append("/").append(fecha.get(MONTH) + 1).append("/").append(fecha.get(DAY_OF_MONTH)).append(")");
-        return sb.toString();
-    }
-
     /**
      * <b>Pre: </b> La clase pedido debe implementar cloneable
      * <b>Post:</b> El metodo devolvera una instancia clonada de objeto original
@@ -128,7 +122,7 @@ public class Pedido implements Cloneable {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Pedido{");
-        sb.append("fecha=").append(formatFecha(fecha));
+        sb.append("fecha=").append(Utiles.formatFecha(fecha));
         sb.append(", zona='").append(zona).append('\'');
         sb.append(", mascota=").append(mascota);
         sb.append(", cant_pasajeros=").append(cant_pasajeros);

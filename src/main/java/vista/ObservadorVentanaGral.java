@@ -5,9 +5,10 @@ import models.EventoSistema;
 import java.util.Observable;
 
 public class ObservadorVentanaGral extends ObservadorAbstracto {
-	public ObservadorVentanaGral(Observable observado) {
+	IVistaGeneral vista;
+	public ObservadorVentanaGral(Observable observado, IVistaGeneral vista) {
 		super(observado);
-		// TODO Auto-generated constructor stub
+		this.vista = vista;
 	}
 
 	@Override
@@ -18,18 +19,17 @@ public class ObservadorVentanaGral extends ObservadorAbstracto {
 		String mensaje = evento.getMensaje();
 
 		if (mensaje.equalsIgnoreCase(EventoSistema.NUEVOPEDIDO)) {
-			// TODO Agregar mensajito en consola
+			vista.appendLogGeneral(evento.getPedido().getCliente().toString() + " creo un pedido");
 		} else if (mensaje.equalsIgnoreCase(EventoSistema.NUEVOVIAJE)) {
-			// TODO Agregar mensajito en consola
+			vista.appendLogGeneral("++++ " + evento.getPedido().getCliente().toString() + " esta en Situacion de viaje Confirmado");
 		} else if (mensaje.equalsIgnoreCase(EventoSistema.NUEVOVEHICULO)) {
-			// TODO Agregar mensajito en consola
+			vista.appendLogGeneral("**** " + evento.getViaje().getPedido().getCliente().toString() + " Le asignaron el vehiculo "+ evento.getViaje().getVehiculo().toString());
 		} else if (mensaje.equalsIgnoreCase(EventoSistema.NUEVOCHOFER)) {
-			// TODO Agregar mensajito en consola
+			vista.appendLogGeneral("☺☺☺☺ " + evento.getViaje().getPedido().getCliente().toString() + " Le asignaron el chofer "+ evento.getViaje().getChofer().getNombre());
 		} else if (mensaje.equalsIgnoreCase(EventoSistema.PAGADO)) {
-			// TODO Agregar mensajito en consola
+			vista.appendLogGeneral("$$$$ " + evento.getViaje().getPedido().getCliente().toString() + " Pago el viaje ");
 		} else if (mensaje.equalsIgnoreCase(EventoSistema.FINALIZADO)) {
-			// TODO Agregar mensajito en consola
+			vista.appendLogGeneral("•••• " + "El chofer "+evento.getViaje().getChofer().getNombre() + " Finalizo el viaje con el pasajero "+evento.getViaje().getPedido().getCliente().toString());
 		}
-
 	}
 }

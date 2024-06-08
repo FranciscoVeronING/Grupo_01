@@ -6,6 +6,7 @@ import java.util.Observable;
 
 public class BolsaDeViajes extends Observable implements Serializable {
     private ArrayList<IViaje> colaDeViajes = new ArrayList<IViaje>();
+    private ArrayList<Pedido> colaDePedidos = new ArrayList<>();
     private boolean simulacionActiva = true;
 
     public BolsaDeViajes() {
@@ -56,4 +57,21 @@ public class BolsaDeViajes extends Observable implements Serializable {
         setChanged();
         notifyObservers(new EventoSistema(viaje, EventoSistema.FINALIZADO));
     }
+
+    // Manejo de pedidos
+
+    public ArrayList<Pedido> getPedidos() {
+        return colaDePedidos;
+    }
+
+    public void agregarPedido(Pedido pedido) {
+        colaDePedidos.add(pedido);
+        setChanged();
+        notifyObservers(new EventoSistema(pedido, EventoSistema.NUEVOPEDIDO));
+    }
+
+    public Pedido getPedido(int i) {
+        return colaDePedidos.remove(i);
+    }
+
 }

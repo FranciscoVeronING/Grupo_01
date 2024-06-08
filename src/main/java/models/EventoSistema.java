@@ -15,16 +15,25 @@ public class EventoSistema {
     public static final String STOP = "STOP";
 
     private Viaje v;
+    private Pedido p;
     private String mensaje = null;
 
 
     public EventoSistema(Viaje v, String mensaje) {
         this.v = v;
+        this.p = null;
         this.mensaje = mensaje;
+    }
+
+    public EventoSistema(Pedido p, String mensaje){
+        this.p = p;
+        this.mensaje = mensaje;
+        this.v = null;
     }
 
     public EventoSistema(String m) {
         this.v = null;
+        this.p = null;
         this.mensaje = m;
     }
 
@@ -34,5 +43,9 @@ public class EventoSistema {
 
     public String getMensaje() {
         return mensaje;
+    }
+
+    public Pedido getPedido() {
+        return this.p;
     }
 }

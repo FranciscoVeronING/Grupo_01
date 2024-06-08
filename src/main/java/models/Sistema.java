@@ -26,8 +26,6 @@ public class Sistema {
     private HashMap<String, Cliente> clientes;
     private BolsaDeViajes viajes;
 
-    private Controlador controlador;
-
     private Sistema() {
         this.choferes = new ArrayList<>();
         this.vehiculos = new ArrayList<>();
@@ -138,12 +136,11 @@ public class Sistema {
     public void crearVehiculosRandom(int cantidad) {
         for (int i = 0; i < cantidad; i++) {
             Random r = new Random();
-            Utiles u = new Utiles();
             int tipo = r.nextInt(3);
             switch(tipo) {
-                case(0) : vehiculos.add(VehiculoFactory.getVehiculo(MOTO, u.generaPatente()));
-                case(1) : vehiculos.add(VehiculoFactory.getVehiculo(COMBI, u.generaPatente()));
-                case(2) : vehiculos.add(VehiculoFactory.getVehiculo(AUTO, u.generaPatente()));
+                case(0) : vehiculos.add(VehiculoFactory.getVehiculo(MOTO, Utiles.generaPatente()));
+                case(1) : vehiculos.add(VehiculoFactory.getVehiculo(COMBI, Utiles.generaPatente()));
+                case(2) : vehiculos.add(VehiculoFactory.getVehiculo(AUTO, Utiles.generaPatente()));
             }
         }
     }
@@ -152,8 +149,6 @@ public class Sistema {
 
     /**
      * Clase que verifica que el nombre de usuario sea unico
-     * <b>Pre:</b>El cliente no puede estar vacio ni ser null
-     * @param cliente Obtendra la informacion del usuario a evaluar
      * <b>Post</b> El usuario tendra su nombre de usuario verificado
      * @throws UsuarioRepetidoException Excepcion lanzada en caso de que el nombre de usuario ya sea utilizado por otro usuario
      */
@@ -171,10 +166,9 @@ public class Sistema {
      */
 
     public void verificarExistenciaCliente(String u, String c) throws UsuarioIncorrectoException {
-        Cliente cliente = this.clientes.get(u);
-        if (cliente == null || !cliente.getContrasenia().equalsIgnoreCase(c)) {
-            throw new UsuarioIncorrectoException(u, c);
-        }
+        if (this.clientes.containsKey(u)) {
+            if (!this.clientes.get(u).getContrasenia().equalsIgnoreCase(c)) throw new UsuarioIncorrectoException(u, c);
+        } else throw new UsuarioIncorrectoException(u, c);
     }
 
     // Getters y Setters basicos
@@ -367,7 +361,9 @@ public class Sistema {
      * <b>Post:</b> Se habra creado el pedido
      */
     public Pedido hacerPedido(GregorianCalendar fecha, String zona, boolean mascota, int cant_pasajeros, boolean equipaje, Cliente c, double d) {
-        return new Pedido(fecha, zona, mascota, cant_pasajeros, equipaje, c, d);
+        Pedido p = new Pedido(fecha, zona, mascota, cant_pasajeros, equipaje, c, d);
+        viajes.agregarPedido(p);
+        return p;
     }
 
     /**
@@ -642,10 +638,6 @@ public class Sistema {
 
     public void detenerSimulacion() {
         this.viajes.detenerSimulacion();
-    }
-
-    public void setControlador(Controlador controlador) {
-        this.controlador = controlador;
     }
 
     @Override

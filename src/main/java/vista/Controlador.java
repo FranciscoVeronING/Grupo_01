@@ -17,20 +17,25 @@ public class Controlador implements ActionListener {
 	private IVistaAppCliente_inicio inicio;
 	private IVistaAppCliente_Registrarse r;
 	private IVistaAppCliente_SituacionViaje sv;
+	private IVistaAppCliente_MisDatos md;
 
 	private Cliente clienteVentana;
 
-	public Controlador(IVistaAppCliente_formulario form,IVistaAppCliente_login login,IVistaAppCliente_inicio inicio,IVistaAppCliente_Registrarse r,IVistaAppCliente_SituacionViaje sv) {
+	public Controlador(IVistaAppCliente_formulario form,IVistaAppCliente_login login,IVistaAppCliente_inicio inicio,IVistaAppCliente_Registrarse r,IVistaAppCliente_SituacionViaje sv, IVistaAppCliente_MisDatos md) {
         this.form = form;
 		this.login = login;
 		this.inicio = inicio;
 		this.r = r;
 		this.sv = sv;
+		this.md =md;
+
 		this.form.setActionListener(this);
 		this.login.setActionListener(this);
 		this.inicio.setActionListener(this);
 		this.r.setActionListener(this);
 		this.sv.setActionListener(this);
+		this.md.setActionListener(this);
+
     }
 	
 	@Override
@@ -93,8 +98,27 @@ public class Controlador implements ActionListener {
             this.sv.setVisibleVentana(false);
 			this.sv.limpiarcampos();
 			
+		} else if (e.getActionCommand().equalsIgnoreCase("VOLVER_MD")) {
+			this.md.setVisibleVentana(false);
+			this.md.limpiarcampos();
+			this.inicio.setVisibleVentana(true);
+
+		} else if (e.getActionCommand().equalsIgnoreCase("MISDATOS")) {
+			this.md.setVisibleVentana(true);
+			this.md.setNombre(clienteVentana.getNombre());
+			this.md.setApellido(clienteVentana.getApellido());
+			this.md.setNombreUser(clienteVentana.getNombre_usuario());
+			this.md.setContrasenia(clienteVentana.getContrasenia());
+			this.md.setFechaDeNacimiento(clienteVentana.getFecha_nacimiento());
+			this.md.setTelefono(clienteVentana.getTelefono());
+			this.md.setMail(clienteVentana.getMail());
+			this.md.setNombreCalle(clienteVentana.getDireccion().getNombre());
+			this.md.setAlturaCalle(clienteVentana.getDireccion().getAltura());
+			this.md.setPisoCalle(clienteVentana.getDireccion().getPiso());
+			this.md.setLetraCalle(clienteVentana.getDireccion().getLetra());
+			this.inicio.setVisibleVentana(false);
 		}
-		
+
 	}
 
 }

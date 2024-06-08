@@ -146,6 +146,6 @@ public final class Viaje implements IViaje,Cloneable {
 
     @Override
     public String toString() {
-        return this.getPedido().formatFecha(this.getPedido().getFecha())+" ($ " + costo_viaje + ")" + " (" + this.estado_de_viaje + ") Cliente = " + this.getPedido().getCliente().getNombre_usuario();
+        return Utiles.formatFecha(this.getPedido().getFecha())+" ($ " + costo_viaje + ")" + " (" + this.estado_de_viaje + ") Cliente = " + this.getPedido().getCliente().getNombre_usuario();
     }
 }

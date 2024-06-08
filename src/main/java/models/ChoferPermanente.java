@@ -16,18 +16,6 @@ public class ChoferPermanente extends Chofer {
 
     /**
      * Constructor utilizado para setear antiguedad,cant de hijos y fecha de ingreso del chofer permanente y utiliza el dni,nombre y aporte seteado anteriormente en la clase Chofer
-     *<b>Pre:</b> El parametro dni no puede ser null ni estar vacio
-     *  @param dni : Numero de dni del chofer permanente
-     *  <b>Pre:</b> El parametro nombre no puede ser null ni estar vacio
-     * @param nombre : Nombre del chofer permanente
-     * <b>Pre: </b>El paramentro aportes debe ser mayor de cero
-     * @param aportes : Aportes del chofer permanente
-     * <b>Pre:</b> El parametro fecha_ingreso no puede ser null ni estar vacio
-     * @param fecha_ingreso : Fecha en la que ingreso el chofer permanente
-     *<b>Pre:</b> El parametro antiguedad debe ser mayor que cero
-     * @param antiguedad : Antiguedad que tiene el chofer permanente trabajando
-     * <b>Pre:</b> El parametro cant_Hijos debe ser cero o mayor
-     * @param cant_Hijos : La cantidad de hijos que el chofer permanente
      * @param b Recurso compartido
      * <b>Post: </b> El chofer permanente fue inicializado con sus datos y ganancia correspondiente
      */

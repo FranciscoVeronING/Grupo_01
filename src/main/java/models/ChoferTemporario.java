@@ -13,14 +13,6 @@ public class ChoferTemporario extends Chofer {
 
  /**
   * Constructor que setea el plus por cantidad de viajes
-  * <b>Pre:</b> El parametro dni no puede ser null ni estar vacio
-  * @param dni dni del chofer temporario seteado en la clase chofer
-  * <b>Pre: </b>El parametro nombre no puede ser null ni estar vacio
-  * @param nombre nombre del chofer temporario seteado en la clase chofer
-  *               <b>Pre:</b> El parametro aportes debe ser mayor a cero
-  * @param aportes Aportes del chofer temporario seteado en la clase chofer
-  *                 <b>Pre: </b> plusCantViajes debe ser mayor a cero
-  * @param plusCantViajes Porcentaje que se aplica al básico según la cantidad de viajes
   * @param b Recurso compartido
   * <b>Post: </b> El chofer temporario fue inicializado con sus datos y ganancia correspondiente
   */

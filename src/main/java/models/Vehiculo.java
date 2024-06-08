@@ -123,12 +123,7 @@ public abstract class Vehiculo implements IVehiculo, Cloneable {
 
     @Override
     public String toString() {
-        return "{" +
-                "patente='" + patente + '\'' +
-                ", cant_max_pasajeros=" + cant_max_pasajeros +
-                ", petfriendly=" + petfriendly +
-                ", baul=" + baul +
-                '}';
+        return "patente='" + patente ;
     }
     /**
      * <b>Pre: </b> La clase Vehiculo debe implementar cloneable

@@ -26,9 +26,8 @@ public abstract class Empleado implements Cloneable, Serializable {
      * Constructor que asigna al empleado un numero de dni y nombre ALEATORIOS
      */
     public Empleado() {
-        Utiles u = new Utiles();
-        this.dni = u.generaDNI();
-        this.nombre = u.generaNombre();
+        this.dni = Utiles.generaDNI();
+        this.nombre = Utiles.generaNombre();
         this.puntaje_Empresa = 0;
         this.ocupado = false;
         this.cant_viajes = 0;
