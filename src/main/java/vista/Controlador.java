@@ -14,6 +14,13 @@ import models.ClienteAppRunneable;
 import models.Pedido;
 import models.Sistema;
 
+/**
+ * Esta clase implementa la interfaz ActionListener y maneja las interacciones del usuario con las vistas de la aplicación.
+ * <p>
+ * El controlador actúa como un intermediario entre las vistas de la aplicación y el modelo (Sistema y Clientes).
+ * Se encarga de gestionar las acciones del usuario, como el registro, inicio de sesión, solicitud de viajes, etc.
+ * </p>
+ */
 public class Controlador implements ActionListener {
 	private IVistaAppCliente_formulario form;
 	private IVistaAppCliente_login login;

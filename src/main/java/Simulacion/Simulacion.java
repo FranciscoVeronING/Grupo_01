@@ -3,6 +3,10 @@ package Simulacion;
 import models.Sistema;
 import vista.*;
 
+/**
+ * Clase utilizada para la simulacion del viaje
+ * El sistema quedara preparado para las interacciones del usuario a traves de las vistas inicializadas.
+ */
 public class Simulacion {
     public static void main(String[] args) {
         VistaAppCliente_SituacionViaje vistaSituacionViaje = new VistaAppCliente_SituacionViaje();

@@ -10,6 +10,9 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 
+/**
+ * Representa la interfaz gráfica de la ventana de inicio de sesión para los clientes en la aplicación.
+ */
 public class VistaAppCliente_inicio extends JFrame implements IVistaAppCliente_inicio{
 
 	private static final long serialVersionUID = 1L;

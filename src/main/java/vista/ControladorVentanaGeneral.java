@@ -6,6 +6,10 @@ import models.SistemaRunnable;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Controlador en un patrón de diseño MVC (Modelo-Vista-Controlador) que se encarga de gestionar las acciones provenientes de una vista general.
+ * Este controlador maneja las interacciones del usuario con la vista general y ejecuta las operaciones correspondientes en el modelo del sistema.
+ */
 public class ControladorVentanaGeneral implements ActionListener {
 	private IVistaGeneral vista;
 	public ControladorVentanaGeneral(IVistaGeneral vista) {

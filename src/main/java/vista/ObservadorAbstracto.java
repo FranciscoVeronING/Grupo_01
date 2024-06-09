@@ -2,7 +2,9 @@ package vista;
 
 import java.util.Observable;
 import java.util.Observer;
-
+/**
+ * Es una clase abstracta que implementa la interfaz Observer y actúa como un observador genérico en el patrón de diseño Observador
+ */
 public abstract class ObservadorAbstracto implements Observer {
 protected Observable observado;
 

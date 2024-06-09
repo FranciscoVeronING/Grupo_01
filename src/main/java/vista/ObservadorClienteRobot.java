@@ -4,6 +4,9 @@ import models.EventoSistema;
 
 import java.util.Observable;
 
+/**
+ * Observador que extiende de ObservadorAbstracto y se utiliza para actualizar la vista general
+ */
 public class ObservadorClienteRobot extends ObservadorAbstracto {
     IVistaGeneral vista;
     public ObservadorClienteRobot(Observable observado, IVistaGeneral vista) {

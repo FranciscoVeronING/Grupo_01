@@ -20,6 +20,9 @@ import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import javax.swing.border.TitledBorder;
 
+/**
+ *  La clase representa la interfaz gráfica para que los clientes completen un formulario y realicen un pedido en la aplicación
+ */
 public class VistaAppCliente_formulario extends JFrame implements IVistaAppCliente_formulario, KeyListener {
 
 	private static final long serialVersionUID = 1L;

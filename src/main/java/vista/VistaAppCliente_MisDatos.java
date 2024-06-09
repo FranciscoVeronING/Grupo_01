@@ -14,6 +14,9 @@ import javax.swing.JButton;
 import java.awt.GridLayout;
 import java.awt.Font;
 
+/**
+ * Representa la interfaz gráfica de la ventana que muestra los datos personales del cliente en la aplicación.
+ */
 public class VistaAppCliente_MisDatos extends JFrame implements IVistaAppCliente_MisDatos{
 
 	private static final long serialVersionUID = 1L;

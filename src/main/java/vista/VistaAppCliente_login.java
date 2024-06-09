@@ -8,6 +8,9 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.util.Objects;
 
+/**
+ *  Representa la interfaz gráfica de la ventana de inicio de sesión de los clientes en la aplicación
+ */
 public class VistaAppCliente_login extends JFrame implements IVistaAppCliente_login {
 
 	private static final long serialVersionUID = 1L;

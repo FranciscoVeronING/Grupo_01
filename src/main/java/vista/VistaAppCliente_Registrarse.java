@@ -12,6 +12,9 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import com.toedter.calendar.JDateChooser;
 
+/**
+ *  Representa la interfaz gráfica de la ventana de registro para nuevos clientes en la aplicación
+ */
 public class VistaAppCliente_Registrarse extends JFrame implements IVistaAppCliente_Registrarse{
 
 	private static final long serialVersionUID = 1L;

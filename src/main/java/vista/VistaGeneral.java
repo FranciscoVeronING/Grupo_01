@@ -10,6 +10,9 @@ import javax.swing.border.TitledBorder;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+/**
+ * Representa la interfaz gráfica para configurar y controlar la simulación de un sistema de transporte
+ */
 public class VistaGeneral extends JFrame implements IVistaGeneral {
 
 	private static final long serialVersionUID = 1L;

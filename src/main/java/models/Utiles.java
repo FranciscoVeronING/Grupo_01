@@ -5,6 +5,11 @@ import java.util.Random;
 
 import static java.util.Calendar.*;
 
+/**
+ * Clase útil para crear datos de prueba o ejemplos de manera aleatoria.
+ * <b>Pre:</b> Los datos pasados como parametros para generar usuarios con informacion aleatoria no deben ser null ni estar vacios
+ * <b>Post:</>
+ */
 public class Utiles {
 
     public static String formatFecha(GregorianCalendar fecha){

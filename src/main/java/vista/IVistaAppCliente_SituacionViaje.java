@@ -2,6 +2,9 @@ package vista;
 
 import java.awt.event.ActionListener;
 
+/**
+ * Interfaz que define los métodos que la clase VistaAppCliente_SituacionViajes debe implementar
+ */
 public interface IVistaAppCliente_SituacionViaje {
 	void setActionListener(ActionListener actionListener);
 

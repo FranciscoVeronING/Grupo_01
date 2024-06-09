@@ -2,6 +2,9 @@ package vista;
 
 import java.awt.event.ActionListener;
 
+/**
+ *  Interfaz que define los métodos que la clase VistaAppCliente_inicio debe implementar
+ */
 public interface IVistaAppCliente_inicio {
 	
 	void setActionListener(ActionListener actionListener);

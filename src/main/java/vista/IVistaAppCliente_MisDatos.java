@@ -3,7 +3,9 @@ package vista;
 import java.awt.event.ActionListener;
 import java.util.GregorianCalendar;
 
-
+/**
+ * Interfaz que define los métodos que la clase VistaAppCliente_MisDatos debe implementar
+ */
 public interface IVistaAppCliente_MisDatos {	
 	 void setVisibleVentana(boolean estado);
 	 void setActionListener(ActionListener actionListener);

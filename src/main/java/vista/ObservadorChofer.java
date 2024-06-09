@@ -4,6 +4,9 @@ import models.EventoSistema;
 
 import java.util.Observable;
 
+/**
+ * La clase extiende ObservadorAbstracto y actúa como un observador específico para los eventos relacionados con los choferes en el sistema
+ */
 public class ObservadorChofer extends ObservadorAbstracto {
     IVistaGeneral vista;
     public ObservadorChofer(Observable observado, IVistaGeneral vista) {

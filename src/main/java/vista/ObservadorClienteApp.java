@@ -6,6 +6,9 @@ import models.EventoSistema;
 
 import java.util.Observable;
 
+/**
+ * La clase ObservadorClienteApp extiende ObservadorAbstracto y actúa como un observador específico para los eventos relacionados con los usuarios que utilizan la app.
+ */
 public class ObservadorClienteApp extends ObservadorAbstracto{
     IVistaAppCliente_SituacionViaje vista ;
     private ClienteAppRunneable cliente;

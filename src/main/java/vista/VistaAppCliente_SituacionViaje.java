@@ -9,6 +9,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 
+/**
+ * Representa la interfaz gráfica para mostrar la situación de un viaje en la aplicación
+ */
 public class VistaAppCliente_SituacionViaje extends JFrame implements IVistaAppCliente_SituacionViaje {
 
 	private static final long serialVersionUID = 1L;

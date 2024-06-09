@@ -15,6 +15,9 @@ import javax.swing.border.BevelBorder;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+/**
+ * Representa la interfaz gráfica de la ventana que muestra los viajes realizados por el cliente en la aplicación.
+ */
 public class VistaAppCliente_MisViajes extends JFrame implements IVistaAppCliente_MisViajes{
 
 	private static final long serialVersionUID = 1L;

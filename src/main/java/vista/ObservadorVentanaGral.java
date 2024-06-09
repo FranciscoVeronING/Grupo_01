@@ -7,6 +7,9 @@ import models.Pedido;
 
 import java.util.Observable;
 
+/**
+ * La clase actúa como un observador específico para los eventos relacionados
+ */
 public class ObservadorVentanaGral extends ObservadorAbstracto {
 	private IVistaGeneral vistaG;
 	private IVistaAppCliente_SituacionViaje vistaSV;
