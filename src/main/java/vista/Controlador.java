@@ -10,6 +10,8 @@ import Exception.UsuarioIncorrectoException;
 import Exception.UsuarioRepetidoException;
 
 import models.Cliente;
+import models.ClienteAppRunneable;
+import models.Pedido;
 import models.Sistema;
 
 public class Controlador implements ActionListener {
@@ -45,7 +47,10 @@ public class Controlador implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equalsIgnoreCase("PEDIR")) {
-			Sistema.getInstancia().hacerPedido(new GregorianCalendar(), this.form.getZona(),this.form.hayMascota(),this.form.getCantidadPasajeros(),this.form.hayEquipaje(),this.clienteVentana, this.form.getDistancia());
+			Pedido pedido = new Pedido(new GregorianCalendar(), this.form.getZona(),this.form.hayMascota(),this.form.getCantidadPasajeros(),this.form.hayEquipaje(),this.clienteVentana, this.form.getDistancia());
+			ClienteAppRunneable clienteAppRunneable = new ClienteAppRunneable(Sistema.getInstancia().getBolsaDeViajes(), pedido);
+			Thread thread = new Thread(clienteAppRunneable);
+			thread.start();
 			this.form.setVisibleVentana(false);
 			this.form.limpiarcampos();
 			this.sv.setVisibleVentana(true);

@@ -1,7 +1,6 @@
 package Simulacion;
 
 import models.Sistema;
-import models.SistemaRunnable;
 import vista.*;
 
 public class Simulacion {
@@ -22,7 +21,6 @@ public class Simulacion {
         ObservadorClienteRobot observadorClienteRobot;
         ObservadorClienteApp observadorClienteApp;
 
-        SistemaRunnable sistema = new SistemaRunnable(Sistema.getInstancia().getBolsaDeViajes(), Sistema.getInstancia().getVehiculos());
 
     }
 }
