@@ -23,7 +23,7 @@ public class VistaAppCliente_SituacionViaje extends JFrame implements IVistaAppC
 
 	public VistaAppCliente_SituacionViaje() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icon1.png")));
-		setTitle("Subi que te Llevo");
+		setTitle("Subi que te llevo - Situacion de Viaje");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		this.contentPane = new JPanel();

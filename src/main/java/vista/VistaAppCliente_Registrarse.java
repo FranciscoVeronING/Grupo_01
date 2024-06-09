@@ -31,7 +31,7 @@ public class VistaAppCliente_Registrarse extends JFrame implements IVistaAppClie
 
 	public VistaAppCliente_Registrarse() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icon1.png")));
-		setTitle("Subi que te Llevo");
+		setTitle("Subi que te Llevo - Registrarse");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 100, 900, 400);
 		contentPane = new JPanel();

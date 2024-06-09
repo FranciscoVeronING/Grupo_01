@@ -1,15 +1,19 @@
 package vista;
 
 import models.Cliente;
+import models.ClienteAppRunneable;
 import models.EventoSistema;
 
 import java.util.Observable;
 
 public class ObservadorClienteApp extends ObservadorAbstracto{
     IVistaAppCliente_SituacionViaje vista ;
+    private ClienteAppRunneable cliente;
     public ObservadorClienteApp(Observable observado, IVistaAppCliente_SituacionViaje vista) {
         super(observado);
         this.vista = vista;
+        this.cliente = (ClienteAppRunneable) observado;
+        this.cliente.addObserver(this);
     }
 
     @Override

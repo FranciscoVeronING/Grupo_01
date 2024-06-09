@@ -33,6 +33,7 @@ public class SistemaRunnable extends Thread implements Observer {
                 }
             }
         }
+        Sistema.getInstancia().cargaSistema();
     }
 
     private IVehiculo getVehiculoValido(IViaje viaje) {

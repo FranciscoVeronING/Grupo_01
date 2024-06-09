@@ -9,14 +9,15 @@ public class SistemaDTO implements Serializable {
     private ArrayList<Empleado> choferes;
     private ArrayList<IVehiculo> vehiculos;
     private HashMap<String, Cliente> clientes;
-    private ArrayList<IViaje> viajes;
+  //  private ArrayList<IViaje> viajes;
 
     public SistemaDTO() {
-        this.choferes = Sistema.getInstancia().getChoferes();
-        this.vehiculos = Sistema.getInstancia().getVehiculos();
-        this.clientes = Sistema.getInstancia().getClientes();
+       // this.choferes = Sistema.getInstancia().getChoferes();
+       // this.vehiculos = Sistema.getInstancia().getVehiculos();
+       // this.clientes = Sistema.getInstancia().getClientes();
        // this.viajes = Sistema.getInstancia().getViajes();
     }
+
 
     public void setChoferes(ArrayList<Empleado> choferes) {
         this.choferes = choferes;

@@ -24,6 +24,7 @@ public class Controlador implements ActionListener {
 	private IVistaAppCliente_MisViajes mv;
 
 	private Cliente clienteVentana;
+	private ClienteAppRunneable clienteAppRunneable;
 
 	public Controlador(IVistaAppCliente_formulario form,IVistaAppCliente_login login,IVistaAppCliente_inicio inicio,IVistaAppCliente_Registrarse r,IVistaAppCliente_SituacionViaje sv, IVistaAppCliente_MisDatos md, IVistaAppCliente_MisViajes mv) {
         this.form = form;
@@ -43,13 +44,18 @@ public class Controlador implements ActionListener {
 		this.mv.setActionListener(this);
 
     }
+
+
+
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equalsIgnoreCase("PEDIR")) {
 			Pedido pedido = new Pedido(new GregorianCalendar(), this.form.getZona(),this.form.hayMascota(),this.form.getCantidadPasajeros(),this.form.hayEquipaje(),this.clienteVentana, this.form.getDistancia());
-			ClienteAppRunneable clienteAppRunneable = new ClienteAppRunneable(Sistema.getInstancia().getBolsaDeViajes(), pedido);
+			this.clienteAppRunneable = new ClienteAppRunneable(Sistema.getInstancia().getBolsaDeViajes(), pedido);
+			ObservadorClienteApp observadorClienteApp = new ObservadorClienteApp(clienteAppRunneable,this.sv);
 			Thread thread = new Thread(clienteAppRunneable);
+			thread.setName("ClienteAppRunneable");
 			thread.start();
 			this.form.setVisibleVentana(false);
 			this.form.limpiarcampos();
@@ -102,6 +108,9 @@ public class Controlador implements ActionListener {
 			this.form.limpiarcampos();
 			this.inicio.setVisibleVentana(true);
 		}else if(e.getActionCommand().equalsIgnoreCase("PAGAR")) {
+
+			this.clienteAppRunneable.setPagado(true);
+
 			JOptionPane.showMessageDialog(null, "Viaje terminado");
             this.inicio.setVisibleVentana(true);
             this.sv.setVisibleVentana(false);
@@ -135,7 +144,10 @@ public class Controlador implements ActionListener {
 			this.mv.setVisibleVentana(true);
 			this.mv.appendText(Sistema.getInstancia().viajesClienteFecha(clienteVentana,new GregorianCalendar(2000, Calendar.JANUARY,1),new GregorianCalendar()));
 		}
-
+		else if(e.getActionCommand().equalsIgnoreCase("FINALIZAR")) {
+			Sistema.getInstancia().guardaSistema();
+			Sistema.getInstancia().detenerSimulacion();
+		}
 	}
 
 }

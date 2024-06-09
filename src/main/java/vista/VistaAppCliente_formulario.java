@@ -34,7 +34,7 @@ public class VistaAppCliente_formulario extends JFrame implements IVistaAppClien
 
 	public VistaAppCliente_formulario() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icon1.png")));
-		setTitle("Subi que te Llevo");
+		setTitle("Subi que te Llevo - Formulario de pedido");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 398, 423);
 		this.contentPane = new JPanel();

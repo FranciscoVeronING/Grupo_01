@@ -4,7 +4,7 @@ import java.util.GregorianCalendar;
 import java.util.Random;
 import Exception.PedidoIncoherenteException;
 
-class ClienteRunnable extends Cliente implements Runnable {
+public class ClienteRunnable extends Cliente implements Runnable {
     private BolsaDeViajes bolsa;
     private int cantViajes;
 

@@ -16,10 +16,9 @@ public class ControladorVentanaGeneral implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equalsIgnoreCase("Iniciar_Simulacion")) {
-			if(e.getActionCommand().equalsIgnoreCase("Persistir")){
+			if (e.getActionCommand().equalsIgnoreCase("Persistir")) {
 				Sistema.getInstancia().cargaSistema();
-			}
-			else{
+			} else {
 				Sistema.getInstancia().crearCientesRandom(this.vista.getCantClientes());
 				Sistema.getInstancia().crearChoferesRandom(this.vista.getCantChoferes());
 				Sistema.getInstancia().crearVehiculosRandom(this.vista.getCantVehiculos());
@@ -27,11 +26,7 @@ public class ControladorVentanaGeneral implements ActionListener {
 				s.start();
 			}
 
-	}else if(e.getActionCommand().equalsIgnoreCase("Finalizar_Simulacion")) {
-			Sistema.getInstancia().guardaSistema();
-			Sistema.getInstancia().detenerSimulacion();
 		}
 	}
-
 
 }

@@ -19,6 +19,7 @@ public class VistaAppCliente_inicio extends JFrame implements IVistaAppCliente_i
 	private JButton btnDatos;
 	private JButton btnLogOut;
 	private JLabel lbl_NombreUsuario;
+	private JButton btnFinalizar;
 
 	public VistaAppCliente_inicio() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icon1.png")));
@@ -44,7 +45,7 @@ public class VistaAppCliente_inicio extends JFrame implements IVistaAppCliente_i
 		
 		JPanel panelCenter = new JPanel();
 		contentPane.add(panelCenter, BorderLayout.CENTER);
-		panelCenter.setLayout(new GridLayout(3, 0, 0, 0));
+		panelCenter.setLayout(new GridLayout(4, 0, 0, 0));
 		
 		JPanel panel_1 = new JPanel();
 		panelCenter.add(panel_1);
@@ -63,7 +64,13 @@ public class VistaAppCliente_inicio extends JFrame implements IVistaAppCliente_i
 		
 		this.btnDatos = new JButton("Mis Datos");
 		panel_3.add(btnDatos);
-		
+
+		JPanel panel_10 = new JPanel();
+		panelCenter.add(panel_10);
+
+		this.btnFinalizar = new JButton("Finalizar Simulacion");
+		panel_10.add(this.btnFinalizar);
+
 		JPanel panelSur = new JPanel();
 		contentPane.add(panelSur, BorderLayout.SOUTH);
 		panelSur.setLayout(new GridLayout(0, 3, 0, 0));
@@ -90,6 +97,7 @@ public class VistaAppCliente_inicio extends JFrame implements IVistaAppCliente_i
 		this.btnLogOut.setActionCommand("LOGOUT");
 		this.btnViajes.setActionCommand("MISVIAJES");
 		this.btnIr_a_Pedido.setActionCommand("FORMULARIO_PEDIDOS");
+		this.btnFinalizar.setActionCommand("FINALIZAR");
 
 		this.setVisible(false);
 	}
@@ -100,6 +108,7 @@ public class VistaAppCliente_inicio extends JFrame implements IVistaAppCliente_i
 		this.btnLogOut.addActionListener(actionListener);
 		this.btnIr_a_Pedido.addActionListener(actionListener);
 		this.btnViajes.addActionListener(actionListener);
+		this.btnFinalizar.addActionListener(actionListener);
 	}
 
 	public void setVisibleVentana(boolean estado) {

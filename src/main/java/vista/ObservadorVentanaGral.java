@@ -1,5 +1,6 @@
 package vista;
 
+import models.ClienteRunnable;
 import models.EventoSistema;
 import models.IViaje;
 import models.Pedido;
@@ -7,11 +8,13 @@ import models.Pedido;
 import java.util.Observable;
 
 public class ObservadorVentanaGral extends ObservadorAbstracto {
-	private IVistaGeneral vista;
+	private IVistaGeneral vistaG;
+	private IVistaAppCliente_SituacionViaje vistaSV;
 
-	public ObservadorVentanaGral(Observable observado, IVistaGeneral vista) {
+	public ObservadorVentanaGral(Observable observado, IVistaGeneral vistaG,IVistaAppCliente_SituacionViaje vistaSV) {
 		super(observado);
-		this.vista = vista;
+		this.vistaG = vistaG;
+		this.vistaSV = vistaSV;
 	}
 
 	@Override
@@ -28,25 +31,25 @@ public class ObservadorVentanaGral extends ObservadorAbstracto {
 
 		switch (mensaje) {
 			case EventoSistema.NUEVOPEDIDO:
-				vista.appendLogGeneral("Usuario " + nombreUsuario + " creó un pedido\n");
+				vistaG.appendLogGeneral("Usuario " + nombreUsuario + " creó un pedido\n");
 				break;
 			case EventoSistema.NUEVOVIAJE:
-				vista.appendLogGeneral("++++ Usuario " + nombreUsuario + " creo un viaje\n");
+				vistaG.appendLogGeneral("++++ Usuario " + nombreUsuario + " creo un viaje\n");
 				break;
 			case EventoSistema.NUEVOVEHICULO:
-				vista.appendLogGeneral("**** Al viaje de " + nombreUsuario + " le asignaron el vehículo " + evento.getViaje().getVehiculo().toString() + "\n");
+				vistaG.appendLogGeneral("**** Al viaje de " + nombreUsuario + " le asignaron el vehículo " + evento.getViaje().getVehiculo().toString() + "\n");
 				break;
 			case EventoSistema.NUEVOCHOFER:
-				vista.appendLogGeneral("☺☺☺☺ Al viaje de " + nombreUsuario + " le asignaron el chofer " + evento.getViaje().getChofer().getNombre() + "\n");
+				vistaG.appendLogGeneral("☺☺☺☺ Al viaje de " + nombreUsuario + " le asignaron el chofer " + evento.getViaje().getChofer().getNombre() + "\n");
 				break;
 			case EventoSistema.PAGADO:
-				vista.appendLogGeneral("$$$$ Usuario " + nombreUsuario + " pagó el viaje\n");
+				vistaG.appendLogGeneral("$$$$ Usuario " + nombreUsuario + " pagó el viaje\n");
 				break;
 			case EventoSistema.FINALIZADO:
-				vista.appendLogGeneral("•••• El chofer " + nombreUsuario + " finalizó el viaje con el usuario " + nombreUsuario + "\n");
+				vistaG.appendLogGeneral("•••• El chofer " + nombreUsuario + " finalizó el viaje con el usuario " + nombreUsuario + "\n");
 				break;
 			case EventoSistema.RECHAZADO:
-				vista.appendLogGeneral("El viaje de " + nombreUsuario + " fue rechazado");
+				vistaG.appendLogGeneral("El viaje de " + nombreUsuario + " fue rechazado");
 			default:
 				// Evento desconocido
 				break;

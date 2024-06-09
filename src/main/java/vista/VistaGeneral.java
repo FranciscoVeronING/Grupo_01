@@ -17,7 +17,6 @@ public class VistaGeneral extends JFrame implements IVistaGeneral {
 	private JTextField tf_cantChoferes;
 	private JTextField tf_cantVehiculos;
 	private JTextField tf_cantClientes;
-	private JButton btnFinalizar;
 	private JButton btnInicio;
 	private JTextArea textAreaLogCliente;
 	private JTextArea textArea_LogGral;
@@ -25,6 +24,8 @@ public class VistaGeneral extends JFrame implements IVistaGeneral {
 	private JRadioButton rdbtnPersistidos;
 
 	public VistaGeneral() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icon1.png")));
+		setTitle("Subi que te Llevo - Seteo de Simulacion y Logs");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(150, 50, 800, 600);
 		this.contentPane = new JPanel();
@@ -149,16 +150,8 @@ public class VistaGeneral extends JFrame implements IVistaGeneral {
 		scrollPaneLogChofer.setViewportView(this.textAreaLogChofer);
 		panel_LogChofer.add(scrollPaneLogChofer);
 
-		JPanel panelSurFin = new JPanel();
-		this.contentPane.add(panelSurFin, BorderLayout.SOUTH);
-		panelSurFin.setLayout(new BorderLayout(0, 0));
-
-		this.btnFinalizar = new JButton("Finalizar Simulacion");
-		panelSurFin.add(this.btnFinalizar);
-		this.btnFinalizar.setEnabled(false);
 
 		this.rdbtnPersistidos.setActionCommand("Persistir");
-		this.btnFinalizar.setActionCommand("Finalizar_Simulacion");
 		this.btnInicio.setActionCommand("Iniciar_Simulacion");
 
 		// Añadir listeners a los campos de texto y al radio button
@@ -192,7 +185,6 @@ public class VistaGeneral extends JFrame implements IVistaGeneral {
 
 		btnInicio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnFinalizar.setEnabled(true);
 				rdbtnPersistidos.setEnabled(false);
 			}
 		});
@@ -217,7 +209,6 @@ public class VistaGeneral extends JFrame implements IVistaGeneral {
 
 	@Override
 	public void setActionListener(ActionListener actionListener) {
-		this.btnFinalizar.addActionListener(actionListener);
 		this.btnInicio.addActionListener(actionListener);
 		this.rdbtnPersistidos.addActionListener(actionListener);
 	}

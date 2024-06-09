@@ -16,10 +16,10 @@ public class Simulacion {
 
         Controlador controlador = new Controlador(vistaFormulario, vistaLogin, vistaInicio, vistaRegistrarse, vistaSituacionViaje, vistaMisDatos, vistaMisViajes);
         ControladorVentanaGeneral controladorGeneral = new ControladorVentanaGeneral(vistaGeneral);
-        ObservadorVentanaGral observadorGeneral = new ObservadorVentanaGral(Sistema.getInstancia().getBolsaDeViajes(), vistaGeneral);
+        ObservadorVentanaGral observadorGeneral = new ObservadorVentanaGral(Sistema.getInstancia().getBolsaDeViajes(), vistaGeneral, vistaSituacionViaje);
         ObservadorChofer observadorChofer;
         ObservadorClienteRobot observadorClienteRobot;
-        ObservadorClienteApp observadorClienteApp;
+
 
 
     }
