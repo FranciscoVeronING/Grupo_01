@@ -60,13 +60,14 @@ public class BolsaDeViajes extends Observable implements Serializable {
         }
     }
 
-    public synchronized void viajeFinalizado(IViaje viaje) {
+    public synchronized void viajeFinalizado(IViaje viaje) throws InterruptedException {
         while (!(viaje.getEstado_de_viaje().equalsIgnoreCase("PAGADO") || viaje.getEstado_de_viaje().equalsIgnoreCase("RECHAZADO"))) {
             try {
                 wait();
             } catch (InterruptedException e) {
             }
         }
+        Thread.currentThread().sleep(1000);
         System.out.println("Salgo del while");
         if (viaje.getEstado_de_viaje().equalsIgnoreCase("PAGADO")) {
             viaje.finalizarse();

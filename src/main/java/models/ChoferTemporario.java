@@ -1,5 +1,6 @@
 package models;
 
+import java.io.Serializable;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.Random;
@@ -8,7 +9,7 @@ import java.util.Random;
 /**
  * Clase utilizada para representar al chofer temporario que se extiende de la clase chofer
  */
-public class ChoferTemporario extends Chofer {
+public class ChoferTemporario extends Chofer implements Serializable {
     private final double plus_x_cant_viajes;
 
  /**
@@ -22,7 +23,16 @@ public class ChoferTemporario extends Chofer {
         this.plus_x_cant_viajes = r.nextDouble()*50 + 1;
     }
 
- /**
+    public ChoferTemporario() {
+        Random r = new Random();
+        this.plus_x_cant_viajes = r.nextDouble()*50 + 1;
+    }
+
+    public double getPlus_x_cant_viajes() {
+        return plus_x_cant_viajes;
+    }
+
+    /**
   *
   * <b>Pre:</b>La fecha debe ser valida
   * @param fecha_inicio_mes La fecha en la que se quiere saber el salario del chofer temporario

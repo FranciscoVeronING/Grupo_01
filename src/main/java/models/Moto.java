@@ -9,6 +9,9 @@ public class Moto extends Vehiculo {
         super(patente, 1, false, false);
     }
 
+    public Moto() {
+    }
+
     /**
      * Metodo utilizado para calcular la prioridad que tendra la moto para ser utilizada ante los requisitos del usuario
      * <b>Pre:</b> pedido no puede ser null ni estar vacio

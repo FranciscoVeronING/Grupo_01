@@ -1,12 +1,13 @@
 package models;
 
 
+import java.io.Serializable;
 import java.util.Random;
 
 /**
  * Clase que se extiende de Empleado usada para agregar informacion de los choferes
  */
-public abstract class Chofer extends EmpleadoRunnable {
+public abstract class Chofer extends EmpleadoRunnable implements Serializable {
 
 protected double sueldo_basico;
 protected double aportes;
@@ -20,6 +21,9 @@ protected double aportes;
         Random d = new Random();
         this.sueldo_basico = 1000;
         this.aportes = d.nextDouble() *70 + 1;
+    }
+
+    public Chofer() {
     }
 
     protected void setSueldo_basico(double sueldo_basico) {

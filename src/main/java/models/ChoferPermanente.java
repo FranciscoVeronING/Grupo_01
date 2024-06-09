@@ -1,5 +1,6 @@
 package models;
 
+import java.io.Serializable;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.Random;
@@ -7,7 +8,7 @@ import java.util.Random;
 /**
  * Clase utilizada para representar al chofer permanente que se extiende de la clsae chofer
  */
-public class ChoferPermanente extends Chofer {
+public class ChoferPermanente extends Chofer implements Serializable {
     private  static double plus_antiguedad = 0.02;
     private  static double plus_cant_hijos = 0.015;
     private GregorianCalendar fecha_ingreso;
@@ -26,6 +27,49 @@ public class ChoferPermanente extends Chofer {
         this.antiguedad = r.nextDouble() *25 + 1;
         this.cant_Hijos = r.nextInt(4) + 1;
         this.fecha_ingreso = utiles.generaFechaAleatoria();
+    }
+
+    public ChoferPermanente() {
+    }
+
+    public static double getPlus_antiguedad() {
+        return plus_antiguedad;
+    }
+
+    public static void setPlus_antiguedad(double plus_antiguedad) {
+        ChoferPermanente.plus_antiguedad = plus_antiguedad;
+    }
+
+    public static double getPlus_cant_hijos() {
+        return plus_cant_hijos;
+    }
+
+    public static void setPlus_cant_hijos(double plus_cant_hijos) {
+        ChoferPermanente.plus_cant_hijos = plus_cant_hijos;
+    }
+
+    public GregorianCalendar getFecha_ingreso() {
+        return fecha_ingreso;
+    }
+
+    public void setFecha_ingreso(GregorianCalendar fecha_ingreso) {
+        this.fecha_ingreso = fecha_ingreso;
+    }
+
+    public double getAntiguedad() {
+        return antiguedad;
+    }
+
+    public void setAntiguedad(double antiguedad) {
+        this.antiguedad = antiguedad;
+    }
+
+    public double getCant_Hijos() {
+        return cant_Hijos;
+    }
+
+    public void setCant_Hijos(double cant_Hijos) {
+        this.cant_Hijos = cant_Hijos;
     }
 
     /**

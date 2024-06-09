@@ -1,9 +1,6 @@
 package vista;
 
-import models.ClienteRunnable;
-import models.EventoSistema;
-import models.IViaje;
-import models.Pedido;
+import models.*;
 
 import java.util.Observable;
 
@@ -23,39 +20,57 @@ public class ObservadorVentanaGral extends ObservadorAbstracto {
 	@Override
 	public void update(Observable obs, Object arg) {
 		super.update(obs, arg);
-		EventoSistema evento = (EventoSistema) arg;
-		String mensaje = evento.getMensaje();
-		Pedido p = evento.getPedido();
-		IViaje v = evento.getViaje();
-		String nombreUsuario = null;
-		if (v != null) nombreUsuario = evento.getViaje().getPedido().getCliente().getNombre_usuario();
-		if (p != null) nombreUsuario = evento.getPedido().getCliente().getNombre_usuario();
-		System.out.println(mensaje);
 
-		switch (mensaje) {
-			case EventoSistema.NUEVOPEDIDO:
-				vistaG.appendLogGeneral("Usuario " + nombreUsuario + " creó un pedido\n");
-				break;
-			case EventoSistema.NUEVOVIAJE:
-				vistaG.appendLogGeneral("++++ Usuario " + nombreUsuario + " creo un viaje\n");
-				break;
-			case EventoSistema.NUEVOVEHICULO:
-				vistaG.appendLogGeneral("**** Al viaje de " + nombreUsuario + " le asignaron el vehículo " + evento.getViaje().getVehiculo().toString() + "\n");
-				break;
-			case EventoSistema.NUEVOCHOFER:
-				vistaG.appendLogGeneral("☺☺☺☺ Al viaje de " + nombreUsuario + " le asignaron el chofer " + evento.getViaje().getChofer().getNombre() + "\n");
-				break;
-			case EventoSistema.PAGADO:
-				vistaG.appendLogGeneral("$$$$ Usuario " + nombreUsuario + " pagó el viaje\n");
-				break;
-			case EventoSistema.FINALIZADO:
-				vistaG.appendLogGeneral("•••• El chofer " + nombreUsuario + " finalizó el viaje con el usuario " + nombreUsuario + "\n");
-				break;
-			case EventoSistema.RECHAZADO:
-				vistaG.appendLogGeneral("El viaje de " + nombreUsuario + " fue rechazado");
-			default:
-				// Evento desconocido
-				break;
+
+		if (obs instanceof ClienteAppRunneable){
+			EventoSistema evento = (EventoSistema) arg;
+			String mensaje = evento.getMensaje();
+
+			if (mensaje.equalsIgnoreCase(EventoSistema.NUEVOVIAJE)) {
+				this.vistaSV.actualizarEstadoViaje("Viaje confirmado!,\n Esperando que te asignen vehículo...");
+			} else if (mensaje.equalsIgnoreCase(EventoSistema.NUEVOVEHICULO)) {
+				this.vistaSV.actualizarEstadoViaje("Vehículo confirmado!, tu vehiculo es un/a "+evento.getViaje().getVehiculo().toString()+"\n Esperando que te asignen chofer...");
+			} else if (mensaje.equalsIgnoreCase(EventoSistema.NUEVOCHOFER)) {
+				this.vistaSV.actualizarEstadoViaje("Chofer confirmado!, tu chofer será "+evento.getViaje().getChofer().getNombre()+"\n Ya comenzo tu viaje! Disfutalo");
+			} else if (mensaje.equalsIgnoreCase(EventoSistema.PAGADO)) {
+				this.vistaSV.actualizarEstadoViaje("Gracias por elegirnos!");
+			} else if (mensaje.equalsIgnoreCase(EventoSistema.FINALIZADO)) {
+				this.vistaSV.actualizarEstadoViaje("Tu chofer a finalizado el viaje, Hasta la proxima!");
+			}
+		}else if(obs instanceof BolsaDeViajes){
+			EventoSistema evento = (EventoSistema) arg;
+			String mensaje = evento.getMensaje();
+			Pedido p = evento.getPedido();
+			IViaje v = evento.getViaje();
+			String nombreUsuario = null;
+			if (v != null) nombreUsuario = evento.getViaje().getPedido().getCliente().getNombre_usuario();
+			if (p != null) nombreUsuario = evento.getPedido().getCliente().getNombre_usuario();
+			System.out.println(mensaje);
+			switch (mensaje) {
+				case EventoSistema.NUEVOPEDIDO:
+					vistaG.appendLogGeneral("Usuario " + nombreUsuario + " creó un pedido\n");
+					break;
+				case EventoSistema.NUEVOVIAJE:
+					vistaG.appendLogGeneral("++++ Usuario " + nombreUsuario + " creo un viaje\n");
+					break;
+				case EventoSistema.NUEVOVEHICULO:
+					vistaG.appendLogGeneral("**** Al viaje de " + nombreUsuario + " le asignaron el vehículo " + evento.getViaje().getVehiculo().toString() + "\n");
+					break;
+				case EventoSistema.NUEVOCHOFER:
+					vistaG.appendLogGeneral("☺☺☺☺ Al viaje de " + nombreUsuario + " le asignaron el chofer " + evento.getViaje().getChofer().getNombre() + "\n");
+					break;
+				case EventoSistema.PAGADO:
+					vistaG.appendLogGeneral("$$$$ Usuario " + nombreUsuario + " pagó el viaje\n");
+					break;
+				case EventoSistema.FINALIZADO:
+					vistaG.appendLogGeneral("•••• El chofer " + nombreUsuario + " finalizó el viaje con el usuario " + nombreUsuario + "\n");
+					break;
+				case EventoSistema.RECHAZADO:
+					vistaG.appendLogGeneral("El viaje de " + nombreUsuario + " fue rechazado");
+				default:
+					// Evento desconocido
+					break;
+			}
 		}
 	}
 }

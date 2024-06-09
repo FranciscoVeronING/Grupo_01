@@ -1,5 +1,6 @@
 package models;
 
+import java.io.Serializable;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.Random;
@@ -7,7 +8,7 @@ import java.util.Random;
 /**
  * Es la clase utilizada para representar al chofer que es de tipo Contratado
  */
-public class ChoferContratado extends EmpleadoRunnable {
+public class ChoferContratado extends EmpleadoRunnable implements Serializable {
     private  double ganancia_viaje;
 
     /**
@@ -18,6 +19,17 @@ public class ChoferContratado extends EmpleadoRunnable {
         super(b);
         Random r = new Random();
         this.ganancia_viaje = r.nextDouble() * 50 + 1;
+    }
+
+    public ChoferContratado() {
+    }
+
+    public double getGanancia_viaje() {
+        return ganancia_viaje;
+    }
+
+    public void setGanancia_viaje(double ganancia_viaje) {
+        this.ganancia_viaje = ganancia_viaje;
     }
 
     /**

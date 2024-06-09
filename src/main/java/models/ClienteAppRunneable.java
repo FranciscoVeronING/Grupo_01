@@ -9,12 +9,10 @@ public class ClienteAppRunneable extends Observable implements Runnable{
 
         private BolsaDeViajes bolsa;
         private Pedido p;
-        private boolean pagado;
 
         public ClienteAppRunneable(BolsaDeViajes bolsa, Pedido p) {
             this.bolsa = bolsa;
             this.p = p;
-            this.pagado = false;
         }
 
         public void run() {
@@ -22,19 +20,12 @@ public class ClienteAppRunneable extends Observable implements Runnable{
             // Solicitar un viaje sobre el pedido aceptado
             IViaje viaje = Sistema.getInstancia().solicitarViaje(p);
             setChanged();
-            notifyObservers("Viaje Solicitado");
-            while (pagado == false) {
-                //loop esperando a que se aprete el boton
-                while (pagado == true) {
-                    bolsa.viajePagado(viaje);
-                    setChanged();
-                    notifyObservers("Pagado");
-                }
-            }
-        }
+            notifyObservers(new EventoSistema(viaje, EventoSistema.NUEVOVIAJE));
 
-        public void setPagado(boolean pagado) {
-            this.pagado = pagado;
+            bolsa.viajePagado(viaje);
+            setChanged();
+            notifyObservers(new EventoSistema(viaje,EventoSistema.PAGADO));
+
         }
 
 }

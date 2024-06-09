@@ -1,12 +1,17 @@
 package models;
 
+import java.io.Serializable;
+
 /**
  * Clase que representa el vehiculo Combi que es extendida de Vehiculo
  * <b>Pre:</b> Las porpiedades que adquiere de la clase Vehiculo son validas ya pre establecido con anterioridad en las superclase
  */
-public class Combi extends Vehiculo {
+public class Combi extends Vehiculo implements Serializable {
     public Combi(String patente) {
         super(patente, 10, false, true);
+    }
+
+    public Combi() {
     }
 
     /**

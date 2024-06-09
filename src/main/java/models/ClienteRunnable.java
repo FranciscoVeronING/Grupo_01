@@ -1,10 +1,11 @@
 package models;
 
+import java.io.Serializable;
 import java.util.GregorianCalendar;
 import java.util.Random;
 import Exception.PedidoIncoherenteException;
 
-public class ClienteRunnable extends Cliente implements Runnable {
+public class ClienteRunnable extends Cliente implements Runnable, Serializable {
     private BolsaDeViajes bolsa;
     private int cantViajes;
 
@@ -12,7 +13,26 @@ public class ClienteRunnable extends Cliente implements Runnable {
         super();
         Random r = new Random();
         this.bolsa = bolsa;
-        cantViajes = r.nextInt(4);
+        cantViajes = r.nextInt(4)+1;
+    }
+
+    public ClienteRunnable() {
+    }
+
+    public BolsaDeViajes getBolsa() {
+        return bolsa;
+    }
+
+    public void setBolsa(BolsaDeViajes bolsa) {
+        this.bolsa = bolsa;
+    }
+
+    public int getCantViajes() {
+        return cantViajes;
+    }
+
+    public void setCantViajes(int cantViajes) {
+        this.cantViajes = cantViajes;
     }
 
     public void run() {
@@ -20,13 +40,18 @@ public class ClienteRunnable extends Cliente implements Runnable {
             Pedido pedido = crearPedido();
             try {
                 Sistema.getInstancia().solicitarAceptacion(pedido);
+                // Solicitar un viaje sobre el pedido aceptado
+                IViaje viaje = Sistema.getInstancia().solicitarViaje(pedido);
+                // Pagar un viaje
+                Thread.currentThread().sleep(1000);
+                bolsa.viajePagado(viaje);
             } catch (PedidoIncoherenteException ex) {
+                System.out.println("Error: " + ex.getMessage());
                 Thread.currentThread().interrupt();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
-            // Solicitar un viaje sobre el pedido aceptado
-            IViaje viaje = Sistema.getInstancia().solicitarViaje(pedido);
-            // Pagar un viaje
-            bolsa.viajePagado(viaje);
+
         }
     }
 

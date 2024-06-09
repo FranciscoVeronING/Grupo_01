@@ -1,15 +1,20 @@
 package models;
 
+import java.io.Serializable;
+
 /**
  * Clase que representa el vehiculo utilizado para llevar a cabo el viaje
  * Implementa la interfaz IVehiculo y cloneable
  */
-public abstract class Vehiculo implements IVehiculo, Cloneable {
+public abstract class Vehiculo implements IVehiculo, Cloneable, Serializable {
     protected String patente;
     protected int cant_max_pasajeros;
     protected boolean petfriendly;
     protected boolean baul;
     public boolean ocupado;
+
+    public Vehiculo() {
+    }
 
     /**
      * Constructor para setear los parametros de la clase vehiculo
@@ -27,6 +32,22 @@ public abstract class Vehiculo implements IVehiculo, Cloneable {
         this.petfriendly = PF;
         this.baul = baul;
         this.ocupado = false;
+    }
+
+    public void setPatente(String patente) {
+        this.patente = patente;
+    }
+
+    public void setCant_max_pasajeros(int cant_max_pasajeros) {
+        this.cant_max_pasajeros = cant_max_pasajeros;
+    }
+
+    public void setPetfriendly(boolean petfriendly) {
+        this.petfriendly = petfriendly;
+    }
+
+    public void setBaul(boolean baul) {
+        this.baul = baul;
     }
 
     /**

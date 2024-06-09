@@ -1,10 +1,23 @@
 package models;
 
-abstract class EmpleadoRunnable extends Empleado implements Runnable {
+import java.io.Serializable;
+
+abstract class EmpleadoRunnable extends Empleado implements Runnable, Serializable {
     private BolsaDeViajes bolsa;
 
     public EmpleadoRunnable(BolsaDeViajes bolsa) {
         super();
+        this.bolsa = bolsa;
+    }
+
+    public EmpleadoRunnable() {
+    }
+
+    public BolsaDeViajes getBolsa() {
+        return bolsa;
+    }
+
+    public void setBolsa(BolsaDeViajes bolsa) {
         this.bolsa = bolsa;
     }
 
@@ -15,7 +28,13 @@ abstract class EmpleadoRunnable extends Empleado implements Runnable {
                 v = bolsa.viajeSinChofer();
                 if (v != null) bolsa.asignarChofer(v, this);
             }
-            if (v != null) bolsa.viajeFinalizado(v);
+            if (v != null) {
+                try {
+                    bolsa.viajeFinalizado(v);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
             try {
                 Thread.sleep(1000); // Espera un segundo antes de buscar otro viaje
                 } catch (InterruptedException e) {

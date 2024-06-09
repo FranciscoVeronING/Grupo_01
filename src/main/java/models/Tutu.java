@@ -1,9 +1,11 @@
 package models;
 
+import java.io.Serializable;
+
 /**
  * Clase que representa al auto que se extiende de vehiculo
  */
-public class Tutu extends Vehiculo {
+public class Tutu extends Vehiculo implements Serializable {
     /**
      * Constructor de tutu para amlmacenar informacion a cerca de sus cualidades
      * <b>Pre: </b> patente no puede ser null ni vacio
@@ -11,6 +13,9 @@ public class Tutu extends Vehiculo {
      */
     public Tutu(String patente) {
         super(patente, 4, true, true);
+    }
+
+    public Tutu() {
     }
 
     /**
