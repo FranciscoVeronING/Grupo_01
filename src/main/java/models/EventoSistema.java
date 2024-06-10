@@ -16,6 +16,8 @@ public class EventoSistema {
     public static final String STOP = "STOP";
     public static final String RECHAZADO = "RECHAZADO";
     public static final String NUEVOCLIENTE = "NUEVO_CLIENTE";
+    public static final String PEDIDORECHAZADOPORCHOFERES = "PEDIDO_RECHAZADO_CHOFERES";
+    public static final String ELIMINADOSIMULACION = "ELIMINADO_SIMULACION";
 
     private IViaje v;
     private Pedido p;

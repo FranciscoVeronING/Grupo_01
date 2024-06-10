@@ -10,7 +10,7 @@ import Exception.UsuarioIncorrectoException;
 import Exception.UsuarioRepetidoException;
 
 import models.Cliente;
-import models.ClienteAppRunneable;
+import models.ClienteAppRunnable;
 import models.Pedido;
 import models.Sistema;
 
@@ -31,7 +31,7 @@ public class Controlador implements ActionListener {
 	private IVistaAppCliente_MisViajes mv;
 
 	private Cliente clienteVentana;
-	private ClienteAppRunneable clienteAppRunneable;
+	private ClienteAppRunnable clienteAppRunneable;
 
 	public Controlador(IVistaAppCliente_formulario form,IVistaAppCliente_login login,IVistaAppCliente_inicio inicio,IVistaAppCliente_Registrarse r,IVistaAppCliente_SituacionViaje sv, IVistaAppCliente_MisDatos md, IVistaAppCliente_MisViajes mv) {
         this.form = form;
@@ -59,7 +59,7 @@ public class Controlador implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equalsIgnoreCase("PEDIR")) {
 			Pedido pedido = new Pedido(new GregorianCalendar(), this.form.getZona(),this.form.hayMascota(),this.form.getCantidadPasajeros(),this.form.hayEquipaje(),this.clienteVentana, this.form.getDistancia());
-			this.clienteAppRunneable = new ClienteAppRunneable(Sistema.getInstancia().getBolsaDeViajes(), pedido);
+			this.clienteAppRunneable = new ClienteAppRunnable(Sistema.getInstancia().getBolsaDeViajes(), pedido);
 			this.clienteAppRunneable.getBolsa().asignarClienteApp(this.clienteVentana);
 			Thread thread = new Thread(clienteAppRunneable);
 			thread.setName("ClienteAppRunneable");

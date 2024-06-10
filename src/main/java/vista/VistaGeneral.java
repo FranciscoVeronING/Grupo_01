@@ -1,5 +1,7 @@
 package vista;
 
+import models.Sistema;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,6 +11,9 @@ import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * Representa la interfaz gráfica para configurar y controlar la simulación de un sistema de transporte
@@ -35,6 +40,15 @@ public class VistaGeneral extends JFrame implements IVistaGeneral {
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(this.contentPane);
 		this.contentPane.setLayout(new BorderLayout(0, 0));
+
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				// Código a ejecutar cuando se intenta cerrar la ventana
+				Sistema.getInstancia().detenerSimulacion();
+				dispose(); // Cierra la ventana
+			}
+		});
 
 		JPanel Seteo = new JPanel();
 		Seteo.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
@@ -249,4 +263,5 @@ public class VistaGeneral extends JFrame implements IVistaGeneral {
 	public boolean isEnablePersistitdos(){
 		return this.rdbtnPersistidos.isSelected();
 	}
+
 }

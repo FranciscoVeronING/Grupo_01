@@ -1,16 +1,14 @@
 package vista;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.util.GregorianCalendar;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import com.toedter.calendar.JDateChooser;
+import models.Sistema;
 
 /**
  *  Representa la interfaz gráfica de la ventana de registro para nuevos clientes en la aplicación
@@ -39,6 +37,15 @@ public class VistaAppCliente_Registrarse extends JFrame implements IVistaAppClie
 		setBounds(0, 100, 900, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				// Código a ejecutar cuando se intenta cerrar la ventana
+				Sistema.getInstancia().setClienteAppActivo(false);
+				dispose(); // Cierra la ventana
+			}
+		});
 
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));

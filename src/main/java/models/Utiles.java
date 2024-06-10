@@ -12,6 +12,12 @@ import static java.util.Calendar.*;
  */
 public class Utiles {
 
+    public static String generaZona() {
+        String[] zonas = {"ESTANDAR", "SIN ASFALTAR", "PELIGROSA"};
+        Random rand = new Random();
+        return zonas[rand.nextInt(zonas.length)];
+    }
+
     public static String formatFecha(GregorianCalendar fecha){
          StringBuilder sb = new StringBuilder("(");
         sb.append(fecha.get(YEAR)).append("/").append(fecha.get(MONTH) + 1).append("/").append(fecha.get(DAY_OF_MONTH)).append(")");

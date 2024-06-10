@@ -1,14 +1,12 @@
 package vista;
 
+import models.Sistema;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.Choice;
@@ -42,6 +40,15 @@ public class VistaAppCliente_formulario extends JFrame implements IVistaAppClien
 		setBounds(100, 100, 398, 423);
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new TitledBorder(null, "Completa el Formulario para realizar el pedido!", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				// Código a ejecutar cuando se intenta cerrar la ventana
+				Sistema.getInstancia().setClienteAppActivo(false);
+				dispose(); // Cierra la ventana
+			}
+		});
 
 		setContentPane(this.contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));

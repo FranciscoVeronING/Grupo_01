@@ -1,10 +1,14 @@
 package vista;
 
+import models.Sistema;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -31,6 +35,15 @@ public class VistaAppCliente_SituacionViaje extends JFrame implements IVistaAppC
 		setBounds(100, 100, 450, 300);
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				// Código a ejecutar cuando se intenta cerrar la ventana
+				Sistema.getInstancia().setClienteAppActivo(false);
+				dispose(); // Cierra la ventana
+			}
+		});
 
 		setContentPane(this.contentPane);
 		this.contentPane.setLayout(new BorderLayout(0, 0));

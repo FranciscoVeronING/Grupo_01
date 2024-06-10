@@ -18,7 +18,6 @@ public class SistemaRunnable extends Thread implements Observer {
         while (bolsaViajes.getSimulacionActiva()) { // Hasta q se pare la simulacion
             if (!eventos.isEmpty()) { // Cuando recibe un evento de nuevo viaje
                 IViaje viaje = eventos.poll().getViaje();
-                System.out.println(vehiculosSistema.size());
                 if (viaje != null && !vehiculosSistema.isEmpty()) {
                     IVehiculo vehiculoAsignado = getVehiculoValido(viaje);
                     if (vehiculoAsignado != null) {

@@ -10,8 +10,16 @@ public abstract class EmpleadoRunnable extends Empleado implements Runnable, Ser
     public EmpleadoRunnable(BolsaDeViajes bolsa) {
         super();
         this.bolsa = bolsa;
-        this.cantMaxViajes = 100;
+        this.cantMaxViajes = 3;
     }
+
+    /* TODO = Reemplazo del de arriba
+    * public EmpleadoRunnable(BolsaDeViajes bolsa, int max) {
+        super();
+        this.bolsa = bolsa;
+        * this.cantMaxViajes = max;
+    }
+    * */
 
     public int getCantMaxViajes() {
         return cantMaxViajes;
@@ -20,13 +28,6 @@ public abstract class EmpleadoRunnable extends Empleado implements Runnable, Ser
     public void setCantMaxViajes(int cantMaxViajes) {
         this.cantMaxViajes = cantMaxViajes;
     }
-/* TODO = Reemplazo del de arriba
-    * public EmpleadoRunnable(BolsaDeViajes bolsa, int max) {
-        super();
-        this.bolsa = bolsa;
-        * this.cantMaxViajes = max;
-    }
-    * */
 
     public EmpleadoRunnable() {
     }
@@ -41,23 +42,26 @@ public abstract class EmpleadoRunnable extends Empleado implements Runnable, Ser
 
     public void run() {
         while (bolsa.getSimulacionActiva() && this.cant_viajes < this.cantMaxViajes) {
-            IViaje v = null;
-            synchronized (bolsa) {
-                v = bolsa.viajeSinChofer();
-                if (v != null) bolsa.asignarChofer(v, this);
-            }
-            if (v != null) {
+            if (Sistema.getInstancia().getClientesActivos() != 0 || Sistema.getInstancia().getClienteAppActivo()) {
+                IViaje v = null;
+                synchronized (bolsa) {
+                    v = bolsa.viajeSinChofer();
+                    if (v != null) bolsa.asignarChofer(v, this);
+                }
+                if (v != null) {
+                    try {
+                        bolsa.viajeFinalizado(v);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
                 try {
-                    bolsa.viajeFinalizado(v);
+                    Thread.sleep(1000); // Espera un segundo antes de buscar otro viaje
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    System.out.println(e.getMessage());
                 }
             }
-            try {
-                Thread.sleep(1000); // Espera un segundo antes de buscar otro viaje
-                } catch (InterruptedException e) {
-                System.out.println(e.getMessage());
-            }
         }
+        if (this.cant_viajes == this.cantMaxViajes) Sistema.getInstancia().eliminarse(this);
     }
 }

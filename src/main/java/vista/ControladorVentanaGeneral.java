@@ -40,7 +40,6 @@ public class ControladorVentanaGeneral implements ActionListener {
 				// TODO = Sistema.getInstancia().crearVehiculosRandom(this.vistaG.getCantMotos(), this.vistaG.getCantAutos(), this.vistaG.getCantCombis());
 
 				ObservadorVentanaGral observadorGeneral = new ObservadorVentanaGral(Sistema.getInstancia().getBolsaDeViajes(), vistaG, vistaSV, clientes.get(0), empleados.get(0));
-
 				// Inicio los hilos
 				for (ClienteRunnable cliente : clientes) {
 					Thread thread = new Thread(cliente);

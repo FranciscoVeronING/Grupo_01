@@ -27,12 +27,19 @@ public class Sistema {
     private BolsaDeViajes viajes;
     private HashMap<String, Cliente> clientesApp;
 
+    private int choferesActivos;
+    private int clientesActivos;
+    private boolean clienteAppActivo;
+
     private Sistema() {
         this.choferes = new ArrayList<>();
         this.vehiculos = new ArrayList<>();
         this.clientes = new HashMap<>();
         this.viajes = new BolsaDeViajes();
         this.clientesApp = new HashMap<>();
+        this.choferesActivos = 0;
+        this.clientesActivos = 0;
+        this.clienteAppActivo = true;
     }
 
 
@@ -70,6 +77,7 @@ public class Sistema {
      */
     // TODO = BORRAR, REEMPLAZO ABAJO
     public ArrayList<ClienteRunnable> crearCientesRandom(int cantidad) {
+        this.clientesActivos = cantidad;
         ArrayList<ClienteRunnable> cs = new ArrayList<>();
         for (int i = 0; i < cantidad ; i++) {
             ClienteRunnable cliente = new ClienteRunnable(viajes);
@@ -98,6 +106,7 @@ public class Sistema {
      */
     // TODO = BORRAR, REEMPLAZO ABAJO
     public ArrayList<EmpleadoRunnable> crearChoferesRandom(int cantidad) {
+        this.choferesActivos = cantidad;
         ArrayList<EmpleadoRunnable> empleados = new ArrayList<>();
         for(int i = 0; i < cantidad ; i++) {
             Random r = new Random();
@@ -159,8 +168,11 @@ public class Sistema {
             int tipo = r.nextInt(3);
             switch(tipo) {
                 case(0) : vehiculos.add(VehiculoFactory.getVehiculo(MOTO, Utiles.generaPatente()));
+                break;
                 case(1) : vehiculos.add(VehiculoFactory.getVehiculo(COMBI, Utiles.generaPatente()));
+                break;
                 case(2) : vehiculos.add(VehiculoFactory.getVehiculo(AUTO, Utiles.generaPatente()));
+                break;
             }
         }
     }
@@ -210,6 +222,18 @@ public class Sistema {
 
     // Getters y Setters basicos
 
+    public boolean isClienteAppActivo() {
+        return clienteAppActivo;
+    }
+
+    public int getClientesActivos() {return this.clientesActivos;}
+
+    public int getChoferesActivos() {return this.choferesActivos;}
+
+    public void setChoferesActivos(int c){this.choferesActivos=c;}
+
+    public void setClientesActivos(int c){this.clientesActivos=c;}
+
     public HashMap<String, Cliente> getClientesApp() {
         return clientesApp;
     }
@@ -239,6 +263,16 @@ public class Sistema {
 
     public ArrayList<Empleado> getChoferes() {
         return choferes;
+    }
+
+    public void eliminarse(Empleado e) {
+        this.choferesActivos--;
+        if (choferesActivos == 0) this.viajes.detenerSimulacion();
+    }
+
+    public void eliminarse(Cliente c) {
+        this.clientesActivos--;
+        if (clientesActivos == 0 && !clienteAppActivo) this.viajes.detenerSimulacion();
     }
 
     /**
@@ -307,42 +341,14 @@ public class Sistema {
         return (Empleado) this.choferes.get(i);
     }
 
+    public boolean getClienteAppActivo() {return this.clienteAppActivo;}
 
+    public void setClienteAppActivo(boolean x) {
+        this.clienteAppActivo=x;
+        if (clientesActivos == 0) viajes.detenerSimulacion();
+    }
 
     // Otros Getters y Setters
-
-    /**
-     * Obtiene un iterador de los viajes asociados al chofer activo
-     * <b>Pre: </b> El parametro chofer no puede ser null ni estar vacio
-     * @param chofer : El chofer disponible que sera capaz de tomar el viaje
-     * @return : El viaje activo asociado al chofer, o null si no hay ninguno activo y pagado
-     * <b>Post:</b>  Se le asociara un viaje activo al chofer en caso de que haya alguno disponible
-     */
-    public IViaje getViajeActivoChofer(Empleado chofer) {
-        IViaje aux = null;
-        for (IViaje viaje : viajes.getViajes())
-            if (chofer == viaje.getChofer() && viaje.getEstado_de_viaje().equalsIgnoreCase("pagado"))
-                aux =  viaje;
-        return aux;
-    }
-
-    /**
-     * Metodo que retorna el viaje activo asociado a un cliente
-     *<b>Pre: </b> cliente no puede ser null ni vacio
-     * @param cliente : El cliente para el cual se desea obtener el viaje activo
-     * @return : El viaje activo asociado al cliente, o null si no hay ninguno activo e iniciado
-     * <b>Post:</b> Se le asociara un viaje al cliente
-     */
-    public IViaje getViajeActivoCliente(Cliente cliente) {
-        IViaje aux = null;
-        Iterator<IViaje> viajesCliente = this.getViajesCliente(cliente);
-        while (viajesCliente.hasNext() && aux == null) {
-            IViaje x = viajesCliente.next();
-            if (x.getEstado_de_viaje().equalsIgnoreCase("iniciado")) aux = x;
-        }
-        return aux;
-    }
-
     /**
      * Metodo que calcular los sueldos totales de la fecha solicitada
      * @return : devuelve el sueldo en la fecha solicitada
@@ -441,49 +447,6 @@ public class Sistema {
         if (pedido.getCant_pasajeros() > 10) throw new PedidoIncoherenteException("Cantidad de pasajeros mayor a 10");
         if (pedido.getCant_pasajeros() > 4 && pedido.isMascota()) throw new PedidoIncoherenteException("Mascotas no permitidas en combis");
     }
-
-    /**
-     * Metodo que asigna un vehiculo al Viaje
-     * <b>Pre: </b> viaje no puede ser null ni estar vacio
-     * @param viaje almacena informacion a cerca del pedido y que auto sera el mejor para los requerimientos del mismo
-     * @return El viaje asociado al pedido y vehículo asignado
-     * @throws VehiculoNoDisponibleException Si no hay ningún vehículo disponible para el pedido
-     * @throws PedidoIncoherenteException Si el pedido no es coherente o válido
-     * <b>Post:</b> //TODO
-     */
-    /*public IViaje asignarVehiculoViaje(Viaje viaje) throws VehiculoNoDisponibleException, PedidoIncoherenteException {
-        if (!existeVehiculo(viaje.getPedido()))
-            throw new VehiculoNoDisponibleException("No hay vehiculo disponible"); // No existe vehiculo valido
-        else {
-            IVehiculo v = buscarMejorVehiculo(viaje.getPedido());
-            viaje.setVehiculo(v);
-            v.setOcupado(true);
-            this.agregarViaje(viaje);
-        }
-        return viaje;
-    }*/
-
-    /**
-     * Metodo que asigna un chofer disponible a un viaje
-     *<b>Pre: </b> El parametro viaje no puede ser null ni vacio
-     * @param viaje El viaje al cual se desea asignar un chofer
-     * return El viaje con el chofer asignado
-     * @throws ChoferNoDisponibleException Si no hay ningún chofer disponible para el viaje
-     * <b>Post:</b> //TODO
-     */
-    /*public void asignarViajeChofer(IViaje viaje) throws ChoferNoDisponibleException {
-        Iterator<Empleado> it = this.choferes.iterator();
-        while (it.hasNext() && viaje.getChofer() == null) {
-            Empleado c = it.next();
-            if (!c.isOcupado()) {
-                viaje.setEstado_de_viaje("iniciado");
-                viaje.setChofer(c);
-                c.setOcupado(true);
-            }
-        }
-        if (viaje.getChofer() == null)
-            throw new ChoferNoDisponibleException("Falta de choferes disponibles");
-    }*/
 
     // Listados
 
@@ -610,15 +573,17 @@ public class Sistema {
 
     public void cargaSistema(){
         SistemaDTO sistemaDTO= new SistemaDTO();
-        sistemaDTO = sistemaInput.cargaSistema();
+        sistemaDTO = SistemaXML.cargaSistema();
         Sistema.getInstancia().setChoferes(sistemaDTO.getChoferes());
         Sistema.getInstancia().setVehiculos(sistemaDTO.getVehiculos());
         Sistema.getInstancia().setClientes(sistemaDTO.getClientes());
         Sistema.getInstancia().setClientesApp(sistemaDTO.getClientesApp());
+        Sistema.getInstancia().setClientesActivos(sistemaDTO.getClientes().size());
+        Sistema.getInstancia().setChoferesActivos(sistemaDTO.getChoferes().size());
     }
 
     public void guardaSistema(){
-        sistemaOutput.grabaSistema();
+        SistemaXML.grabaSistema();
     }
 
     public void detenerSimulacion() {

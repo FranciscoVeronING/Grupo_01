@@ -48,32 +48,44 @@ public class BolsaDeViajes extends Observable implements Serializable {
 
 
     public synchronized void viajePagado(IViaje viaje) {
-        while (!(viaje.getEstado_de_viaje().equalsIgnoreCase("INICIADO") || viaje.getEstado_de_viaje().equalsIgnoreCase("RECHAZADO")))
+        while (simulacionActiva && !(viaje.getEstado_de_viaje().equalsIgnoreCase("INICIADO") || viaje.getEstado_de_viaje().equalsIgnoreCase("RECHAZADO")))
             try {
                 wait();
             } catch (InterruptedException e) {}
-        if (viaje.getEstado_de_viaje().equalsIgnoreCase("INICIADO")) {
-            viaje.pagarse();
+        if (simulacionActiva) {
+            if (viaje.getEstado_de_viaje().equalsIgnoreCase("INICIADO")) {
+                viaje.pagarse();
+                setChanged();
+                notifyObservers(new EventoSistema(viaje, EventoSistema.PAGADO));
+                notifyAll();
+            }
+        } else {
+            colaDeViajes.remove(viaje);
+            viaje.finalizarse();
             setChanged();
-            notifyObservers(new EventoSistema(viaje, EventoSistema.PAGADO));
-            notifyAll();
+            notifyObservers(new EventoSistema(viaje, EventoSistema.ELIMINADOSIMULACION));
         }
     }
 
     public synchronized void viajeFinalizado(IViaje viaje) throws InterruptedException {
-        while (!(viaje.getEstado_de_viaje().equalsIgnoreCase("PAGADO") || viaje.getEstado_de_viaje().equalsIgnoreCase("RECHAZADO"))) {
+        while (simulacionActiva && !(viaje.getEstado_de_viaje().equalsIgnoreCase("PAGADO") || viaje.getEstado_de_viaje().equalsIgnoreCase("RECHAZADO"))) {
             try {
                 wait();
             } catch (InterruptedException e) {
             }
         }
-        Thread.currentThread().sleep(1000);
-        System.out.println("Salgo del while");
-        if (viaje.getEstado_de_viaje().equalsIgnoreCase("PAGADO")) {
+        if (simulacionActiva) {
+            Thread.currentThread().sleep(1000);
+            if (viaje.getEstado_de_viaje().equalsIgnoreCase("PAGADO")) {
+                viaje.finalizarse();
+                setChanged();
+                notifyObservers(new EventoSistema(viaje, EventoSistema.FINALIZADO));
+                notifyAll();
+            }
+        } else {
             viaje.finalizarse();
             setChanged();
-            notifyObservers(new EventoSistema(viaje, EventoSistema.FINALIZADO));
-            notifyAll();
+            notifyObservers(new EventoSistema(viaje, EventoSistema.ELIMINADOSIMULACION));
         }
     }
 
@@ -106,6 +118,11 @@ public class BolsaDeViajes extends Observable implements Serializable {
     public synchronized void rechazarPedido(Pedido p) {
         setChanged();
         notifyObservers(new EventoSistema(p, EventoSistema.PEDIDORECHAZADO));
+    }
+
+    public synchronized void rechazarPedidoPorChoferes(Cliente c) {
+        setChanged();
+        notifyObservers(new EventoSistema(c, EventoSistema.PEDIDORECHAZADOPORCHOFERES));
     }
 
     public void asignarClienteApp(Cliente c) {

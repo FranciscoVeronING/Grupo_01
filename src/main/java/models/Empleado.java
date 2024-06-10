@@ -18,9 +18,6 @@ public abstract class Empleado implements Cloneable, Serializable {
     protected int cant_viajes;
     protected boolean ocupado;
     protected int puntaje_Empresa;
-    protected double calificacion_clientes;
-    protected static int cant_calif = 0;
-    protected static int acum_calif = 0;
 
     /**
      * Constructor que asigna al empleado un numero de dni y nombre ALEATORIOS
@@ -52,30 +49,6 @@ public abstract class Empleado implements Cloneable, Serializable {
 
     public void setPuntaje_Empresa(int puntaje_Empresa) {
         this.puntaje_Empresa = puntaje_Empresa;
-    }
-
-    public static int getCant_calif() {
-        return cant_calif;
-    }
-
-    public static void setCant_calif(int cant_calif) {
-        Empleado.cant_calif = cant_calif;
-    }
-
-    public double getCalificacion_clientes() {
-        return calificacion_clientes;
-    }
-
-    public void setCalificacion_clientes(double calificacion_clientes) {
-        this.calificacion_clientes = calificacion_clientes;
-    }
-
-    public static int getAcum_calif() {
-        return acum_calif;
-    }
-
-    public static void setAcum_calif(int acum_calif) {
-        Empleado.acum_calif = acum_calif;
     }
 
     public String getDni() {
@@ -141,7 +114,6 @@ public abstract class Empleado implements Cloneable, Serializable {
         sb.append(", cant_viajes=").append(cant_viajes);
         sb.append(", ocupado=").append(ocupado);
         sb.append(", puntaje_Empresa=").append(puntaje_Empresa);
-        sb.append(", calificacion_clientes=").append(calificacion_clientes);
         sb.append('}');
         return sb.toString();
     }

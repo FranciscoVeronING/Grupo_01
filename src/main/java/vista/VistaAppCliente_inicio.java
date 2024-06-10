@@ -1,5 +1,7 @@
 package vista;
 
+import models.Sistema;
+
 import java.awt.*;
 
 import javax.swing.JFrame;
@@ -9,6 +11,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * Representa la interfaz gráfica de la ventana de inicio de sesión para los clientes en la aplicación.
@@ -31,6 +35,15 @@ public class VistaAppCliente_inicio extends JFrame implements IVistaAppCliente_i
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				// Código a ejecutar cuando se intenta cerrar la ventana
+				Sistema.getInstancia().setClienteAppActivo(false);
+				dispose(); // Cierra la ventana
+			}
+		});
 
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));

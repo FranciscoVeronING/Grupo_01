@@ -36,19 +36,19 @@ protected double aportes;
     public Chofer() {
     }
 
-    protected void setSueldo_basico(double sueldo_basico) {
+    public void setSueldo_basico(double sueldo_basico) {
         this.sueldo_basico = sueldo_basico;
     }
 
-    protected double getSueldo_basico() {
+    public double getSueldo_basico() {
         return sueldo_basico;
     }
 
-    protected void setAportes(double aportes) {
+    public void setAportes(double aportes) {
         this.aportes = aportes;
     }
 
-    protected double getAportes() {
+    public double getAportes() {
         return aportes;
     }
 

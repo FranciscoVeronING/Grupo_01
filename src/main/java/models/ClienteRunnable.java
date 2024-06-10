@@ -43,23 +43,24 @@ public class ClienteRunnable extends Cliente implements Runnable, Serializable {
     }
 
     public void run() {
-        for (int i = 0; i < cantViajes; i++) {
-            Pedido pedido = crearPedido();
-            try {
-                System.out.println(cantViajes);
-                Sistema.getInstancia().solicitarAceptacion(pedido);
-                // Solicitar un viaje sobre el pedido aceptado
-                IViaje viaje = Sistema.getInstancia().solicitarViaje(pedido);
-                // Pagar un viaje
-                Thread.currentThread().sleep(1000);
-                bolsa.viajePagado(viaje);
-            } catch (PedidoIncoherenteException ex) {
-                bolsa.rechazarPedido(pedido);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-
+        int i = 0;
+        while (i < cantViajes && Sistema.getInstancia().getBolsaDeViajes().getSimulacionActiva() && Sistema.getInstancia().getChoferesActivos() != 0) {
+                Pedido pedido = crearPedido();
+                try {
+                    Sistema.getInstancia().solicitarAceptacion(pedido);
+                    // Solicitar un viaje sobre el pedido aceptado
+                    IViaje viaje = Sistema.getInstancia().solicitarViaje(pedido);
+                    // Pagar un viaje
+                    Thread.currentThread().sleep(1000);
+                    bolsa.viajePagado(viaje);
+                } catch (PedidoIncoherenteException ex) {
+                    bolsa.rechazarPedido(pedido);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                i++;
         }
+        if (cantViajes == i) Sistema.getInstancia().eliminarse(this);
     }
 
     private Pedido crearPedido() {
@@ -72,7 +73,7 @@ public class ClienteRunnable extends Cliente implements Runnable, Serializable {
         double probabilidadTotal = probabilidadOpcion1 + probabilidadOpcion2 + probabilidadOpcion3;
         double randomNumber = random.nextDouble() * probabilidadTotal;
 
-        String zona = generaZona();
+        String zona = Utiles.generaZona();
         boolean equipaje = random.nextBoolean();
         boolean mascotas = random.nextBoolean();
         int cantPax;
@@ -88,15 +89,6 @@ public class ClienteRunnable extends Cliente implements Runnable, Serializable {
             cantPax = random.nextInt(6) + 5; // Entre 5 y 10 pasajeros
             mascotas = false;
         }
-        Pedido p = new Pedido(new GregorianCalendar(), zona, mascotas, cantPax, equipaje, this, distancia);
-        bolsa.lanzarPedido(p);
-        return p;
-    }
-
-
-    public String generaZona() {
-        String[] zonas = {"ESTANDAR", "SIN ASFALTAR", "PELIGROSA"};
-        Random rand = new Random();
-        return zonas[rand.nextInt(zonas.length)];
+        return Sistema.getInstancia().hacerPedido(new GregorianCalendar(), zona, mascotas, cantPax, equipaje, this, distancia);
     }
 }

@@ -91,9 +91,18 @@ public class ObservadorVentanaGral extends ObservadorAbstracto {
 				if (esClienteRobot) this.vistaG.appendLogCliente("==== El pedido fue rechazado\n");
 				if (esClienteApp) this.vistaSV.actualizarEstadoViaje("Tu pedido fue rechazado, intentalo nuevamente");
 			} else if (mensaje.equalsIgnoreCase(EventoSistema.RECHAZADO)) {
-				this.vistaG.appendLogGeneral("==== El viaje de " + evento.getPedido().getCliente().getNombre_usuario() + " fue rechazado por falta de vehiculos disponibles\n");
+				this.vistaG.appendLogGeneral("==== El viaje de " + evento.getViaje().getPedido().getCliente().getNombre_usuario() + " fue rechazado por falta de vehiculos disponibles\n");
 				if (esClienteRobot) this.vistaG.appendLogCliente("==== El viaje fue rechazado por falta de vehiculos disponibles\n");
 				if (esClienteApp) this.vistaSV.actualizarEstadoViaje("Tu viaje fue rechazado por falta de vehiculos disponibles, intentalo nuevamente mas tarde");
+			} else if (mensaje.equalsIgnoreCase(EventoSistema.PEDIDORECHAZADOPORCHOFERES)) {
+				this.vistaG.appendLogGeneral("==== El pedido de " + evento.getCliente().getNombre_usuario() + " fue rechazado por falta de choferes disponibles\n");
+				if (esClienteRobot) this.vistaG.appendLogCliente("==== El pedido fue rechazado por falta de choferes disponibles\n");
+				if (esClienteApp) this.vistaSV.actualizarEstadoViaje("Tu pedido fue rechazado por falta de choferes disponibles, intentalo nuevamente mas tarde");
+			} else if (mensaje.equalsIgnoreCase(EventoSistema.ELIMINADOSIMULACION)) {
+				this.vistaG.appendLogGeneral("==== El viaje de " + evento.getViaje().getPedido().getCliente().getNombre_usuario() + " fue eliminado porque se pauso la simulacion\n");
+				if (esClienteRobot) this.vistaG.appendLogCliente("==== El viaje de fue eliminado porque se pauso la simulacion\n");
+				if (esChofer) this.vistaG.appendLogChofer("==== El viaje de fue eliminado porque se pauso la simulacion\n");
+				if (esClienteApp) this.vistaSV.actualizarEstadoViaje("El viaje de fue eliminado porque se pauso la simulacion\n");
 			}
 		}
 	}

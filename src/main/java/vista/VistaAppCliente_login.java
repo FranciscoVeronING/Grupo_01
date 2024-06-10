@@ -1,11 +1,15 @@
 package vista;
 
+import models.Sistema;
+
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Objects;
 
 /**
@@ -26,6 +30,15 @@ public class VistaAppCliente_login extends JFrame implements IVistaAppCliente_lo
 		setBounds(0, 100, 450, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				// Código a ejecutar cuando se intenta cerrar la ventana
+				Sistema.getInstancia().setClienteAppActivo(false);
+				dispose(); // Cierra la ventana
+			}
+		});
 
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
