@@ -58,69 +58,41 @@ public class Sistema {
         this.clientes.put(nombre_usuario, c);
         return c;
     }
-    /**
-     * Metodo que crea y agrega un vehiculo a la lista de vehiculos de la empresa.
-     * <b>Pre </b> los parametros deben ser validos (strings distintas de null o ""), y objetos distintos de null
-     * <b>Post:</b> El vehiculo habra sido creado con sus caracteristicas correspondientes de manera valida
-     */
-    /*public Vehiculo crearVehiculo(String patente, String vehiculo) {
-        Vehiculo v = (Vehiculo) VehiculoFactory.getVehiculo(vehiculo, patente);
-        vehiculos.add(v);
-        return v;
-    }*/
-    /**
-     * Metodo que crea y agrega un chofer contratado a la lista de choferes de la empresa.
-     * <b>Pre </b> los parametros deben ser validos (strings distintas de null o ""), y objetos distintos de null
-     * <b>Post:</b> El chofer contratado habra sido creado con sus datos correspondientes de manera valida
-     */
-    /*public ChoferContratado crearChoferContratado(BolsaDeViajes b, String nombre, String dni, double ganancia) {
-        ChoferContratado c = new ChoferContratado(b);
-        choferes.add(c);
-        return c;
-    }*/
-    /**
-    /* * Metodo que crea y agrega un chofer permanente a la lista de choferes de la empresa.
-     * <b>Pre </b> los parametros deben ser validos (strings distintas de null o ""), y objetos distintos de null
-     * <b>Post:</b> El chofer permanente habra sido creado con sus datos correspondientes de manera valida
-     */
-    /*public ChoferPermanente crearChoferPermanente(BolsaDeViajes b, String dni, String nombre, double aportes,GregorianCalendar fecha_ingreso, double antiguedad, double cant_Hijos) {
-        ChoferPermanente c = new ChoferPermanente(b);
-        choferes.add(c);
-        return c;
-    }*/
-    /**
-     * Metodo que crea y agrega un chofer temporario a la lista de choferes de la empresa.
-     * <b>Pre </b> los parametros deben ser validos (strings distintas de null o ""), y objetos distintos de null
-     * <b>Post:</b> El chofer temporario habra sido creado con sus datos correspondientes de manera valida
-     */
-    /*public ChoferTemporario crearChoferTemporario(BolsaDeViajes b, String dni, String nombre, double aportes, double plusCantViajes) {
-        ChoferTemporario c = new ChoferTemporario(b);
-        choferes.add(c);
-        return c;
-    }*/
 
     /**
      * Metodo que crea y agrega un cliente ALEATORIO a la lista de clientes de la empresa.
      * <b>Pre </b> cantidad debe ser mayor a 0
      * <b>Post:</b> El cliente habra sido creado con sus datos correspondientes de manera valida
      */
+    // TODO = BORRAR, REEMPLAZO ABAJO
     public ArrayList<ClienteRunnable> crearCientesRandom(int cantidad) {
         ArrayList<ClienteRunnable> cs = new ArrayList<>();
         for (int i = 0; i < cantidad ; i++) {
             ClienteRunnable cliente = new ClienteRunnable(viajes);
             this.clientes.put(cliente.getNombre_usuario(), cliente);
             cs.add(cliente);
-            //Thread thread = new Thread(cliente);
-            //thread.start();
         }
         return cs;
     }
+
+    /* TODO = REEMPLAZAR POR ESTA FUNCION CUANDO SE IMPLEMENTEN LOS CAMPOS DE CANTIDAD DE VIAJES POR CLIENTE
+    public ArrayList<ClienteRunnable> crearCientesRandom(int cantClientes, int cantViajes) {
+        ArrayList<ClienteRunnable> cs = new ArrayList<>();
+        for (int i = 0; i < cantClientes ; i++) {
+            ClienteRunnable cliente = new ClienteRunnable(viajes, cantViajes);
+            this.clientes.put(cliente.getNombre_usuario(), cliente);
+            cs.add(cliente);
+        }
+        return cs;
+    }
+    * */
 
     /**
      * Metodo que crea y agrega una cantidad de choferes ALEATORIOS a la lista de choferes de la empresa.
      * <b>Pre </b> cantidad debe ser mayor a 0
      * <b>Post:</b> Los choferes habran sido creado con sus datos correspondientes de manera valida
      */
+    // TODO = BORRAR, REEMPLAZO ABAJO
     public ArrayList<EmpleadoRunnable> crearChoferesRandom(int cantidad) {
         ArrayList<EmpleadoRunnable> empleados = new ArrayList<>();
         for(int i = 0; i < cantidad ; i++) {
@@ -129,29 +101,46 @@ public class Sistema {
             switch (tipo) {
                 case 0:
                     ChoferContratado choferContratado = new ChoferContratado(viajes);
-                    //Thread hiloChoferContratado = new Thread(choferContratado);
                     choferes.add(choferContratado);
                     empleados.add(choferContratado);
-                    //hiloChoferContratado.start();
                     break;
                 case 1:
                     ChoferPermanente choferPermanente = new ChoferPermanente(viajes);
-                    //Thread hiloChoferPermanente = new Thread(choferPermanente);
                     choferes.add(choferPermanente);
                     empleados.add(choferPermanente);
-                    //hiloChoferPermanente.start();
                     break;
                 case 2:
                     ChoferTemporario choferTemporario = new ChoferTemporario(viajes);
-                    //Thread hiloChoferTemporario = new Thread(choferTemporario);
                     choferes.add(choferTemporario);
                     empleados.add(choferTemporario);
-                    //hiloChoferTemporario.start();
                     break;
             }
         }
         return empleados;
     }
+
+    /* TODO = REEMPLAZAR POR ESTA FUNCION CUANDO SE IMPLEMENTEN LOS CAMPOS DE CANTIDAD DE CHOFERES ESPECIFICOS
+    * public ArrayList<EmpleadoRunnable> crearChoferesRandom(int cantMax, int cantidadTemp, int cantPerm, int cantCont) {
+        ArrayList<EmpleadoRunnable> empleados = new ArrayList<>();
+        for(int i = 0; i < cantidadTemp ; i++) {
+            ChoferTemporario choferTemporario = new ChoferTemporario(viajes, cantMax);
+            choferes.add(choferTemporario);
+            empleados.add(choferTemporario);
+
+        }
+        for(int i = 0; i < cantPerm ; i++) {
+            ChoferPermanente choferpermanente = new ChoferPermanente(viajes, cantMax);
+            choferes.add(choferpermanente);
+            empleados.add(choferpermanente);
+        }
+        for(int i = 0; i < cantCont ; i++) {
+            ChoferContratado choferContratado = new ChoferContratado(viajes, cantMax);
+            choferes.add(choferContratado);
+            empleados.add(choferContratado);
+        }
+        return empleados;
+    }
+    * */
 
 
     /**
@@ -159,6 +148,7 @@ public class Sistema {
      * <b>Pre </b> cantidad debe ser mayor a 0
      * <b>Post:</b> Los vehiculos habran sido creado con sus datos correspondientes de manera valida
      */
+    // TODO = BORRAR, REEMPLAZO ABAJO
     public void crearVehiculosRandom(int cantidad) {
         for (int i = 0; i < cantidad; i++) {
             Random r = new Random();
@@ -170,6 +160,23 @@ public class Sistema {
             }
         }
     }
+
+    /* TODO = REEMPLAZAR POR ESTA FUNCION CUANDO SE IMPLEMENTEN LOS CAMPOS DE CANTIDAD DE VEHICULOS ESPECIFICOS
+    * public void crearVehiculosRandom(int cantMotos, int cantAutos, int cantCombis) {
+        for (int i = 0; i < cantMotos; i++) {
+            vehiculos.add(VehiculoFactory.getVehiculo(MOTO, Utiles.generaPatente()));
+        }
+        for (int i = 0; i < cantAutos; i++) {
+            vehiculos.add(VehiculoFactory.getVehiculo(AUTO, Utiles.generaPatente()));
+        }
+        for (int i = 0; i < cantCombis; i++) {
+            vehiculos.add(VehiculoFactory.getVehiculo(COMBI, Utiles.generaPatente()));
+        }
+    }
+    *
+    *
+    *
+    * */
 
     // Validacion Cliente
 
@@ -264,6 +271,13 @@ public class Sistema {
 
     public Cliente getCliente(String nombre_usuario) {
         return this.clientes.get(nombre_usuario);
+    }
+
+    public ArrayList<Cliente> getArrayClientes() {
+        Collection<Cliente> values = clientes.values();
+        // Creating an ArrayList of values
+        ArrayList<Cliente> listaDeClientes = new ArrayList<>(values);
+        return listaDeClientes;
     }
 
     public Iterator<IViaje> getIteratorViajes() {

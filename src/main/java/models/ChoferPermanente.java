@@ -20,6 +20,7 @@ public class ChoferPermanente extends Chofer implements Serializable {
      * @param b Recurso compartido
      * <b>Post: </b> El chofer permanente fue inicializado con sus datos y ganancia correspondiente
      */
+    // TODO = Borrar cuando se haya creado el campo de viajes max por chofer
     public ChoferPermanente(BolsaDeViajes b) {
         super(b);
         Random r = new Random();
@@ -28,6 +29,17 @@ public class ChoferPermanente extends Chofer implements Serializable {
         this.cant_Hijos = r.nextInt(4) + 1;
         this.fecha_ingreso = utiles.generaFechaAleatoria();
     }
+
+    /* TODO = Reemplazo de arriba
+    * public ChoferPermanente(BolsaDeViajes b, int max) {
+        super(b, max);
+        Random r = new Random();
+        Utiles utiles = new Utiles();
+        this.antiguedad = r.nextDouble() *25 + 1;
+        this.cant_Hijos = r.nextInt(4) + 1;
+        this.fecha_ingreso = utiles.generaFechaAleatoria();
+    }
+    * */
 
     public ChoferPermanente() {
     }

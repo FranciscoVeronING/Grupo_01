@@ -9,6 +9,7 @@ public class ClienteRunnable extends Cliente implements Runnable, Serializable {
     private BolsaDeViajes bolsa;
     private int cantViajes;
 
+    // TODO = BORRAR ESTE CONSTRUCTOR CUANDO SE HAYA IMPLEMENTADO EL CAMPO PARA PONER CANTIDAD VIAJES
     public ClienteRunnable(BolsaDeViajes bolsa) {
         super();
         Random r = new Random();
@@ -16,11 +17,12 @@ public class ClienteRunnable extends Cliente implements Runnable, Serializable {
         cantViajes = r.nextInt(4)+1;
     }
 
-    public ClienteRunnable(Cliente cliente) {
+    public ClienteRunnable(BolsaDeViajes bolsa, int cantViajes) {
         super();
-        Random r = new Random();
-        cantViajes = r.nextInt(4)+1;
+        this.bolsa = bolsa;
+        this.cantViajes = cantViajes;
     }
+
     public ClienteRunnable() {
     }
 
@@ -44,6 +46,7 @@ public class ClienteRunnable extends Cliente implements Runnable, Serializable {
         for (int i = 0; i < cantViajes; i++) {
             Pedido pedido = crearPedido();
             try {
+                System.out.println(cantViajes);
                 Sistema.getInstancia().solicitarAceptacion(pedido);
                 // Solicitar un viaje sobre el pedido aceptado
                 IViaje viaje = Sistema.getInstancia().solicitarViaje(pedido);

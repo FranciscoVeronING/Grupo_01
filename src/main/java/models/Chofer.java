@@ -16,12 +16,22 @@ protected double aportes;
      * Constuctor utilizado para setear el dni,nombre,aportes ALEATORIOS e incicializar el sueldo basico
      * <b>Post: </b> El chofer sera inicializado con sus datos
      */
+    // TODO = Borrar cuando se haya creado el campo de viajes max por chofer
     public Chofer(BolsaDeViajes b) {
         super(b);
         Random d = new Random();
         this.sueldo_basico = 1000;
         this.aportes = d.nextDouble() *70 + 1;
     }
+
+    /* TODO = Reemplazo por el de arriba
+    * public Chofer(BolsaDeViajes b, int max) {
+        super(b, max);
+        Random d = new Random();
+        this.sueldo_basico = 1000;
+        this.aportes = d.nextDouble() *70 + 1;
+    }
+    * */
 
     public Chofer() {
     }

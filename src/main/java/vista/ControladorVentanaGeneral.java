@@ -27,13 +27,17 @@ public class ControladorVentanaGeneral implements ActionListener {
 				Sistema.getInstancia().cargaSistema();
 				SistemaRunnable s = new SistemaRunnable(Sistema.getInstancia().getBolsaDeViajes(), Sistema.getInstancia().getVehiculos());
 				s.start();
+				ObservadorVentanaGral observadorGeneral = new ObservadorVentanaGral(Sistema.getInstancia().getBolsaDeViajes(), vistaG, vistaSV, Sistema.getInstancia().getArrayClientes().get(0), Sistema.getInstancia().getChoferes().get(0));
 				Sistema.getInstancia().StartAll();
 			} else {
 				SistemaRunnable s = new SistemaRunnable(Sistema.getInstancia().getBolsaDeViajes(), Sistema.getInstancia().getVehiculos());
 				s.start();
 				ArrayList<ClienteRunnable> clientes = Sistema.getInstancia().crearCientesRandom(this.vistaG.getCantClientes());
+				// TODO = ArrayList<ClienteRunnable> clientes = Sistema.getInstancia().crearCientesRandom(this.vistaG.getCantClientes(), this.vistaG.getCantViajesCliente());
 				ArrayList<EmpleadoRunnable> empleados = Sistema.getInstancia().crearChoferesRandom(this.vistaG.getCantChoferes());
+				// TODO = ArrayList<EmpleadoRunnable> empleados = Sistema.getInstancia().crearChoferesRandom(this.vistaG.getCantMax(), this.vistaG.getCantChoferesTemporarios(), this.vistaG.getCantChoferesPermanentes(), this.vistaG.getCantChoferesContratados());
 				Sistema.getInstancia().crearVehiculosRandom(this.vistaG.getCantVehiculos());
+				// TODO = Sistema.getInstancia().crearVehiculosRandom(this.vistaG.getCantMotos(), this.vistaG.getCantAutos(), this.vistaG.getCantCombis());
 
 				ObservadorVentanaGral observadorGeneral = new ObservadorVentanaGral(Sistema.getInstancia().getBolsaDeViajes(), vistaG, vistaSV, clientes.get(0), empleados.get(0));
 

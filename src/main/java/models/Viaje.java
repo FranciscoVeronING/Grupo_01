@@ -109,6 +109,8 @@ public final class Viaje implements IViaje,Cloneable {
     public void finalizarse() {
         setEstado_de_viaje("FINALIZADO");
         vehiculo.setOcupado(false);
+        this.chofer.AumentarCant_viajes();
+        this.chofer.setOcupado(false);
     }
 
     /**

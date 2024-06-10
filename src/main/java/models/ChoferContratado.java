@@ -15,11 +15,20 @@ public class ChoferContratado extends EmpleadoRunnable implements Serializable {
      * @param b Recurso compartido
      * <b>Post: </b> El chofer contratado fue inicializado con su ganancia correspondiente
      */
+    // TODO = Borrar cuando se haya creado el campo de viajes max por chofer
     public ChoferContratado(BolsaDeViajes b) {
         super(b);
         Random r = new Random();
         this.ganancia_viaje = r.nextDouble() * 50 + 1;
     }
+
+    /* TODO = Reemplazo por el de arriba
+    * public ChoferContratado(BolsaDeViajes b, int cantMax) {
+        super(b, cantMax);
+        Random r = new Random();
+        this.ganancia_viaje = r.nextDouble() * 50 + 1;
+    }
+    * */
 
     public ChoferContratado() {
     }

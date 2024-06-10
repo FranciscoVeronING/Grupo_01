@@ -17,11 +17,20 @@ public class ChoferTemporario extends Chofer implements Serializable {
   * @param b Recurso compartido
   * <b>Post: </b> El chofer temporario fue inicializado con sus datos y ganancia correspondiente
   */
+ // TODO = Borrar cuando se haya creado el campo de viajes max por chofer
     public ChoferTemporario(BolsaDeViajes b) {
         super(b);
         Random r = new Random();
         this.plus_x_cant_viajes = r.nextDouble()*50 + 1;
     }
+
+    /* TODO = Reemplazo de el de arriba
+    * public ChoferTemporario(BolsaDeViajes b, int max) {
+        super(b, max);
+        Random r = new Random();
+        this.plus_x_cant_viajes = r.nextDouble()*50 + 1;
+    }
+    * */
 
     public ChoferTemporario() {
         Random r = new Random();

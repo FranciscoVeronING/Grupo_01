@@ -31,6 +31,7 @@ public class ObservadorVentanaGral extends ObservadorAbstracto {
 		EventoSistema evento = (EventoSistema) arg;
 		String mensaje = evento.getMensaje();
 
+
 		if (mensaje.equalsIgnoreCase(EventoSistema.STOP)) {
 			this.vistaG.appendLogGeneral("LA SIMULACION SE DETUVO");
 		} else if (mensaje.equalsIgnoreCase(EventoSistema.NUEVOCLIENTE)) {
@@ -89,6 +90,10 @@ public class ObservadorVentanaGral extends ObservadorAbstracto {
 				this.vistaG.appendLogGeneral("==== El pedido de " + evento.getPedido().getCliente().getNombre_usuario() + " fue rechazado\n");
 				if (esClienteRobot) this.vistaG.appendLogCliente("==== El pedido fue rechazado\n");
 				if (esClienteApp) this.vistaSV.actualizarEstadoViaje("Tu pedido fue rechazado, intentalo nuevamente");
+			} else if (mensaje.equalsIgnoreCase(EventoSistema.RECHAZADO)) {
+				this.vistaG.appendLogGeneral("==== El viaje de " + evento.getPedido().getCliente().getNombre_usuario() + " fue rechazado por falta de vehiculos disponibles\n");
+				if (esClienteRobot) this.vistaG.appendLogCliente("==== El viaje fue rechazado por falta de vehiculos disponibles\n");
+				if (esClienteApp) this.vistaSV.actualizarEstadoViaje("Tu viaje fue rechazado por falta de vehiculos disponibles, intentalo nuevamente mas tarde");
 			}
 		}
 	}

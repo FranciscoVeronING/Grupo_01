@@ -78,7 +78,7 @@ public class BolsaDeViajes extends Observable implements Serializable {
     }
 
     public synchronized void asignarVehiculo(IViaje viaje, IVehiculo vehiculo) {
-        viaje.setVehiculo(vehiculo);
+        viaje.setVehiculo(vehiculo); // Setea el vehiculo como ocupado
         setChanged();
         notifyObservers(new EventoSistema(viaje, EventoSistema.NUEVOVEHICULO));
         notifyAll();

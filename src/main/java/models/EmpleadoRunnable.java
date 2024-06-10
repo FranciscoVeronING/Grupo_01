@@ -3,12 +3,30 @@ package models;
 import java.io.Serializable;
 
 public abstract class EmpleadoRunnable extends Empleado implements Runnable, Serializable {
-    private BolsaDeViajes bolsa;
+    protected BolsaDeViajes bolsa;
+    protected int cantMaxViajes;
 
+    // TODO = Borrar cuando se haya creado el campo de viajes max por chofer
     public EmpleadoRunnable(BolsaDeViajes bolsa) {
         super();
         this.bolsa = bolsa;
+        this.cantMaxViajes = 100;
     }
+
+    public int getCantMaxViajes() {
+        return cantMaxViajes;
+    }
+
+    public void setCantMaxViajes(int cantMaxViajes) {
+        this.cantMaxViajes = cantMaxViajes;
+    }
+/* TODO = Reemplazo del de arriba
+    * public EmpleadoRunnable(BolsaDeViajes bolsa, int max) {
+        super();
+        this.bolsa = bolsa;
+        * this.cantMaxViajes = max;
+    }
+    * */
 
     public EmpleadoRunnable() {
     }
@@ -22,7 +40,7 @@ public abstract class EmpleadoRunnable extends Empleado implements Runnable, Ser
     }
 
     public void run() {
-        while (bolsa.getSimulacionActiva()) {
+        while (bolsa.getSimulacionActiva() && this.cant_viajes < this.cantMaxViajes) {
             IViaje v = null;
             synchronized (bolsa) {
                 v = bolsa.viajeSinChofer();

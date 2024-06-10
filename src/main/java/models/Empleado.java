@@ -33,7 +33,50 @@ public abstract class Empleado implements Cloneable, Serializable {
         this.cant_viajes = 0;
     }
 
-    public abstract double getSueldo(GregorianCalendar fecha_inicio_mes, Iterator<IViaje> viajes);
+
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setCant_viajes(int cant_viajes) {
+        this.cant_viajes = cant_viajes;
+    }
+
+    public int getPuntaje_Empresa() {
+        return puntaje_Empresa;
+    }
+
+    public void setPuntaje_Empresa(int puntaje_Empresa) {
+        this.puntaje_Empresa = puntaje_Empresa;
+    }
+
+    public static int getCant_calif() {
+        return cant_calif;
+    }
+
+    public static void setCant_calif(int cant_calif) {
+        Empleado.cant_calif = cant_calif;
+    }
+
+    public double getCalificacion_clientes() {
+        return calificacion_clientes;
+    }
+
+    public void setCalificacion_clientes(double calificacion_clientes) {
+        this.calificacion_clientes = calificacion_clientes;
+    }
+
+    public static int getAcum_calif() {
+        return acum_calif;
+    }
+
+    public static void setAcum_calif(int acum_calif) {
+        Empleado.acum_calif = acum_calif;
+    }
 
     public String getDni() {
         return dni;
@@ -72,6 +115,8 @@ public abstract class Empleado implements Cloneable, Serializable {
     public void setPuntaje(int i) {
         this.puntaje_Empresa += i;
     }
+
+    public abstract double getSueldo(GregorianCalendar fecha_inicio_mes, Iterator<IViaje> viajes);
 
     /**
      * Metodo que crea una copia del empleado

@@ -1,16 +1,14 @@
 package models;
 
-import vista.ObservadorAbstracto;
-
 import java.util.*;
 
 public class SistemaRunnable extends Thread implements Observer {
-    private ArrayList<IVehiculo> vehiculosDisponibles;
+    private ArrayList<IVehiculo> vehiculosSistema;
     private Queue<EventoSistema> eventos;
     private BolsaDeViajes bolsaViajes;
 
-    public SistemaRunnable(BolsaDeViajes bolsa, ArrayList<IVehiculo> vehiculosDisponibles) {
-        this.vehiculosDisponibles = vehiculosDisponibles;
+    public SistemaRunnable(BolsaDeViajes bolsa, ArrayList<IVehiculo> vehiculosSistema) {
+        this.vehiculosSistema = vehiculosSistema;
         this.bolsaViajes = bolsa;
         bolsa.addObserver(this);
         this.eventos = new LinkedList<>();
@@ -20,11 +18,11 @@ public class SistemaRunnable extends Thread implements Observer {
         while (bolsaViajes.getSimulacionActiva()) { // Hasta q se pare la simulacion
             if (!eventos.isEmpty()) { // Cuando recibe un evento de nuevo viaje
                 IViaje viaje = eventos.poll().getViaje();
-                if (viaje != null && !vehiculosDisponibles.isEmpty()) {
+                System.out.println(vehiculosSistema.size());
+                if (viaje != null && !vehiculosSistema.isEmpty()) {
                     IVehiculo vehiculoAsignado = getVehiculoValido(viaje);
                     if (vehiculoAsignado != null) {
                         bolsaViajes.asignarVehiculo(viaje, vehiculoAsignado);
-                        viaje.setVehiculo(vehiculoAsignado);
                     }
                     else {
                         viaje.setEstado_de_viaje("RECHAZADO");
@@ -33,12 +31,11 @@ public class SistemaRunnable extends Thread implements Observer {
                 }
             }
         }
-        Sistema.getInstancia().cargaSistema();
     }
 
     private IVehiculo getVehiculoValido(IViaje viaje) {
         IVehiculo mejor = null;
-        Iterator<IVehiculo> it = this.vehiculosDisponibles.iterator();
+        Iterator<IVehiculo> it = this.vehiculosSistema.iterator();
         int maxP = 0;
         while (it.hasNext()) {
             IVehiculo v = it.next();
