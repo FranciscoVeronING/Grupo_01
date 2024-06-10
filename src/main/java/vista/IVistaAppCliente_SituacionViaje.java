@@ -11,4 +11,5 @@ public interface IVistaAppCliente_SituacionViaje {
 	public void setVisibleVentana(boolean estado);
 	public void actualizarEstadoViaje(String nuevoEstado);
 	public void	limpiarcampos();
+	public void setbotonPagar(boolean x);
 }

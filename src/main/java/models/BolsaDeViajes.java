@@ -107,4 +107,9 @@ public class BolsaDeViajes extends Observable implements Serializable {
         setChanged();
         notifyObservers(new EventoSistema(p, EventoSistema.PEDIDORECHAZADO));
     }
+
+    public void asignarClienteApp(Cliente c) {
+        setChanged();
+        notifyObservers(new EventoSistema(c, EventoSistema.NUEVOCLIENTE));
+    }
 }

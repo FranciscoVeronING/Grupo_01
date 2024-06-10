@@ -4,35 +4,24 @@
   <void property="choferes">
    <object class="java.util.ArrayList">
     <void method="add">
-     <object class="models.ChoferTemporario">
+     <object class="models.ChoferPermanente">
+      <void property="antiguedad">
+       <double>17.53308112445974</double>
+      </void>
       <void property="bolsa">
        <object class="models.BolsaDeViajes" id="BolsaDeViajes0"/>
       </void>
-      <void property="ocupado">
-       <boolean>true</boolean>
+      <void property="cant_Hijos">
+       <double>3.0</double>
       </void>
-     </object>
-    </void>
-    <void method="add">
-     <object class="models.ChoferContratado">
-      <void property="bolsa">
-       <object idref="BolsaDeViajes0"/>
-      </void>
-      <void property="ganancia_viaje">
-       <double>25.18742065517018</double>
-      </void>
-      <void property="ocupado">
-       <boolean>true</boolean>
-      </void>
-     </object>
-    </void>
-    <void method="add">
-     <object class="models.ChoferContratado">
-      <void property="bolsa">
-       <object idref="BolsaDeViajes0"/>
-      </void>
-      <void property="ganancia_viaje">
-       <double>31.6146108635301</double>
+      <void property="fecha_ingreso">
+       <object class="java.util.GregorianCalendar">
+        <void property="time">
+         <object class="java.util.Date">
+          <long>1163818800000</long>
+         </object>
+        </void>
+       </object>
       </void>
       <void property="ocupado">
        <boolean>true</boolean>
@@ -42,7 +31,7 @@
     <void method="add">
      <object class="models.ChoferPermanente">
       <void property="antiguedad">
-       <double>16.751296676933528</double>
+       <double>13.81782821372553</double>
       </void>
       <void property="bolsa">
        <object idref="BolsaDeViajes0"/>
@@ -54,7 +43,7 @@
        <object class="java.util.GregorianCalendar">
         <void property="time">
          <object class="java.util.Date">
-          <long>1526353200000</long>
+          <long>1275361200000</long>
          </object>
         </void>
        </object>
@@ -65,24 +54,35 @@
      </object>
     </void>
     <void method="add">
-     <object class="models.ChoferPermanente">
-      <void property="antiguedad">
-       <double>11.720255656858946</double>
-      </void>
+     <object class="models.ChoferTemporario">
       <void property="bolsa">
        <object idref="BolsaDeViajes0"/>
       </void>
-      <void property="cant_Hijos">
-       <double>1.0</double>
+      <void property="ocupado">
+       <boolean>true</boolean>
       </void>
-      <void property="fecha_ingreso">
-       <object class="java.util.GregorianCalendar">
-        <void property="time">
-         <object class="java.util.Date">
-          <long>1016593200000</long>
-         </object>
-        </void>
-       </object>
+     </object>
+    </void>
+    <void method="add">
+     <object class="models.ChoferContratado">
+      <void property="bolsa">
+       <object idref="BolsaDeViajes0"/>
+      </void>
+      <void property="ganancia_viaje">
+       <double>24.69329471025166</double>
+      </void>
+      <void property="ocupado">
+       <boolean>true</boolean>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="models.ChoferContratado">
+      <void property="bolsa">
+       <object idref="BolsaDeViajes0"/>
+      </void>
+      <void property="ganancia_viaje">
+       <double>21.937009506892796</double>
       </void>
       <void property="ocupado">
        <boolean>true</boolean>
@@ -93,6 +93,53 @@
   </void>
   <void property="clientes">
    <object class="java.util.HashMap">
+    <void method="put">
+     <string>IvonneRuiz</string>
+     <object class="models.ClienteRunnable" id="ClienteRunnable0">
+      <void property="apellido">
+       <string>Ruiz</string>
+      </void>
+      <void property="bolsa">
+       <object idref="BolsaDeViajes0"/>
+      </void>
+      <void property="cantViajes">
+       <int>1</int>
+      </void>
+      <void property="direccion">
+       <void property="altura">
+        <string>4486</string>
+       </void>
+       <void property="letra">
+        <string>C</string>
+       </void>
+       <void property="nombre">
+        <string>Avenida 4</string>
+       </void>
+       <void property="piso">
+        <string>16</string>
+       </void>
+      </void>
+      <void property="fecha_nacimiento">
+       <void property="time">
+        <object class="java.util.Date">
+         <long>89607600000</long>
+        </object>
+       </void>
+      </void>
+      <void property="mail">
+       <string>IvonneRuiz@gmail.com</string>
+      </void>
+      <void property="nombre">
+       <string>Ivonne</string>
+      </void>
+      <void property="nombre_usuario">
+       <string>IvonneRuiz</string>
+      </void>
+      <void property="telefono">
+       <string>2231028232</string>
+      </void>
+     </object>
+    </void>
     <void method="put">
      <string>a</string>
      <object class="models.Cliente" id="Cliente0">
@@ -119,7 +166,7 @@
       <void property="fecha_nacimiento">
        <void property="time">
         <object class="java.util.Date">
-         <long>1719030586955</long>
+         <long>1718946254430</long>
         </object>
        </void>
       </void>
@@ -138,54 +185,7 @@
      </object>
     </void>
     <void method="put">
-     <string>AnaCastillo</string>
-     <object class="models.ClienteRunnable" id="ClienteRunnable0">
-      <void property="apellido">
-       <string>Castillo</string>
-      </void>
-      <void property="bolsa">
-       <object idref="BolsaDeViajes0"/>
-      </void>
-      <void property="cantViajes">
-       <int>1</int>
-      </void>
-      <void property="direccion">
-       <void property="altura">
-        <string>7857</string>
-       </void>
-       <void property="letra">
-        <string>D</string>
-       </void>
-       <void property="nombre">
-        <string>Calle 73</string>
-       </void>
-       <void property="piso">
-        <string>4</string>
-       </void>
-      </void>
-      <void property="fecha_nacimiento">
-       <void property="time">
-        <object class="java.util.Date">
-         <long>1051498800000</long>
-        </object>
-       </void>
-      </void>
-      <void property="mail">
-       <string>AnaCastillo@gmail.com</string>
-      </void>
-      <void property="nombre">
-       <string>Ana</string>
-      </void>
-      <void property="nombre_usuario">
-       <string>AnaCastillo</string>
-      </void>
-      <void property="telefono">
-       <string>2236930151</string>
-      </void>
-     </object>
-    </void>
-    <void method="put">
-     <string>XimenaCastillo</string>
+     <string>MaiteCastillo</string>
      <object class="models.ClienteRunnable" id="ClienteRunnable1">
       <void property="apellido">
        <string>Castillo</string>
@@ -198,151 +198,151 @@
       </void>
       <void property="direccion">
        <void property="altura">
-        <string>2145</string>
-       </void>
-       <void property="nombre">
-        <string>Paseo 22</string>
-       </void>
-       <void property="piso">
-        <string>19</string>
-       </void>
-      </void>
-      <void property="fecha_nacimiento">
-       <void property="time">
-        <object class="java.util.Date">
-         <long>-555627600000</long>
-        </object>
-       </void>
-      </void>
-      <void property="mail">
-       <string>XimenaCastillo@gmail.com</string>
-      </void>
-      <void property="nombre">
-       <string>Ximena</string>
-      </void>
-      <void property="nombre_usuario">
-       <string>XimenaCastillo</string>
-      </void>
-      <void property="telefono">
-       <string>2232184838</string>
-      </void>
-     </object>
-    </void>
-    <void method="put">
-     <string>MartinOrtiz</string>
-     <object class="models.ClienteRunnable" id="ClienteRunnable2">
-      <void property="apellido">
-       <string>Ortiz</string>
-      </void>
-      <void property="bolsa">
-       <object idref="BolsaDeViajes0"/>
-      </void>
-      <void property="cantViajes">
-       <int>3</int>
-      </void>
-      <void property="direccion">
-       <void property="altura">
-        <string>1609</string>
+        <string>1051</string>
        </void>
        <void property="letra">
         <string>F</string>
        </void>
        <void property="nombre">
-        <string>Camino 75</string>
+        <string>Avenida 13</string>
        </void>
        <void property="piso">
-        <string>11</string>
+        <string>17</string>
        </void>
       </void>
       <void property="fecha_nacimiento">
        <void property="time">
         <object class="java.util.Date">
-         <long>-317077200000</long>
+         <long>659584800000</long>
         </object>
        </void>
       </void>
       <void property="mail">
-       <string>MartinOrtiz@gmail.com</string>
+       <string>MaiteCastillo@gmail.com</string>
       </void>
       <void property="nombre">
-       <string>Martin</string>
+       <string>Maite</string>
       </void>
       <void property="nombre_usuario">
-       <string>MartinOrtiz</string>
+       <string>MaiteCastillo</string>
       </void>
       <void property="telefono">
-       <string>2236883738</string>
+       <string>2238311724</string>
       </void>
      </object>
     </void>
     <void method="put">
-     <string>MatiasCastro</string>
+     <string>PedroRuiz</string>
+     <object class="models.ClienteRunnable" id="ClienteRunnable2">
+      <void property="apellido">
+       <string>Ruiz</string>
+      </void>
+      <void property="bolsa">
+       <object idref="BolsaDeViajes0"/>
+      </void>
+      <void property="cantViajes">
+       <int>4</int>
+      </void>
+      <void property="direccion">
+       <void property="altura">
+        <string>1717</string>
+       </void>
+       <void property="letra">
+        <string>B</string>
+       </void>
+       <void property="nombre">
+        <string>Camino 17</string>
+       </void>
+       <void property="piso">
+        <string>10</string>
+       </void>
+      </void>
+      <void property="fecha_nacimiento">
+       <void property="time">
+        <object class="java.util.Date">
+         <long>-556232400000</long>
+        </object>
+       </void>
+      </void>
+      <void property="mail">
+       <string>PedroRuiz@gmail.com</string>
+      </void>
+      <void property="nombre">
+       <string>Pedro</string>
+      </void>
+      <void property="nombre_usuario">
+       <string>PedroRuiz</string>
+      </void>
+      <void property="telefono">
+       <string>2234908055</string>
+      </void>
+     </object>
+    </void>
+    <void method="put">
+     <string>FranciscoMendoza</string>
      <object class="models.ClienteRunnable" id="ClienteRunnable3">
       <void property="apellido">
-       <string>Castro</string>
+       <string>Mendoza</string>
       </void>
       <void property="bolsa">
        <object idref="BolsaDeViajes0"/>
       </void>
       <void property="cantViajes">
-       <int>1</int>
+       <int>4</int>
       </void>
       <void property="direccion">
        <void property="altura">
-        <string>6164</string>
+        <string>4077</string>
        </void>
        <void property="letra">
-        <string>C</string>
+        <string>D</string>
        </void>
        <void property="nombre">
-        <string>Avenida 95</string>
+        <string>Camino 22</string>
        </void>
        <void property="piso">
-        <string>14</string>
+        <string>7</string>
        </void>
       </void>
       <void property="fecha_nacimiento">
        <void property="time">
         <object class="java.util.Date">
-         <long>707367600000</long>
+         <long>836449200000</long>
         </object>
        </void>
       </void>
       <void property="mail">
-       <string>MatiasCastro@gmail.com</string>
+       <string>FranciscoMendoza@gmail.com</string>
       </void>
       <void property="nombre">
-       <string>Matias</string>
+       <string>Francisco</string>
       </void>
       <void property="nombre_usuario">
-       <string>MatiasCastro</string>
+       <string>FranciscoMendoza</string>
       </void>
       <void property="telefono">
-       <string>2239884437</string>
+       <string>2239693769</string>
       </void>
      </object>
     </void>
     <void method="put">
-     <string>FranciscoCastillo</string>
+     <string>DarioMendoza</string>
      <object class="models.ClienteRunnable" id="ClienteRunnable4">
-      <void property="apellido">
-       <string>Castillo</string>
-      </void>
       <void property="bolsa">
        <object idref="BolsaDeViajes0"/>
       </void>
       <void property="cantViajes">
-       <int>2</int>
+       <int>4</int>
       </void>
       <void property="direccion">
        <void property="altura">
-        <string>1006</string>
+        <string>1414</string>
        </void>
        <void property="letra">
-        <string>I</string>
+        <string>B</string>
        </void>
        <void property="nombre">
-        <string>Bulevar 9</string>
+        <string>Avenida 80</string>
        </void>
        <void property="piso">
         <string>18</string>
@@ -351,21 +351,21 @@
       <void property="fecha_nacimiento">
        <void property="time">
         <object class="java.util.Date">
-         <long>-498085200000</long>
+         <long>-350514000000</long>
         </object>
        </void>
       </void>
       <void property="mail">
-       <string>FranciscoCastillo@gmail.com</string>
+       <string>DarioMendoza@gmail.com</string>
       </void>
       <void property="nombre">
-       <string>Francisco</string>
+       <string>Dario</string>
       </void>
       <void property="nombre_usuario">
-       <string>FranciscoCastillo</string>
+       <string>DarioMendoza</string>
       </void>
       <void property="telefono">
-       <string>2233961612</string>
+       <string>2230914629</string>
       </void>
      </object>
     </void>
@@ -374,12 +374,57 @@
   <void property="vehiculos">
    <object class="java.util.ArrayList">
     <void method="add">
+     <object class="models.Tutu">
+      <void property="baul">
+       <boolean>true</boolean>
+      </void>
+      <void property="cant_max_pasajeros">
+       <int>4</int>
+      </void>
+      <void property="patente">
+       <string>LUW488</string>
+      </void>
+      <void property="petfriendly">
+       <boolean>true</boolean>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="models.Combi">
+      <void property="baul">
+       <boolean>true</boolean>
+      </void>
+      <void property="cant_max_pasajeros">
+       <int>10</int>
+      </void>
+      <void property="patente">
+       <string>CIQ301</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="models.Tutu">
+      <void property="baul">
+       <boolean>true</boolean>
+      </void>
+      <void property="cant_max_pasajeros">
+       <int>4</int>
+      </void>
+      <void property="patente">
+       <string>JIO447</string>
+      </void>
+      <void property="petfriendly">
+       <boolean>true</boolean>
+      </void>
+     </object>
+    </void>
+    <void method="add">
      <object class="models.Moto">
       <void property="cant_max_pasajeros">
        <int>1</int>
       </void>
       <void property="patente">
-       <string>GGU886</string>
+       <string>GPJ362</string>
       </void>
      </object>
     </void>
@@ -392,7 +437,7 @@
        <int>10</int>
       </void>
       <void property="patente">
-       <string>WFP266</string>
+       <string>ZYC438</string>
       </void>
      </object>
     </void>
@@ -405,7 +450,7 @@
        <int>4</int>
       </void>
       <void property="patente">
-       <string>NFP358</string>
+       <string>XUI214</string>
       </void>
       <void property="petfriendly">
        <boolean>true</boolean>
@@ -413,19 +458,6 @@
      </object>
     </void>
     <void method="add">
-     <object class="models.Combi">
-      <void property="baul">
-       <boolean>true</boolean>
-      </void>
-      <void property="cant_max_pasajeros">
-       <int>10</int>
-      </void>
-      <void property="patente">
-       <string>IKE687</string>
-      </void>
-     </object>
-    </void>
-    <void method="add">
      <object class="models.Tutu">
       <void property="baul">
        <boolean>true</boolean>
@@ -434,7 +466,7 @@
        <int>4</int>
       </void>
       <void property="patente">
-       <string>XZX122</string>
+       <string>LYI902</string>
       </void>
       <void property="petfriendly">
        <boolean>true</boolean>
@@ -450,7 +482,7 @@
        <int>10</int>
       </void>
       <void property="patente">
-       <string>WIU764</string>
+       <string>IUR979</string>
       </void>
      </object>
     </void>
@@ -463,39 +495,7 @@
        <int>4</int>
       </void>
       <void property="patente">
-       <string>DZC813</string>
-      </void>
-      <void property="petfriendly">
-       <boolean>true</boolean>
-      </void>
-     </object>
-    </void>
-    <void method="add">
-     <object class="models.Tutu">
-      <void property="baul">
-       <boolean>true</boolean>
-      </void>
-      <void property="cant_max_pasajeros">
-       <int>4</int>
-      </void>
-      <void property="patente">
-       <string>JDC427</string>
-      </void>
-      <void property="petfriendly">
-       <boolean>true</boolean>
-      </void>
-     </object>
-    </void>
-    <void method="add">
-     <object class="models.Tutu">
-      <void property="baul">
-       <boolean>true</boolean>
-      </void>
-      <void property="cant_max_pasajeros">
-       <int>4</int>
-      </void>
-      <void property="patente">
-       <string>DXE562</string>
+       <string>FVF814</string>
       </void>
       <void property="petfriendly">
        <boolean>true</boolean>

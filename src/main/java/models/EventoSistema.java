@@ -15,27 +15,39 @@ public class EventoSistema {
     public static final String PEDIDORECHAZADO = "PEDIDO RECHAZADO";
     public static final String STOP = "STOP";
     public static final String RECHAZADO = "RECHAZADO";
+    public static final String NUEVOCLIENTE = "NUEVO_CLIENTE";
 
     private IViaje v;
     private Pedido p;
+    private Cliente c;
     private String mensaje = null;
 
 
     public EventoSistema(IViaje v, String mensaje) {
         this.v = v;
         this.p = null;
+        this.c = null;
         this.mensaje = mensaje;
     }
 
     public EventoSistema(Pedido p, String mensaje){
         this.p = p;
         this.mensaje = mensaje;
+        this.c = null;
         this.v = null;
     }
 
     public EventoSistema(String m) {
         this.v = null;
         this.p = null;
+        this.c = null;
+        this.mensaje = m;
+    }
+
+    public EventoSistema(Cliente c, String m) {
+        this.v = null;
+        this.p = null;
+        this.c = c;
         this.mensaje = m;
     }
 
@@ -50,4 +62,6 @@ public class EventoSistema {
     public Pedido getPedido() {
         return this.p;
     }
+
+    public Cliente getCliente() {return this.c;}
 }

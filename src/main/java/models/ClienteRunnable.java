@@ -16,6 +16,11 @@ public class ClienteRunnable extends Cliente implements Runnable, Serializable {
         cantViajes = r.nextInt(4)+1;
     }
 
+    public ClienteRunnable(Cliente cliente) {
+        super();
+        Random r = new Random();
+        cantViajes = r.nextInt(4)+1;
+    }
     public ClienteRunnable() {
     }
 

@@ -18,6 +18,14 @@ public class SistemaDTO implements Serializable {
        // this.viajes = Sistema.getInstancia().getViajes();
     }
 
+    public BolsaDeViajes getViajes() {
+        return viajes;
+    }
+
+    public void setViajes(BolsaDeViajes viajes) {
+        this.viajes = viajes;
+    }
+
     public void setChoferes(ArrayList<Empleado> choferes) {
         this.choferes = choferes;
     }

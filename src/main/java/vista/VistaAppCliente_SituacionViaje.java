@@ -83,4 +83,9 @@ public class VistaAppCliente_SituacionViaje extends JFrame implements IVistaAppC
 		//TODO
 	}
 
+	@Override
+	public void setbotonPagar(boolean x) {
+		this.btnPagar.setEnabled(x);
+	}
+
 }

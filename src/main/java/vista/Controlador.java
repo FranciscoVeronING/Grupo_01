@@ -60,13 +60,14 @@ public class Controlador implements ActionListener {
 		if (e.getActionCommand().equalsIgnoreCase("PEDIR")) {
 			Pedido pedido = new Pedido(new GregorianCalendar(), this.form.getZona(),this.form.hayMascota(),this.form.getCantidadPasajeros(),this.form.hayEquipaje(),this.clienteVentana, this.form.getDistancia());
 			this.clienteAppRunneable = new ClienteAppRunneable(Sistema.getInstancia().getBolsaDeViajes(), pedido);
-			//ObservadorClienteApp observadorClienteApp = new ObservadorClienteApp(clienteAppRunneable,this.sv);
+			this.clienteAppRunneable.getBolsa().asignarClienteApp(this.clienteVentana);
 			Thread thread = new Thread(clienteAppRunneable);
 			thread.setName("ClienteAppRunneable");
 			thread.start();
 			this.form.setVisibleVentana(false);
 			this.form.limpiarcampos();
 			this.sv.setVisibleVentana(true);
+			this.sv.setbotonPagar(false);
 		}
 		else if (e.getActionCommand().equalsIgnoreCase("REGISTRAR")) {
 			this.login.setVisibleVentana(false);
@@ -115,8 +116,7 @@ public class Controlador implements ActionListener {
 			this.form.limpiarcampos();
 			this.inicio.setVisibleVentana(true);
 		}else if(e.getActionCommand().equalsIgnoreCase("PAGAR")) {
-
-			JOptionPane.showMessageDialog(null, "Viaje terminado");
+			this.clienteAppRunneable.getBolsa().viajePagado(this.clienteAppRunneable.getViaje());
             this.inicio.setVisibleVentana(true);
             this.sv.setVisibleVentana(false);
 			this.sv.limpiarcampos();
