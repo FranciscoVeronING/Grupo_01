@@ -104,13 +104,16 @@ public class Sistema {
      * <b>Pre </b> cantidad debe ser mayor a 0
      * <b>Post:</b> El cliente habra sido creado con sus datos correspondientes de manera valida
      */
-    public void crearCientesRandom(int cantidad) {
+    public ArrayList<ClienteRunnable> crearCientesRandom(int cantidad) {
+        ArrayList<ClienteRunnable> cs = new ArrayList<>();
         for (int i = 0; i < cantidad ; i++) {
             ClienteRunnable cliente = new ClienteRunnable(viajes);
             this.clientes.put(cliente.getNombre_usuario(), cliente);
-            Thread thread = new Thread(cliente);
-            thread.start();
+            cs.add(cliente);
+            //Thread thread = new Thread(cliente);
+            //thread.start();
         }
+        return cs;
     }
 
     /**
@@ -118,31 +121,36 @@ public class Sistema {
      * <b>Pre </b> cantidad debe ser mayor a 0
      * <b>Post:</b> Los choferes habran sido creado con sus datos correspondientes de manera valida
      */
-    public void crearChoferesRandom(int cantidad) {
+    public ArrayList<EmpleadoRunnable> crearChoferesRandom(int cantidad) {
+        ArrayList<EmpleadoRunnable> empleados = new ArrayList<>();
         for(int i = 0; i < cantidad ; i++) {
             Random r = new Random();
             int tipo = r.nextInt(3);
             switch (tipo) {
                 case 0:
                     ChoferContratado choferContratado = new ChoferContratado(viajes);
-                    Thread hiloChoferContratado = new Thread(choferContratado);
+                    //Thread hiloChoferContratado = new Thread(choferContratado);
                     choferes.add(choferContratado);
-                    hiloChoferContratado.start();
+                    empleados.add(choferContratado);
+                    //hiloChoferContratado.start();
                     break;
                 case 1:
                     ChoferPermanente choferPermanente = new ChoferPermanente(viajes);
-                    Thread hiloChoferPermanente = new Thread(choferPermanente);
+                    //Thread hiloChoferPermanente = new Thread(choferPermanente);
                     choferes.add(choferPermanente);
-                    hiloChoferPermanente.start();
+                    empleados.add(choferPermanente);
+                    //hiloChoferPermanente.start();
                     break;
                 case 2:
                     ChoferTemporario choferTemporario = new ChoferTemporario(viajes);
-                    Thread hiloChoferTemporario = new Thread(choferTemporario);
+                    //Thread hiloChoferTemporario = new Thread(choferTemporario);
                     choferes.add(choferTemporario);
-                    hiloChoferTemporario.start();
+                    empleados.add(choferTemporario);
+                    //hiloChoferTemporario.start();
                     break;
             }
         }
+        return empleados;
     }
 
 

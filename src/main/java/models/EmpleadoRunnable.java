@@ -2,7 +2,7 @@ package models;
 
 import java.io.Serializable;
 
-abstract class EmpleadoRunnable extends Empleado implements Runnable, Serializable {
+public abstract class EmpleadoRunnable extends Empleado implements Runnable, Serializable {
     private BolsaDeViajes bolsa;
 
     public EmpleadoRunnable(BolsaDeViajes bolsa) {
