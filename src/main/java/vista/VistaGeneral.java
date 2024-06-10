@@ -30,7 +30,7 @@ public class VistaGeneral extends JFrame implements IVistaGeneral {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icon1.png")));
 		setTitle("Subi que te Llevo - Seteo de Simulacion y Logs");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(150, 50, 800, 600);
+		setBounds(150, 50, 1200, 800);
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(this.contentPane);

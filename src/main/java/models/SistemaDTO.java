@@ -9,13 +9,10 @@ public class SistemaDTO implements Serializable {
     private ArrayList<Empleado> choferes;
     private ArrayList<IVehiculo> vehiculos;
     private HashMap<String, Cliente> clientes;
+    private HashMap<String, Cliente> clientesApp;
     private transient BolsaDeViajes viajes;
 
     public SistemaDTO() {
-       // this.choferes = Sistema.getInstancia().getChoferes();
-       // this.vehiculos = Sistema.getInstancia().getVehiculos();
-       // this.clientes = Sistema.getInstancia().getClientes();
-       // this.viajes = Sistema.getInstancia().getViajes();
     }
 
     public BolsaDeViajes getViajes() {
@@ -38,10 +35,6 @@ public class SistemaDTO implements Serializable {
         this.clientes = clientes;
     }
 
-// public void setViajes(ArrayList<IViaje> viajes) {
-  //      this.viajes = viajes;
-   // }
-
     public ArrayList<Empleado> getChoferes() {
         return choferes;
     }
@@ -50,11 +43,15 @@ public class SistemaDTO implements Serializable {
         return vehiculos;
     }
 
-  //  public ArrayList<IViaje> getViajes() {
-   //     return viajes;
-   // }
-
     public HashMap<String, Cliente> getClientes() {
         return clientes;
+    }
+
+    public HashMap<String, Cliente> getClientesApp() {
+        return clientesApp;
+    }
+
+    public void setClientesApp(HashMap<String, Cliente> clientesApp) {
+        this.clientesApp = clientesApp;
     }
 }

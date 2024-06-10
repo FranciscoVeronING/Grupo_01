@@ -7,6 +7,7 @@ public class UtilSistema {
         sistemaDTO.setChoferes(Sistema.getInstancia().getChoferes());
         sistemaDTO.setVehiculos(Sistema.getInstancia().getVehiculos());
         sistemaDTO.setClientes(Sistema.getInstancia().getClientes());
+        sistemaDTO.setClientesApp(Sistema.getInstancia().getClientesApp());
         return sistemaDTO;
     }
 }

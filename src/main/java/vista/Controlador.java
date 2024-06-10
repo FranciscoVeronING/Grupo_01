@@ -88,7 +88,6 @@ public class Controlador implements ActionListener {
 			try {
 				//funcion que debeverificar si existe o no el cliente para poder hacer el login
 				Sistema.getInstancia().verificarExistenciaCliente(this.login.getNombreUsuario(), this.login.getContrasenia());
-				///aca se deben pedir los datos del cliente. hay que gardarlo en variables en el CONTROLADOR??
 				clienteVentana = Sistema.getInstancia().getCliente(this.login.getNombreUsuario());
 				this.login.setVisibleVentana(false);
 				this.login.limpiarcampos();

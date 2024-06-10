@@ -25,13 +25,17 @@ public class Sistema {
     private ArrayList<IVehiculo> vehiculos;
     private HashMap<String, Cliente> clientes;
     private BolsaDeViajes viajes;
+    private HashMap<String, Cliente> clientesApp;
 
     private Sistema() {
         this.choferes = new ArrayList<>();
         this.vehiculos = new ArrayList<>();
         this.clientes = new HashMap<>();
         this.viajes = new BolsaDeViajes();
+        this.clientesApp = new HashMap<>();
     }
+
+
 
     /**
      * Metodo que aplica el patron singleton
@@ -55,7 +59,7 @@ public class Sistema {
     public Cliente crearCliente(String nombre_usuario, String contrasenia,String nombre, String apellido, String telefono, String mail, String NombreCalle, String AlturaCalle, String PisoCalle, String LetraCalle, GregorianCalendar fecha_nacimiento) throws UsuarioRepetidoException {
         verificarClienteRepetido(nombre_usuario);
         Cliente c = new Cliente(nombre_usuario, contrasenia, nombre, apellido, telefono, mail, new Direccion(NombreCalle, AlturaCalle, PisoCalle, LetraCalle), fecha_nacimiento);
-        this.clientes.put(nombre_usuario, c);
+        this.clientesApp.put(nombre_usuario, c);
         return c;
     }
 
@@ -186,7 +190,7 @@ public class Sistema {
      * @throws UsuarioRepetidoException Excepcion lanzada en caso de que el nombre de usuario ya sea utilizado por otro usuario
      */
     public void verificarClienteRepetido(String nombre_usuario) throws UsuarioRepetidoException {
-        if (this.clientes.containsKey(nombre_usuario)) {
+        if (this.clientesApp.containsKey(nombre_usuario) || this.clientes.containsKey(nombre_usuario)) {
             throw new UsuarioRepetidoException(nombre_usuario);
         }
     }
@@ -199,13 +203,20 @@ public class Sistema {
      */
 
     public void verificarExistenciaCliente(String u, String c) throws UsuarioIncorrectoException {
-        if (this.clientes.containsKey(u)) {
-            if (!this.clientes.get(u).getContrasenia().equalsIgnoreCase(c)) throw new UsuarioIncorrectoException(u, c);
+        if (this.clientesApp.containsKey(u)) {
+            if (!this.clientesApp.get(u).getContrasenia().equalsIgnoreCase(c)) throw new UsuarioIncorrectoException(u, c);
         } else throw new UsuarioIncorrectoException(u, c);
     }
 
     // Getters y Setters basicos
 
+    public HashMap<String, Cliente> getClientesApp() {
+        return clientesApp;
+    }
+
+    public void setClientesApp(HashMap<String, Cliente> clientesApp) {
+        this.clientesApp = clientesApp;
+    }
     public BolsaDeViajes getBolsaDeViajes() {
         return viajes;
     }
@@ -270,7 +281,7 @@ public class Sistema {
     }
 
     public Cliente getCliente(String nombre_usuario) {
-        return this.clientes.get(nombre_usuario);
+        return this.clientesApp.get(nombre_usuario);
     }
 
     public ArrayList<Cliente> getArrayClientes() {
@@ -407,50 +418,6 @@ public class Sistema {
     }
 
     /**
-     * Metodo que comprueba si existe un vehículo disponible para un pedido dado
-     *<b>Pre: </b> pedido no puede ser null ni estar vacio
-     * @param pedido : pedido almacena la disponibilidad del vehículo
-     * @return : true si existe al menos un vehículo disponible para el pedido, false en caso contrario
-     * <b>Post:</b> La existencia del vehiculo sera verdadera o falsa
-     */
-    /*public boolean existeVehiculo(Pedido pedido) {
-        boolean existe = false;
-        Iterator<IVehiculo> it = this.vehiculos.iterator();
-        while (it.hasNext() && !existe) {
-            IVehiculo v = it.next();
-            if (!v.isOcupado() && v.getPrioridad(pedido) != null)
-                existe = true;
-        }
-        return existe;
-    }
-*/
-
-    /**
-     * Metodo que busca cual sera el mejor vehiculo dados los requisitos del cliente
-     * <b>Pre:</b> pedido no puede ser null ni vacio
-     * @param pedido : ALmacena los requisitos del cliente
-     * @return : devuelve el vehiculo que se adapte a la solicitud del cliente
-     * <b>Post:</b> Se habra encontrado el vehiculo que mejor se adapta al pedido
-     */
-    /*public IVehiculo buscarMejorVehiculo(Pedido pedido) {
-        Iterator<IVehiculo> it = this.vehiculos.iterator();
-        int maxP = 0;
-        IVehiculo mejor = null;
-        while (it.hasNext()) {
-            IVehiculo v = it.next();
-            if (!v.isOcupado()) {
-                Integer prioridad = v.getPrioridad(pedido);
-                if (prioridad != null && prioridad > maxP) {
-                    maxP = prioridad;
-                    mejor = v;
-                }
-            }
-        }
-        return mejor;
-    }
-*/
-
-    /**
      * <b>Pre:</b> El parametro pedido no puede ser null ni estra vacio
      * @param pedido Contiene los requerimientos del pedido hecho por el cliente
      *<b>Post:</b> El viaje estara en estado de SOLICITADO
@@ -475,29 +442,6 @@ public class Sistema {
         if (pedido.getCant_pasajeros() > 4 && pedido.isMascota()) throw new PedidoIncoherenteException("Mascotas no permitidas en combis");
     }
 
-    /**
-     * Metodo que actualiza el estado del chofer dejandolo ultimo en los choferes disponibles
-     * <b>Pre: </> viajeActivo no puede ser null ni estar vacio
-     * @param viajeActivo Representa el viaje que esta llevando a cabo el chofer
-     * <b>Post:</b> El viaje estara en estado finalizado
-     */
-    /*public void finalizarViaje(IViaje viajeActivo) {
-        viajeActivo.finalizarse();
-        Empleado chofer = viajeActivo.getChofer();
-        IVehiculo vehiculo = viajeActivo.getVehiculo();
-        vehiculo.setOcupado(false);
-        // Lo saco de lista y pongo ultimo CHOFER
-        this.choferes.remove(chofer);
-        this.choferes.add(chofer);
-        // Lo saco de lista y pongo ultimo VEHICULO
-        this.vehiculos.remove(vehiculo);
-        this.vehiculos.add(vehiculo);
-    }*/
-/*
-    public void pagarViaje(IViaje v) {
-        v.pagarse();
-    }
-*/
     /**
      * Metodo que asigna un vehiculo al Viaje
      * <b>Pre: </b> viaje no puede ser null ni estar vacio
@@ -670,7 +614,7 @@ public class Sistema {
         Sistema.getInstancia().setChoferes(sistemaDTO.getChoferes());
         Sistema.getInstancia().setVehiculos(sistemaDTO.getVehiculos());
         Sistema.getInstancia().setClientes(sistemaDTO.getClientes());
-       // Sistema.getInstancia().setViajes(sistemaDTO.getViajes());
+        Sistema.getInstancia().setClientesApp(sistemaDTO.getClientesApp());
     }
 
     public void guardaSistema(){
