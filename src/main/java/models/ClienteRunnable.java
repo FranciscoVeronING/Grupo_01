@@ -46,8 +46,7 @@ public class ClienteRunnable extends Cliente implements Runnable, Serializable {
                 Thread.currentThread().sleep(1000);
                 bolsa.viajePagado(viaje);
             } catch (PedidoIncoherenteException ex) {
-                System.out.println("Error: " + ex.getMessage());
-                Thread.currentThread().interrupt();
+                bolsa.rechazarPedido(pedido);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
