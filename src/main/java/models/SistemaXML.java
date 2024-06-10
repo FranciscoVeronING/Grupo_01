@@ -26,7 +26,6 @@ public class SistemaXML {
             decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(File_Name)));
         }
         catch(FileNotFoundException e){
-            System.out.println("ERROR AL ABRIR EL ARCHIVO");
         }
 
         assert decoder != null;

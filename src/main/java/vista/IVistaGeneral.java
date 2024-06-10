@@ -20,4 +20,5 @@ public interface IVistaGeneral {
 	public int getCantChoferes();
 	public int getCantVehiculos();
 	public int getCantClientes();
+	public boolean isEnablePersistitdos();
 }

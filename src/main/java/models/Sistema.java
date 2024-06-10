@@ -659,6 +659,21 @@ public class Sistema {
         this.viajes.detenerSimulacion();
     }
 
+    public void StartAll() {
+        // Ejecutar todos los choferes como hilos
+        for (Empleado chofer : choferes) {
+            ((EmpleadoRunnable) chofer).setBolsa(Sistema.getInstancia().getBolsaDeViajes());
+            Thread choferThread = new Thread((EmpleadoRunnable) chofer);
+            choferThread.start();
+        }
+
+        // Ejecutar todos los clientes como hilos
+        for (Cliente cliente : clientes.values()) {
+            ((ClienteRunnable) cliente).setBolsa(Sistema.getInstancia().getBolsaDeViajes());
+            Thread clienteThread = new Thread((ClienteRunnable) cliente);
+            clienteThread.start();
+        }
+    }
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Sistema{");
