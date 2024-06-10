@@ -17,14 +17,7 @@ public class ClienteAppRunneable extends Observable implements Runnable{
 
         public void run() {
             bolsa.lanzarPedido(p);
-            // Solicitar un viaje sobre el pedido aceptado
-            IViaje viaje = Sistema.getInstancia().solicitarViaje(p);
-            setChanged();
-            notifyObservers(new EventoSistema(viaje, EventoSistema.NUEVOVIAJE));
-
-            bolsa.viajePagado(viaje);
-            setChanged();
-            notifyObservers(new EventoSistema(viaje,EventoSistema.PAGADO));
+            
 
         }
 

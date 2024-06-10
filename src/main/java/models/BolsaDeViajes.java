@@ -103,8 +103,8 @@ public class BolsaDeViajes extends Observable implements Serializable {
         notifyObservers(new EventoSistema(viaje, EventoSistema.RECHAZADO));
     }
 
-    public void rechazarPedido(Pedido pedido) {
+    public synchronized void rechazarPedido(Pedido p) {
         setChanged();
-        notifyObservers(new EventoSistema(pedido, EventoSistema.PEDIDORECHAZADO));
+        notifyObservers(new EventoSistema(p, EventoSistema.PEDIDORECHAZADO));
     }
 }

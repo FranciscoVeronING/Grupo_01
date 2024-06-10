@@ -9,7 +9,7 @@ public class SistemaDTO implements Serializable {
     private ArrayList<Empleado> choferes;
     private ArrayList<IVehiculo> vehiculos;
     private HashMap<String, Cliente> clientes;
-    private transient ArrayList<IViaje> viajes;
+    private transient BolsaDeViajes viajes;
 
     public SistemaDTO() {
        // this.choferes = Sistema.getInstancia().getChoferes();

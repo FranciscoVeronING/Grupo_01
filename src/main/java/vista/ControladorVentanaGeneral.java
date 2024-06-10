@@ -23,8 +23,11 @@ public class ControladorVentanaGeneral implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equalsIgnoreCase("Iniciar_Simulacion")) {
-			if (e.getActionCommand().equalsIgnoreCase("Persistir")) {
+			if (this.vista.isEnablePersistitdos()) {
 				Sistema.getInstancia().cargaSistema();
+				SistemaRunnable s = new SistemaRunnable(Sistema.getInstancia().getBolsaDeViajes(), Sistema.getInstancia().getVehiculos());
+				s.start();
+				Sistema.getInstancia().StartAll();
 			} else {
 				SistemaRunnable s = new SistemaRunnable(Sistema.getInstancia().getBolsaDeViajes(), Sistema.getInstancia().getVehiculos());
 				s.start();

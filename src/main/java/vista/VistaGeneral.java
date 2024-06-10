@@ -245,4 +245,8 @@ public class VistaGeneral extends JFrame implements IVistaGeneral {
 	public int getCantClientes() {
 		return Integer.parseInt(this.tf_cantClientes.getText());
 	}
+
+	public boolean isEnablePersistitdos(){
+		return this.rdbtnPersistidos.isSelected();
+	}
 }
