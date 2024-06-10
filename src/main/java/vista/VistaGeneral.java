@@ -30,7 +30,10 @@ public class VistaGeneral extends JFrame implements IVistaGeneral {
 	private JTextArea textArea_LogGral;
 	private JTextArea textAreaLogChofer;
 	private JRadioButton rdbtnPersistidos;
-
+	/**
+	 * Crea la ventana principal de la aplicación.
+	 * Inicializa todos los componentes gráficos y configura los listeners necesarios.
+	 */
 	public VistaGeneral() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icon1.png")));
 		setTitle("Subi que te Llevo - Seteo de Simulacion y Logs");
@@ -208,7 +211,9 @@ public class VistaGeneral extends JFrame implements IVistaGeneral {
 
 		this.setVisible(true);
 	}
-
+	/**
+	 * Verifica si el botón de inicio debe estar habilitado basándose en la validez de los campos de entrada.
+	 */
 	private void checkInicioButtonStatus() {
 		if (isNumeric(tf_cantChoferes.getText()) && isNumeric(tf_cantVehiculos.getText()) && isNumeric(tf_cantClientes.getText())
 				&& !tf_cantChoferes.getText().isEmpty() && !tf_cantVehiculos.getText().isEmpty() && !tf_cantClientes.getText().isEmpty()) {
@@ -219,7 +224,12 @@ public class VistaGeneral extends JFrame implements IVistaGeneral {
 			rdbtnPersistidos.setEnabled(true);
 		}
 	}
-
+	/**
+	 * Verifica si una cadena es numérica.
+	 *
+	 * @param str La cadena a verificar.
+	 * @return true si la cadena es numérica, false en caso contrario.
+	 */
 	private boolean isNumeric(String str) {
 		return str.matches("\\d+");  // Sólo números
 	}

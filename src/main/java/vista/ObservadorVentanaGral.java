@@ -3,9 +3,10 @@ package vista;
 import models.*;
 
 import java.util.Observable;
-
 /**
- * La clase actúa como un observador específico para los eventos relacionados
+ * La clase ObservadorVentanaGral actúa como un observador específico para los eventos relacionados
+ * con el sistema de viajes. Se encarga de actualizar las vistas correspondientes basándose en
+ * los eventos recibidos.
  */
 public class ObservadorVentanaGral extends ObservadorAbstracto {
 	private IVistaGeneral vistaG;
@@ -13,7 +14,15 @@ public class ObservadorVentanaGral extends ObservadorAbstracto {
 	private Cliente clienteRobot;
 	private Cliente clienteApp;
 	private Empleado chofer;
-
+	/**
+	 * Constructor para inicializar el observador con las vistas y entidades específicas.
+	 *
+	 * @param observado   El objeto Observable que este observador va a observar.
+	 * @param vistaG      La vista general que mostrará los logs generales.
+	 * @param vistaSV     La vista específica para la situación del viaje del cliente de la app.
+	 * @param clienteRobot El cliente robot que está siendo observado.
+	 * @param chofer      El chofer que está siendo observado.
+	 */
 	public ObservadorVentanaGral(Observable observado, IVistaGeneral vistaG,IVistaAppCliente_SituacionViaje vistaSV, Cliente clienteRobot, Empleado chofer) {
 		super(observado);
 		this.vistaG = vistaG;
@@ -23,7 +32,13 @@ public class ObservadorVentanaGral extends ObservadorAbstracto {
 		this.chofer = chofer;
 		this.vistaG.appendLogChofer("EL CHOFER OBSERVADO ES " + chofer.getNombre());
 	}
-
+	/**
+	 * Método llamado cuando el objeto observado ha cambiado. Este método gestiona los eventos
+	 * específicos del sistema de viajes y actualiza las vistas en consecuencia.
+	 *
+	 * @param obs El objeto Observable que ha notificado el cambio.
+	 * @param arg El argumento pasado por el objeto Observable, generalmente un EventoSistema.
+	 */
 	@Override
 	public void update(Observable obs, Object arg) {
 		super.update(obs, arg);

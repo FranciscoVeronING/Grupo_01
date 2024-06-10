@@ -32,7 +32,17 @@ public class Controlador implements ActionListener {
 
 	private Cliente clienteVentana;
 	private ClienteAppRunnable clienteAppRunneable;
-
+	/**
+	 * Constructor del controlador que inicializa las vistas y establece el controlador como su ActionListener.
+	 *
+	 * @param form  La vista del formulario de pedidos.
+	 * @param login La vista de inicio de sesión.
+	 * @param inicio La vista de inicio del cliente.
+	 * @param r La vista de registro de nuevos usuarios.
+	 * @param sv La vista de situación del viaje.
+	 * @param md La vista de los datos del cliente.
+	 * @param mv La vista de los viajes del cliente.
+	 */
 	public Controlador(IVistaAppCliente_formulario form,IVistaAppCliente_login login,IVistaAppCliente_inicio inicio,IVistaAppCliente_Registrarse r,IVistaAppCliente_SituacionViaje sv, IVistaAppCliente_MisDatos md, IVistaAppCliente_MisViajes mv) {
         this.form = form;
 		this.login = login;
@@ -54,7 +64,11 @@ public class Controlador implements ActionListener {
 
 
 
-	
+	/**
+	 * Método que maneja las acciones del usuario en las diferentes vistas.
+	 *
+	 * @param e El evento de acción que representa la interacción del usuario.
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equalsIgnoreCase("PEDIR")) {

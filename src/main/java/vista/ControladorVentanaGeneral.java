@@ -13,13 +13,24 @@ import java.util.ArrayList;
 public class ControladorVentanaGeneral implements ActionListener {
 	private IVistaGeneral vistaG;
 	private  IVistaAppCliente_SituacionViaje vistaSV;
+	/**
+	 * Constructor de la clase ControladorVentanaGeneral.
+	 * Inicializa las vistas y establece el controlador como su ActionListener.
+	 *
+	 * @param vista  La vista general de la aplicación.
+	 * @param vistaSV La vista de la situación del viaje.
+	 */
 	public ControladorVentanaGeneral(IVistaGeneral vista, IVistaAppCliente_SituacionViaje vistaSV) {
 		this.vistaG = vista;
 		this.vistaG.setActionListener(this);
 		this.vistaSV = vistaSV;
 		this.vistaSV.setActionListener(this);
 	}
-
+	/**
+	 * Método que maneja las acciones del usuario en la vista general.
+	 *
+	 * @param e El evento de acción que representa la interacción del usuario.
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equalsIgnoreCase("Iniciar_Simulacion")) {

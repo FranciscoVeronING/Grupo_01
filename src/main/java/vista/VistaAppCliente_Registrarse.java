@@ -53,7 +53,7 @@ public class VistaAppCliente_Registrarse extends JFrame implements IVistaAppClie
 		JPanel panelNorth = new JPanel();
 		contentPane.add(panelNorth, BorderLayout.NORTH);
 
-		JLabel lblNewLabel = new JLabel("REGÍSTRATE");
+		JLabel lblNewLabel = new JLabel("REGISTRATE");
 		panelNorth.add(lblNewLabel);
 
 		JPanel panel = new JPanel();

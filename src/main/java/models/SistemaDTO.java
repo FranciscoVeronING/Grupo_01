@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Clase que representa un DTO para transferir datos del sistema
+ * Contiene listas y mapas de objetos relacionados con el sistema, como choferes, vehículos, clientes y clientes de la aplicación.
+ */
 public class SistemaDTO implements Serializable {
 
     private ArrayList<Empleado> choferes;

@@ -62,6 +62,20 @@ public class Sistema {
      * <b>Pre </b> los parametros deben ser validos (strings distintas de null o ""), y objetos distintos de null
      * @throws UsuarioRepetidoException Se lanza cuando el nombre de usuario ya esta en uso
      * <b>Post:</b> El cliente habra sido creado con sus datos correspondientes de manera valida
+     *
+     * @param nombre_usuario  Nombre de usuario del cliente.
+     * @param contrasenia     Contraseña del cliente.
+     * @param nombre          Nombre del cliente.
+     * @param apellido        Apellido del cliente.
+     * @param telefono        Teléfono del cliente.
+     * @param mail            Correo electrónico del cliente.
+     * @param NombreCalle     Nombre de la calle de la dirección del cliente.
+     * @param AlturaCalle     Altura de la calle de la dirección del cliente.
+     * @param PisoCalle       Piso de la dirección del cliente.
+     * @param LetraCalle      Letra de la dirección del cliente.
+     * @param fecha_nacimiento Fecha de nacimiento del cliente.
+     * @return El cliente creado y agregado.
+     * @throws UsuarioRepetidoException Si el nombre de usuario ya está en uso.
      */
     public Cliente crearCliente(String nombre_usuario, String contrasenia,String nombre, String apellido, String telefono, String mail, String NombreCalle, String AlturaCalle, String PisoCalle, String LetraCalle, GregorianCalendar fecha_nacimiento) throws UsuarioRepetidoException {
         verificarClienteRepetido(nombre_usuario);
